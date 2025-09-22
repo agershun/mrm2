@@ -1,0 +1,47 @@
+[
+  {
+    "role_id": "1",
+    "name": "Администратор",
+    "description": "Полный доступ ко всем функциям системы",
+    "level": 1,
+    "is_system": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "role_id": "2",
+    "name": "Менеджер",
+    "description": "Управление маркетинговыми кампаниями и активностями",
+    "level": 2,
+    "is_system": false,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "role_id": "3",
+    "name": "Аналитик",
+    "description": "Просмотр отчетов и аналитических данных",
+    "level": 3,
+    "is_system": false,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "role_id": "4",
+    "name": "Пользователь",
+    "description": "Базовый доступ к системе",
+    "level": 4,
+    "is_system": false,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "role_id": "5",
+    "name": "Гость",
+    "description": "Ограниченный доступ только для просмотра",
+    "level": 5,
+    "is_system": false,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+]

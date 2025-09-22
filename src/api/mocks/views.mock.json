@@ -1,0 +1,186 @@
+[
+  {
+    "view_id": "1",
+    "name": "Активности - Основной вид",
+    "description": "Стандартное представление списка активностей",
+    "view_type": "table",
+    "entity_type": "activities",
+    "is_default": true,
+    "is_public": true,
+    "configuration": {
+      "columns": [
+        { "field": "name", "label": "Название", "width": 250, "sortable": true },
+        { "field": "status", "label": "Статус", "width": 120, "sortable": true },
+        { "field": "budget", "label": "Бюджет", "width": 150, "sortable": true },
+        { "field": "start_date", "label": "Дата начала", "width": 130, "sortable": true },
+        { "field": "end_date", "label": "Дата окончания", "width": 130, "sortable": true }
+      ],
+      "filters": ["status", "activity_type"],
+      "sorting": { "field": "created_at", "direction": "desc" },
+      "pagination": { "page_size": 25 }
+    },
+    "created_by": "1",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "view_id": "2",
+    "name": "Активности - Календарный вид",
+    "description": "Календарное отображение активностей по датам",
+    "view_type": "calendar",
+    "entity_type": "activities",
+    "is_default": false,
+    "is_public": true,
+    "configuration": {
+      "date_field": "start_date",
+      "title_field": "name",
+      "color_field": "status",
+      "view_mode": "month",
+      "colors": {
+        "planning": "#3498db",
+        "active": "#2ecc71",
+        "completed": "#95a5a6",
+        "cancelled": "#e74c3c"
+      }
+    },
+    "created_by": "2",
+    "created_at": "2024-01-15T00:00:00Z",
+    "updated_at": "2024-01-15T00:00:00Z"
+  },
+  {
+    "view_id": "3",
+    "name": "Бюджеты - Сводка",
+    "description": "Сводное представление бюджетов с аналитикой",
+    "view_type": "dashboard",
+    "entity_type": "budgets",
+    "is_default": true,
+    "is_public": false,
+    "configuration": {
+      "widgets": [
+        { "type": "chart", "chart_type": "pie", "data_field": "budget_type", "title": "Распределение по типам" },
+        { "type": "metric", "field": "total_amount", "title": "Общий бюджет", "format": "currency" },
+        { "type": "chart", "chart_type": "line", "data_field": "monthly_spending", "title": "Трата по месяцам" }
+      ],
+      "time_period": "current_year",
+      "refresh_interval": 300
+    },
+    "created_by": "1",
+    "created_at": "2024-02-01T00:00:00Z",
+    "updated_at": "2024-02-01T00:00:00Z"
+  },
+  {
+    "view_id": "4",
+    "name": "Показатели эффективности",
+    "description": "Детальный анализ KPI и метрик",
+    "view_type": "report",
+    "entity_type": "performance",
+    "is_default": true,
+    "is_public": false,
+    "configuration": {
+      "report_type": "detailed",
+      "sections": [
+        { "title": "Основные метрики", "metrics": ["impressions", "clicks", "conversions"] },
+        { "title": "Финансовые показатели", "metrics": ["cost", "revenue", "roi"] },
+        { "title": "Эффективность", "metrics": ["ctr", "cpc", "cpa"] }
+      ],
+      "grouping": "by_channel",
+      "time_period": "last_30_days"
+    },
+    "created_by": "3",
+    "created_at": "2024-02-15T00:00:00Z",
+    "updated_at": "2024-02-15T00:00:00Z"
+  },
+  {
+    "view_id": "5",
+    "name": "Цели и результаты",
+    "description": "Трекинг целей и ключевых результатов",
+    "view_type": "table",
+    "entity_type": "objectives",
+    "is_default": true,
+    "is_public": true,
+    "configuration": {
+      "columns": [
+        { "field": "name", "label": "Цель", "width": 300, "sortable": true },
+        { "field": "progress", "label": "Прогресс", "width": 120, "sortable": true, "type": "progress" },
+        { "field": "target_value", "label": "Целевое значение", "width": 150, "sortable": true },
+        { "field": "current_value", "label": "Текущее значение", "width": 150, "sortable": true },
+        { "field": "end_date", "label": "Срок", "width": 130, "sortable": true }
+      ],
+      "filters": ["status", "type", "priority"],
+      "sorting": { "field": "priority", "direction": "asc" },
+      "grouping": "by_type"
+    },
+    "created_by": "1",
+    "created_at": "2024-03-01T00:00:00Z",
+    "updated_at": "2024-03-01T00:00:00Z"
+  },
+  {
+    "view_id": "6",
+    "name": "Пользователи и команды",
+    "description": "Управление пользователями и командной структурой",
+    "view_type": "table",
+    "entity_type": "users",
+    "is_default": true,
+    "is_public": false,
+    "configuration": {
+      "columns": [
+        { "field": "full_name", "label": "ФИО", "width": 200, "sortable": true },
+        { "field": "email", "label": "Email", "width": 200, "sortable": true },
+        { "field": "role", "label": "Роль", "width": 150, "sortable": true },
+        { "field": "department", "label": "Отдел", "width": 150, "sortable": true },
+        { "field": "status", "label": "Статус", "width": 100, "sortable": true },
+        { "field": "last_login", "label": "Последний вход", "width": 150, "sortable": true }
+      ],
+      "filters": ["status", "role", "department"],
+      "sorting": { "field": "last_login", "direction": "desc" }
+    },
+    "created_by": "1",
+    "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+  },
+  {
+    "view_id": "7",
+    "name": "Рабочие процессы",
+    "description": "Мониторинг и управление бизнес-процессами",
+    "view_type": "kanban",
+    "entity_type": "workflows",
+    "is_default": true,
+    "is_public": true,
+    "configuration": {
+      "columns": [
+        { "status": "draft", "label": "Черновик", "color": "#95a5a6" },
+        { "status": "running", "label": "Выполняется", "color": "#3498db" },
+        { "status": "pending", "label": "Ожидание", "color": "#f39c12" },
+        { "status": "completed", "label": "Завершено", "color": "#2ecc71" },
+        { "status": "failed", "label": "Ошибка", "color": "#e74c3c" }
+      ],
+      "card_fields": ["name", "priority", "assigned_to", "progress"],
+      "filters": ["workflow_type", "priority", "assigned_to"]
+    },
+    "created_by": "2",
+    "created_at": "2024-04-01T00:00:00Z",
+    "updated_at": "2024-04-01T00:00:00Z"
+  },
+  {
+    "view_id": "8",
+    "name": "Персональная панель",
+    "description": "Персональная панель текущего пользователя",
+    "view_type": "dashboard",
+    "entity_type": "mixed",
+    "is_default": false,
+    "is_public": false,
+    "configuration": {
+      "widgets": [
+        { "type": "tasks", "title": "Мои задачи", "source": "assigned_workflows" },
+        { "type": "notifications", "title": "Уведомления", "source": "user_notifications" },
+        { "type": "chart", "title": "Мои активности", "source": "user_activities", "chart_type": "bar" },
+        { "type": "calendar", "title": "События", "source": "user_calendar" }
+      ],
+      "layout": "2x2",
+      "auto_refresh": true
+    },
+    "created_by": "2",
+    "created_at": "2024-04-15T00:00:00Z",
+    "updated_at": "2024-04-15T00:00:00Z"
+  }
+]

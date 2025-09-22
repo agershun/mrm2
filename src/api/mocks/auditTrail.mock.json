@@ -1,0 +1,208 @@
+[
+  {
+    "log_id": "log_001",
+    "user_id": "user_001",
+    "action_timestamp": "2025-01-15T10:30:00Z",
+    "action_type": "create",
+    "object_type": "Investment",
+    "object_id": "inv_001",
+    "parent_object_type": "Budget",
+    "parent_object_id": "budget_001",
+    "change_details": {
+      "name": "Онлайн реклама Креола",
+      "amount": 200000,
+      "investment_type": "Line Item"
+    },
+    "created_by": "user_001",
+    "updated_by": "user_001",
+    "created_at": "2025-01-15T10:30:00Z",
+    "updated_at": "2025-01-15T10:30:00Z"
+  },
+  {
+    "log_id": "log_002",
+    "user_id": "user_001",
+    "action_timestamp": "2025-01-15T10:35:00Z",
+    "action_type": "link",
+    "object_type": "Actual",
+    "object_id": "act_001",
+    "parent_object_type": "Investment",
+    "parent_object_id": "inv_001",
+    "change_details": {
+      "mapped_to_investment": "inv_001",
+      "amount": 150000
+    },
+    "created_by": "user_001",
+    "updated_by": "user_001",
+    "created_at": "2025-01-15T10:35:00Z",
+    "updated_at": "2025-01-15T10:35:00Z"
+  },
+  {
+    "log_id": "log_003",
+    "user_id": "user_002",
+    "action_timestamp": "2025-01-16T14:20:00Z",
+    "action_type": "create",
+    "object_type": "Actual",
+    "object_id": "act_002",
+    "parent_object_type": null,
+    "parent_object_id": null,
+    "change_details": {
+      "vendor": "Яндекс.Директ",
+      "amount": 89500,
+      "description": "Контекстная реклама кофе Креола"
+    },
+    "created_by": "user_002",
+    "updated_by": "user_002",
+    "created_at": "2025-01-16T14:20:00Z",
+    "updated_at": "2025-01-16T14:20:00Z"
+  },
+  {
+    "log_id": "log_004",
+    "user_id": "user_002",
+    "action_timestamp": "2025-01-16T14:25:00Z",
+    "action_type": "link",
+    "object_type": "Actual",
+    "object_id": "act_002",
+    "parent_object_type": "Investment",
+    "parent_object_id": "inv_002",
+    "change_details": {
+      "mapped_to_investment": "inv_002",
+      "amount": 89500
+    },
+    "created_by": "user_002",
+    "updated_by": "user_002",
+    "created_at": "2025-01-16T14:25:00Z",
+    "updated_at": "2025-01-16T14:25:00Z"
+  },
+  {
+    "log_id": "log_005",
+    "user_id": "user_003",
+    "action_timestamp": "2025-01-17T09:15:00Z",
+    "action_type": "create",
+    "object_type": "Actual",
+    "object_id": "act_003",
+    "parent_object_type": null,
+    "parent_object_id": null,
+    "change_details": {
+      "vendor": "ВКонтакте",
+      "amount": 75000,
+      "description": "Таргетированная реклама в социальных сетях"
+    },
+    "created_by": "user_003",
+    "updated_by": "user_003",
+    "created_at": "2025-01-17T09:15:00Z",
+    "updated_at": "2025-01-17T09:15:00Z"
+  },
+  {
+    "log_id": "log_006",
+    "user_id": "user_001",
+    "action_timestamp": "2025-01-18T11:45:00Z",
+    "action_type": "update",
+    "object_type": "Investment",
+    "object_id": "inv_001",
+    "parent_object_type": "Budget",
+    "parent_object_id": "budget_001",
+    "change_details": {
+      "field": "amount",
+      "old_value": 200000,
+      "new_value": 240000,
+      "reason": "Увеличение бюджета на дополнительные площадки"
+    },
+    "created_by": "user_001",
+    "updated_by": "user_001",
+    "created_at": "2025-01-18T11:45:00Z",
+    "updated_at": "2025-01-18T11:45:00Z"
+  },
+  {
+    "log_id": "log_007",
+    "user_id": "user_001",
+    "action_timestamp": "2025-01-18T11:50:00Z",
+    "action_type": "create",
+    "object_type": "Comment",
+    "object_id": "comment_004",
+    "parent_object_type": "Investment",
+    "parent_object_id": "inv_001",
+    "change_details": {
+      "comment_text": "Начислено 50% от суммы контракта согласно графику платежей"
+    },
+    "created_by": "user_001",
+    "updated_by": "user_001",
+    "created_at": "2025-01-18T11:50:00Z",
+    "updated_at": "2025-01-18T11:50:00Z"
+  },
+  {
+    "log_id": "log_008",
+    "user_id": "user_004",
+    "action_timestamp": "2025-01-20T16:30:00Z",
+    "action_type": "create",
+    "object_type": "PO",
+    "object_id": "po_005",
+    "parent_object_type": null,
+    "parent_object_id": null,
+    "change_details": {
+      "po_number": "PO-2025-005",
+      "vendor": "ООО 'Евент Продакшн'",
+      "amount": 350000,
+      "description": "Организация кофейных фестивалей и мероприятий"
+    },
+    "created_by": "user_004",
+    "updated_by": "user_004",
+    "created_at": "2025-01-20T16:30:00Z",
+    "updated_at": "2025-01-20T16:30:00Z"
+  },
+  {
+    "log_id": "log_009",
+    "user_id": "user_002",
+    "action_timestamp": "2025-01-22T13:10:00Z",
+    "action_type": "link",
+    "object_type": "PO",
+    "object_id": "po_006",
+    "parent_object_type": "Investment",
+    "parent_object_id": "inv_002",
+    "change_details": {
+      "mapped_to_investment": "inv_002",
+      "amount": 75000
+    },
+    "created_by": "user_002",
+    "updated_by": "user_002",
+    "created_at": "2025-01-22T13:10:00Z",
+    "updated_at": "2025-01-22T13:10:00Z"
+  },
+  {
+    "log_id": "log_010",
+    "user_id": "user_003",
+    "action_timestamp": "2025-01-25T08:40:00Z",
+    "action_type": "unlink",
+    "object_type": "Actual",
+    "object_id": "act_007",
+    "parent_object_type": "Investment",
+    "parent_object_id": "inv_004",
+    "change_details": {
+      "unmapped_from_investment": "inv_004",
+      "reason": "Неверное сопоставление, требуется пересмотр"
+    },
+    "created_by": "user_003",
+    "updated_by": "user_003",
+    "created_at": "2025-01-25T08:40:00Z",
+    "updated_at": "2025-01-25T08:40:00Z"
+  },
+  {
+    "log_id": "log_011",
+    "user_id": "user_002",
+    "action_timestamp": "2025-01-28T15:25:00Z",
+    "action_type": "update",
+    "object_type": "PO",
+    "object_id": "po_008",
+    "parent_object_type": null,
+    "parent_object_id": null,
+    "change_details": {
+      "field": "status",
+      "old_value": "pending",
+      "new_value": "active",
+      "reason": "Контракт подписан и активирован"
+    },
+    "created_by": "user_002",
+    "updated_by": "user_002",
+    "created_at": "2025-01-28T15:25:00Z",
+    "updated_at": "2025-01-28T15:25:00Z"
+  }
+]

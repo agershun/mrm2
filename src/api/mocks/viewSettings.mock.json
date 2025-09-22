@@ -1,0 +1,112 @@
+[
+  {
+    "view_id": "view_001",
+    "setting_type": "filter",
+    "attribute_id": "attr_001",
+    "condition": "equals",
+    "value": "Креола Классик",
+    "created_by": "user_001",
+    "updated_by": "user_001",
+    "created_at": "2024-12-15T10:00:00Z",
+    "updated_at": "2024-12-15T10:00:00Z"
+  },
+  {
+    "view_id": "view_001",
+    "setting_type": "filter",
+    "attribute_id": "attr_002",
+    "condition": "contains",
+    "value": "реклама",
+    "created_by": "user_001",
+    "updated_by": "user_001",
+    "created_at": "2024-12-15T10:00:00Z",
+    "updated_at": "2024-12-15T10:00:00Z"
+  },
+  {
+    "view_id": "view_001",
+    "setting_type": "group_by",
+    "attribute_id": "attr_003",
+    "condition": null,
+    "value": "activity_type",
+    "created_by": "user_001",
+    "updated_by": "user_001",
+    "created_at": "2024-12-15T10:00:00Z",
+    "updated_at": "2024-12-15T10:00:00Z"
+  },
+  {
+    "view_id": "view_002",
+    "setting_type": "filter",
+    "attribute_id": "attr_004",
+    "condition": "greater_than",
+    "value": "100000",
+    "created_by": "user_002",
+    "updated_by": "user_002",
+    "created_at": "2025-01-10T14:20:00Z",
+    "updated_at": "2025-01-10T14:20:00Z"
+  },
+  {
+    "view_id": "view_002",
+    "setting_type": "filter",
+    "attribute_id": "attr_005",
+    "condition": "in_list",
+    "value": "Онлайн,Офлайн",
+    "created_by": "user_002",
+    "updated_by": "user_002",
+    "created_at": "2025-01-10T14:20:00Z",
+    "updated_at": "2025-01-10T14:20:00Z"
+  },
+  {
+    "view_id": "view_002",
+    "setting_type": "group_by",
+    "attribute_id": "attr_006",
+    "condition": null,
+    "value": "channel",
+    "created_by": "user_002",
+    "updated_by": "user_002",
+    "created_at": "2025-01-10T14:20:00Z",
+    "updated_at": "2025-01-10T14:20:00Z"
+  },
+  {
+    "view_id": "view_003",
+    "setting_type": "filter",
+    "attribute_id": "attr_007",
+    "condition": "date_range",
+    "value": "2025-01-01,2025-03-31",
+    "created_by": "user_003",
+    "updated_by": "user_003",
+    "created_at": "2025-01-15T09:30:00Z",
+    "updated_at": "2025-01-15T09:30:00Z"
+  },
+  {
+    "view_id": "view_003",
+    "setting_type": "filter",
+    "attribute_id": "attr_008",
+    "condition": "not_equals",
+    "value": "Завершен",
+    "created_by": "user_003",
+    "updated_by": "user_003",
+    "created_at": "2025-01-15T09:30:00Z",
+    "updated_at": "2025-01-15T09:30:00Z"
+  },
+  {
+    "view_id": "view_004",
+    "setting_type": "group_by",
+    "attribute_id": "attr_009",
+    "condition": null,
+    "value": "region",
+    "created_by": "user_004",
+    "updated_by": "user_004",
+    "created_at": "2025-01-20T11:45:00Z",
+    "updated_at": "2025-01-20T11:45:00Z"
+  },
+  {
+    "view_id": "view_004",
+    "setting_type": "filter",
+    "attribute_id": "attr_010",
+    "condition": "starts_with",
+    "value": "Московская",
+    "created_by": "user_004",
+    "updated_by": "user_004",
+    "created_at": "2025-01-20T11:45:00Z",
+    "updated_at": "2025-01-20T11:45:00Z"
+  }
+]

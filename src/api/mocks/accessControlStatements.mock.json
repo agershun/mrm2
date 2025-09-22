@@ -1,0 +1,150 @@
+[
+  {
+    "statement_id": "1",
+    "policy_id": "1",
+    "effect": "Allow",
+    "resource": "*",
+    "actions": ["*"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "2",
+    "policy_id": "2",
+    "effect": "Allow",
+    "resource": "activities",
+    "actions": ["read", "write", "delete"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "3",
+    "policy_id": "2",
+    "effect": "Allow",
+    "resource": "budgets",
+    "actions": ["read", "write"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "4",
+    "policy_id": "2",
+    "effect": "Allow",
+    "resource": "investments",
+    "actions": ["read", "write"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "5",
+    "policy_id": "2",
+    "effect": "Deny",
+    "resource": "users",
+    "actions": ["delete"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "6",
+    "policy_id": "3",
+    "effect": "Allow",
+    "resource": "activities",
+    "actions": ["read"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "7",
+    "policy_id": "3",
+    "effect": "Allow",
+    "resource": "performance",
+    "actions": ["read"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "8",
+    "policy_id": "3",
+    "effect": "Allow",
+    "resource": "reports",
+    "actions": ["read", "export"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "9",
+    "policy_id": "4",
+    "effect": "Allow",
+    "resource": "campaigns",
+    "actions": ["read", "write"],
+    "conditions": {
+      "team_id": "1"
+    },
+    "created_at": "2024-02-01T00:00:00Z",
+    "updated_at": "2024-02-01T00:00:00Z"
+  },
+  {
+    "statement_id": "10",
+    "policy_id": "4",
+    "effect": "Allow",
+    "resource": "social_media",
+    "actions": ["read", "write", "publish"],
+    "conditions": {
+      "team_id": "1"
+    },
+    "created_at": "2024-02-01T00:00:00Z",
+    "updated_at": "2024-02-01T00:00:00Z"
+  },
+  {
+    "statement_id": "11",
+    "policy_id": "5",
+    "effect": "Allow",
+    "resource": "activities",
+    "actions": ["read"],
+    "conditions": {
+      "status": "published"
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "12",
+    "policy_id": "5",
+    "effect": "Deny",
+    "resource": "budgets",
+    "actions": ["*"],
+    "conditions": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "statement_id": "13",
+    "policy_id": "6",
+    "effect": "Allow",
+    "resource": "budgets",
+    "actions": ["read"],
+    "conditions": {
+      "department": "Finance"
+    },
+    "created_at": "2024-03-01T00:00:00Z",
+    "updated_at": "2024-03-01T00:00:00Z"
+  },
+  {
+    "statement_id": "14",
+    "policy_id": "6",
+    "effect": "Allow",
+    "resource": "financial_reports",
+    "actions": ["read", "write"],
+    "conditions": {},
+    "created_at": "2024-03-01T00:00:00Z",
+    "updated_at": "2024-03-01T00:00:00Z"
+  }
+]

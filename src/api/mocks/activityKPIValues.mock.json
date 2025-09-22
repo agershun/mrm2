@@ -1,0 +1,67 @@
+[
+  {
+    "activity_kpi_value_id": "1",
+    "activity_id": "3",
+    "kpi_id": "1",
+    "target_value": 1500,
+    "actual_value": 1250,
+    "variance": -250,
+    "variance_percent": -16.67,
+    "measurement_period": "daily",
+    "notes": "Показатель ниже целевого из-за технических проблем на сайте",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-21T09:00:00Z"
+  },
+  {
+    "activity_kpi_value_id": "2",
+    "activity_id": "4",
+    "kpi_id": "2",
+    "target_value": 100,
+    "actual_value": 85,
+    "variance": -15,
+    "variance_percent": -15.0,
+    "measurement_period": "event",
+    "notes": "Хорошая посещаемость, но не достигли плановых показателей",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-20T15:00:00Z"
+  },
+  {
+    "activity_kpi_value_id": "3",
+    "activity_id": "5",
+    "kpi_id": "3",
+    "target_value": 3.0,
+    "actual_value": 2.85,
+    "variance": -0.15,
+    "variance_percent": -5.0,
+    "measurement_period": "campaign",
+    "notes": "CTR близок к целевому, кампания эффективна",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-15T12:00:00Z"
+  },
+  {
+    "activity_kpi_value_id": "4",
+    "activity_id": "6",
+    "kpi_id": "4",
+    "target_value": 15000,
+    "actual_value": 15750,
+    "variance": 750,
+    "variance_percent": 5.0,
+    "measurement_period": "monthly",
+    "notes": "Превысили план по доходам благодаря эффективным продажам",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-10T18:00:00Z"
+  },
+  {
+    "activity_kpi_value_id": "5",
+    "activity_id": "7",
+    "kpi_id": "5",
+    "target_value": 500,
+    "actual_value": 425,
+    "variance": -75,
+    "variance_percent": -15.0,
+    "measurement_period": "campaign",
+    "notes": "Количество подписчиков растет, но медленнее запланированного",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-05T10:00:00Z"
+  }
+]

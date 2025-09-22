@@ -1,0 +1,92 @@
+[
+  {
+    "investment_objective_id": "1",
+    "investment_id": "1",
+    "objective_id": "1",
+    "allocation_weight": 0.6,
+    "notes": "Основная часть инвестиций направлена на повышение узнаваемости бренда",
+    "created_at": "2024-12-01T00:00:00Z",
+    "updated_at": "2024-12-01T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "2",
+    "investment_id": "1",
+    "objective_id": "5",
+    "allocation_weight": 0.4,
+    "notes": "Часть бюджета выделена на расширение онлайн присутствия",
+    "created_at": "2024-12-01T00:00:00Z",
+    "updated_at": "2024-12-01T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "3",
+    "investment_id": "2",
+    "objective_id": "2",
+    "allocation_weight": 0.8,
+    "notes": "Большая часть инвестиций в Instagram направлена на рост доходов",
+    "created_at": "2024-12-01T00:00:00Z",
+    "updated_at": "2024-12-01T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "4",
+    "investment_id": "2",
+    "objective_id": "3",
+    "allocation_weight": 0.2,
+    "notes": "Меньшая часть на привлечение новых клиентов",
+    "created_at": "2024-12-01T00:00:00Z",
+    "updated_at": "2024-12-01T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "5",
+    "investment_id": "3",
+    "objective_id": "3",
+    "allocation_weight": 1.0,
+    "notes": "Вебинар полностью направлен на привлечение новых клиентов",
+    "created_at": "2025-01-15T00:00:00Z",
+    "updated_at": "2025-01-15T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "6",
+    "investment_id": "4",
+    "objective_id": "6",
+    "allocation_weight": 0.7,
+    "notes": "Основной фокус контекстной рекламы на оптимизации конверсии",
+    "created_at": "2025-01-15T00:00:00Z",
+    "updated_at": "2025-01-15T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "7",
+    "investment_id": "4",
+    "objective_id": "2",
+    "allocation_weight": 0.3,
+    "notes": "Дополнительный вклад в общий рост доходов",
+    "created_at": "2025-01-15T00:00:00Z",
+    "updated_at": "2025-01-15T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "8",
+    "investment_id": "5",
+    "objective_id": "4",
+    "allocation_weight": 0.5,
+    "notes": "Email-маркетинг способствует улучшению качества обслуживания",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "9",
+    "investment_id": "5",
+    "objective_id": "3",
+    "allocation_weight": 0.5,
+    "notes": "Также помогает в привлечении новых клиентов",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
+  },
+  {
+    "investment_objective_id": "10",
+    "investment_id": "6",
+    "objective_id": "7",
+    "allocation_weight": 1.0,
+    "notes": "Конференция полностью направлена на развитие партнерской сети",
+    "created_at": "2025-02-01T00:00:00Z",
+    "updated_at": "2025-02-01T00:00:00Z"
+  }
+]

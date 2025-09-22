@@ -1,0 +1,219 @@
+[
+  {
+    "workflow_type_id": "1",
+    "name": "Согласование кампании",
+    "description": "Процесс согласования маркетинговой кампании",
+    "category": "approval",
+    "is_template": true,
+    "is_active": true,
+    "steps_count": 5,
+    "average_duration": 72,
+    "success_rate": 85.5,
+    "definition": {
+      "steps": [
+        {
+          "id": "1",
+          "name": "Создание заявки",
+          "type": "form",
+          "required_fields": ["name", "description", "budget"]
+        },
+        {
+          "id": "2",
+          "name": "Проверка бюджета",
+          "type": "approval",
+          "approver_role": "finance_manager"
+        },
+        {
+          "id": "3",
+          "name": "Согласование контента",
+          "type": "approval",
+          "approver_role": "content_manager"
+        },
+        {
+          "id": "4",
+          "name": "Финальное утверждение",
+          "type": "approval",
+          "approver_role": "marketing_director"
+        },
+        {
+          "id": "5",
+          "name": "Запуск кампании",
+          "type": "action",
+          "action": "launch_campaign"
+        }
+      ]
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "workflow_type_id": "2",
+    "name": "Обработка лидов",
+    "description": "Автоматизированная обработка входящих лидов",
+    "category": "automation",
+    "is_template": true,
+    "is_active": true,
+    "steps_count": 4,
+    "average_duration": 24,
+    "success_rate": 92.3,
+    "definition": {
+      "steps": [
+        {
+          "id": "1",
+          "name": "Получение лида",
+          "type": "trigger",
+          "trigger": "lead_received"
+        },
+        {
+          "id": "2",
+          "name": "Квалификация лида",
+          "type": "automation",
+          "rules": ["score > 50", "company_size > 10"]
+        },
+        {
+          "id": "3",
+          "name": "Назначение менеджера",
+          "type": "assignment",
+          "assignment_rule": "round_robin"
+        },
+        {
+          "id": "4",
+          "name": "Отправка уведомления",
+          "type": "notification",
+          "template": "new_lead_assigned"
+        }
+      ]
+    },
+    "created_at": "2024-01-15T00:00:00Z",
+    "updated_at": "2024-01-15T00:00:00Z"
+  },
+  {
+    "workflow_type_id": "3",
+    "name": "Создание отчета",
+    "description": "Еженедельное создание отчетов по производительности",
+    "category": "reporting",
+    "is_template": true,
+    "is_active": true,
+    "steps_count": 3,
+    "average_duration": 6,
+    "success_rate": 98.1,
+    "definition": {
+      "steps": [
+        {
+          "id": "1",
+          "name": "Сбор данных",
+          "type": "data_collection",
+          "sources": ["analytics", "crm", "advertising"]
+        },
+        {
+          "id": "2",
+          "name": "Генерация отчета",
+          "type": "report_generation",
+          "template": "weekly_performance"
+        },
+        {
+          "id": "3",
+          "name": "Рассылка отчета",
+          "type": "distribution",
+          "recipients": ["management", "analytics_team"]
+        }
+      ]
+    },
+    "created_at": "2024-02-01T00:00:00Z",
+    "updated_at": "2024-02-01T00:00:00Z"
+  },
+  {
+    "workflow_type_id": "4",
+    "name": "Запрос бюджета",
+    "description": "Процесс запроса дополнительного бюджета",
+    "category": "approval",
+    "is_template": true,
+    "is_active": true,
+    "steps_count": 4,
+    "average_duration": 96,
+    "success_rate": 67.8,
+    "definition": {
+      "steps": [
+        {
+          "id": "1",
+          "name": "Подача запроса",
+          "type": "form",
+          "required_fields": ["amount", "justification", "expected_roi"]
+        },
+        {
+          "id": "2",
+          "name": "Предварительная проверка",
+          "type": "approval",
+          "approver_role": "team_lead"
+        },
+        {
+          "id": "3",
+          "name": "Финансовое согласование",
+          "type": "approval",
+          "approver_role": "cfo"
+        },
+        {
+          "id": "4",
+          "name": "Выделение бюджета",
+          "type": "action",
+          "action": "allocate_budget"
+        }
+      ]
+    },
+    "created_at": "2024-02-15T00:00:00Z",
+    "updated_at": "2024-02-15T00:00:00Z"
+  },
+  {
+    "workflow_type_id": "5",
+    "name": "Онбординг пользователя",
+    "description": "Процесс регистрации и настройки нового пользователя",
+    "category": "onboarding",
+    "is_template": false,
+    "is_active": true,
+    "steps_count": 6,
+    "average_duration": 48,
+    "success_rate": 94.2,
+    "definition": {
+      "steps": [
+        {
+          "id": "1",
+          "name": "Регистрация",
+          "type": "form",
+          "required_fields": ["email", "name", "company"]
+        },
+        {
+          "id": "2",
+          "name": "Подтверждение email",
+          "type": "verification",
+          "method": "email"
+        },
+        {
+          "id": "3",
+          "name": "Назначение роли",
+          "type": "approval",
+          "approver_role": "admin"
+        },
+        {
+          "id": "4",
+          "name": "Создание профиля",
+          "type": "automation",
+          "action": "create_user_profile"
+        },
+        {
+          "id": "5",
+          "name": "Отправка приветствия",
+          "type": "notification",
+          "template": "welcome_email"
+        },
+        {
+          "id": "6",
+          "name": "Назначение в команду",
+          "type": "assignment",
+          "assignment_rule": "department_based"
+        }
+      ]
+    },
+    "created_at": "2024-03-01T00:00:00Z",
+    "updated_at": "2024-03-01T00:00:00Z"
+  }
+]

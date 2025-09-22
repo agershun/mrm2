@@ -1,0 +1,98 @@
+[
+  {
+    "funnel_stage_id": "1",
+    "funnel_id": "sales_funnel_1",
+    "name": "Осведомленность",
+    "description": "Пользователь узнает о продукте",
+    "stage_order": 1,
+    "conversion_rate": 5.0,
+    "average_time_in_stage": 7,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "funnel_stage_id": "2",
+    "funnel_id": "sales_funnel_1",
+    "name": "Интерес",
+    "description": "Пользователь проявляет интерес к продукту",
+    "stage_order": 2,
+    "conversion_rate": 15.0,
+    "average_time_in_stage": 3,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "funnel_stage_id": "3",
+    "funnel_id": "sales_funnel_1",
+    "name": "Рассмотрение",
+    "description": "Пользователь рассматривает покупку",
+    "stage_order": 3,
+    "conversion_rate": 25.0,
+    "average_time_in_stage": 5,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "funnel_stage_id": "4",
+    "funnel_id": "sales_funnel_1",
+    "name": "Намерение",
+    "description": "Пользователь готов к покупке",
+    "stage_order": 4,
+    "conversion_rate": 45.0,
+    "average_time_in_stage": 2,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "funnel_stage_id": "5",
+    "funnel_id": "sales_funnel_1",
+    "name": "Покупка",
+    "description": "Пользователь совершает покупку",
+    "stage_order": 5,
+    "conversion_rate": 80.0,
+    "average_time_in_stage": 1,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "funnel_stage_id": "6",
+    "funnel_id": "webinar_funnel_1",
+    "name": "Регистрация",
+    "description": "Пользователь регистрируется на вебинар",
+    "stage_order": 1,
+    "conversion_rate": 10.0,
+    "average_time_in_stage": 1,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "funnel_stage_id": "7",
+    "funnel_id": "webinar_funnel_1",
+    "name": "Участие",
+    "description": "Пользователь участвует в вебинаре",
+    "stage_order": 2,
+    "conversion_rate": 75.0,
+    "average_time_in_stage": 0,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "funnel_stage_id": "8",
+    "funnel_id": "webinar_funnel_1",
+    "name": "Действие",
+    "description": "Пользователь выполняет целевое действие",
+    "stage_order": 3,
+    "conversion_rate": 20.0,
+    "average_time_in_stage": 7,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+]
