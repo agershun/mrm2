@@ -4,7 +4,7 @@
     :rail="sidebarCollapsed"
     permanent
     :width="280"
-    :rail-width="72"
+    :rail-width="60"
     color="grey-lighten-5"
     border="0"
     class="navigation-sidebar"
