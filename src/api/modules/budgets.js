@@ -11,11 +11,19 @@ import budgetRequestsMock from '../mocks/budgetRequests.mock.json'
 
 /**
  * Загружает древовидную структуру бюджетов для указанного финансового года
- * @param {number} fiscalYear - Финансовый год
+ * @param {Object|number} filterParams - Параметры фильтрации или год
  * @returns {Promise<Array>} - Иерархическая структура бюджетов
  */
-export const getBudgetHierarchy = async (fiscalYear = 2025) => {
+export const getBudgetHierarchy = async (filterParams = {}) => {
   try {
+    // Поддерживаем как объект, так и число
+    let fiscalYear = 2025
+    if (typeof filterParams === 'number') {
+      fiscalYear = filterParams
+    } else if (filterParams?.fiscalYear) {
+      fiscalYear = filterParams.fiscalYear
+    }
+
     const response = await apiClient.get('/budgets/hierarchy', { fiscalYear })
 
     // Возвращаем данные из мока, фильтруем по году

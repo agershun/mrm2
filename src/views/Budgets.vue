@@ -123,29 +123,30 @@
         <v-card class="h-100">
           <!-- Представление иерархии -->
           <template v-if="currentView === 'hierarchy'">
-            <v-card-title class="d-flex align-center">
-              <v-icon class="me-2">mdi-file-tree</v-icon>
-              Иерархия бюджетов
-
-              <v-spacer />
-
-              <!-- Поиск -->
-              <v-text-field
-                v-model="searchQuery"
-                placeholder="Поиск бюджетов..."
-                variant="outlined"
-                density="compact"
-                style="width: 300px"
-                append-inner-icon="mdi-magnify"
-                clearable
-                @update:modelValue="onSearch"
-              />
-            </v-card-title>
+            <!-- Action Bar -->
+            <BudgetActionBar
+              @new-item="handleNewItem"
+              @delete-items="handleDeleteItems"
+              @copy-items="handleCopyItems"
+              @move-items="handleMoveItems"
+              @import-data="handleImportData"
+            />
 
             <v-divider />
 
-            <v-card-text class="pa-0" style="height: 600px; overflow: auto;">
-              <BudgetHierarchy />
+            <!-- Иерархическая таблица -->
+            <v-card-text class="pa-0" style="height: calc(100vh - 450px);">
+              <BudgetHierarchyTable
+                @open-user-management="handleUserManagement"
+                @open-po-mapping="handlePOMapping"
+                @open-actuals-mapping="handleActualsMapping"
+                @open-approvals="handleApprovals"
+                @open-transfers="handleTransfers"
+                @open-settings="handleSettings"
+                @open-notes="handleNotes"
+                @open-audit-trail="handleAuditTrail"
+                @row-selected="handleRowSelected"
+              />
             </v-card-text>
           </template>
 
@@ -370,158 +371,17 @@
         <v-card class="h-100">
           <!-- Детали бюджета -->
           <template v-if="selectedItem.type === 'budget'">
-            <v-card-title class="d-flex align-center justify-space-between">
-              <div class="d-flex align-center">
-                <v-icon class="me-2">mdi-wallet</v-icon>
-                Детали бюджета
-              </div>
-              <v-btn
-                icon="mdi-close"
-                variant="text"
-                size="small"
-                @click="selectedItem = null"
-              />
-            </v-card-title>
-            <v-divider />
-            <v-card-text class="pa-4">
-              <!-- Основная информация -->
-              <div class="mb-4">
-                <h3 class="text-h6 mb-2">{{ selectedItem.name }}</h3>
-                <p class="text-body-2 text-medium-emphasis mb-3">
-                  {{ selectedItem.description }}
-                </p>
-
-                <v-row dense class="mb-3">
-                  <v-col cols="6">
-                    <div class="text-caption text-medium-emphasis">Тип</div>
-                    <v-chip
-                      :color="getBudgetTypeColor(selectedItem.budget_type)"
-                      size="small"
-                      variant="tonal"
-                    >
-                      <v-icon :icon="getBudgetTypeIcon(selectedItem.budget_type)" start size="small" />
-                      {{ selectedItem.budget_type }}
-                    </v-chip>
-                  </v-col>
-                  <v-col cols="6">
-                    <div class="text-caption text-medium-emphasis">Статус</div>
-                    <v-chip
-                      :color="getBudgetStatusColor(selectedItem.status)"
-                      size="small"
-                      variant="tonal"
-                    >
-                      {{ getBudgetStatusText(selectedItem.status) }}
-                    </v-chip>
-                  </v-col>
-                </v-row>
-
-                <v-row dense class="mb-3">
-                  <v-col cols="6">
-                    <div class="text-caption text-medium-emphasis">Валюта</div>
-                    <div class="font-weight-medium">{{ selectedItem.currency }}</div>
-                  </v-col>
-                  <v-col cols="6">
-                    <div class="text-caption text-medium-emphasis">Финансовый год</div>
-                    <div class="font-weight-medium">{{ selectedItem.fiscal_year }}</div>
-                  </v-col>
-                </v-row>
-              </div>
-
-              <v-divider class="mb-4" />
-
-              <!-- Финансовые показатели -->
-              <div class="mb-4">
-                <h4 class="text-subtitle-1 mb-3">Финансовые показатели</h4>
-
-                <v-row dense class="mb-3">
-                  <v-col cols="6">
-                    <div class="text-center pa-2">
-                      <div class="text-h6 font-weight-bold text-primary">
-                        {{ formatCurrency(selectedItem.total_amount) }}
-                      </div>
-                      <div class="text-caption text-medium-emphasis">Общий бюджет</div>
-                    </div>
-                  </v-col>
-                  <v-col cols="6">
-                    <div class="text-center pa-2">
-                      <div class="text-h6 font-weight-bold text-success">
-                        {{ formatCurrency(selectedItem.allocated_amount) }}
-                      </div>
-                      <div class="text-caption text-medium-emphasis">Распределено</div>
-                    </div>
-                  </v-col>
-                </v-row>
-
-                <v-row dense class="mb-3">
-                  <v-col cols="6">
-                    <div class="text-center pa-2">
-                      <div class="text-h6 font-weight-bold text-warning">
-                        {{ formatCurrency(selectedItem.spent_amount) }}
-                      </div>
-                      <div class="text-caption text-medium-emphasis">Потрачено</div>
-                    </div>
-                  </v-col>
-                  <v-col cols="6">
-                    <div class="text-center pa-2">
-                      <div class="text-h6 font-weight-bold text-info">
-                        {{ formatCurrency(selectedItem.remaining_amount) }}
-                      </div>
-                      <div class="text-caption text-medium-emphasis">Остаток</div>
-                    </div>
-                  </v-col>
-                </v-row>
-
-                <div class="mb-3">
-                  <div class="d-flex align-center justify-space-between mb-2">
-                    <span class="text-body-2">Использование бюджета</span>
-                    <span class="font-weight-bold">{{ getBudgetUtilization(selectedItem) }}%</span>
-                  </div>
-                  <v-progress-linear
-                    :model-value="getBudgetUtilization(selectedItem)"
-                    :color="getUtilizationColor(getBudgetUtilization(selectedItem))"
-                    height="12"
-                    rounded
-                  />
-                </div>
-              </div>
-
-              <v-divider class="mb-4" />
-
-              <!-- Действия -->
-              <div>
-                <h4 class="text-subtitle-1 mb-3">Действия</h4>
-                <div class="d-flex flex-column gap-2">
-                  <v-btn
-                    variant="outlined"
-                    size="small"
-                    prepend-icon="mdi-pencil"
-                  >
-                    Редактировать бюджет
-                  </v-btn>
-                  <v-btn
-                    variant="outlined"
-                    size="small"
-                    prepend-icon="mdi-plus"
-                  >
-                    Создать запрос
-                  </v-btn>
-                  <v-btn
-                    variant="outlined"
-                    size="small"
-                    prepend-icon="mdi-chart-timeline"
-                  >
-                    История изменений
-                  </v-btn>
-                  <v-btn
-                    variant="outlined"
-                    size="small"
-                    prepend-icon="mdi-download"
-                  >
-                    Экспорт данных
-                  </v-btn>
-                </div>
-              </div>
-            </v-card-text>
+            <BudgetDetailsPanel
+              :selected-budget="selectedItem"
+              @close="selectedItem = null"
+              @manage-users="handleUserManagement"
+              @edit-budget="handleEditBudget"
+              @copy-budget="handleCopyItems"
+              @transfers="handleTransfers"
+              @approvals="handleApprovals"
+              @notes="handleNotes"
+              @audit-trail="handleAuditTrail"
+            />
           </template>
 
           <!-- Детали запроса -->
@@ -774,18 +634,49 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Диалог управления пользователями -->
+    <BudgetUserManagement
+      v-model="showUserManagement"
+      :budget="selectedBudgetForUserManagement"
+      @users-updated="handleUsersUpdated"
+    />
+
+    <!-- Диалог маппинга POs -->
+    <FinancialMapping
+      v-model="showPOMapping"
+      :budget="selectedBudgetForMapping"
+      type="pos"
+      @mapping-updated="handleMappingUpdated"
+    />
+
+    <!-- Диалог маппинга Actuals -->
+    <FinancialMapping
+      v-model="showActualsMapping"
+      :budget="selectedBudgetForMapping"
+      type="actuals"
+      @mapping-updated="handleMappingUpdated"
+    />
   </div>
 </template>
 
 <script>
 import { computed, ref, onMounted, watch } from 'vue'
 import { useBudgetsStore } from '@/stores/budgetsStore'
-import BudgetHierarchy from '@/components/BudgetHierarchy.vue'
+import BudgetActionBar from '@/components/budgets/BudgetActionBar.vue'
+import BudgetHierarchyTable from '@/components/budgets/BudgetHierarchyTable.vue'
+import BudgetDetailsPanel from '@/components/budgets/BudgetDetailsPanel.vue'
+import BudgetUserManagement from '@/components/budgets/BudgetUserManagement.vue'
+import FinancialMapping from '@/components/budgets/FinancialMapping.vue'
 
 export default {
   name: 'BudgetsView',
   components: {
-    BudgetHierarchy
+    BudgetActionBar,
+    BudgetHierarchyTable,
+    BudgetDetailsPanel,
+    BudgetUserManagement,
+    FinancialMapping
   },
   setup() {
     const budgetsStore = useBudgetsStore()
@@ -799,6 +690,11 @@ export default {
     const rollupView = ref('table')
     const requestStatusFilter = ref(null)
     const isSubmittingRequest = ref(false)
+    const showUserManagement = ref(false)
+    const selectedBudgetForUserManagement = ref(null)
+    const showPOMapping = ref(false)
+    const showActualsMapping = ref(false)
+    const selectedBudgetForMapping = ref(null)
     const newRequest = ref({
       budget_id: '',
       requested_amount: null,
@@ -1098,6 +994,92 @@ export default {
       }
     }
 
+    // Event handlers for new functionality
+    const handleNewItem = (itemData) => {
+      console.log('Creating new item:', itemData)
+      // TODO: Implement creation logic
+    }
+
+    const handleDeleteItems = (items) => {
+      console.log('Deleting items:', items)
+      // TODO: Implement deletion logic
+    }
+
+    const handleCopyItems = (items) => {
+      console.log('Copying items:', items)
+      // TODO: Implement copy logic
+    }
+
+    const handleMoveItems = (items) => {
+      console.log('Moving items:', items)
+      // TODO: Implement move logic
+    }
+
+    const handleImportData = (dataType) => {
+      console.log('Importing data type:', dataType)
+      // TODO: Implement import logic
+    }
+
+    const handleUserManagement = (item) => {
+      selectedBudgetForUserManagement.value = item
+      showUserManagement.value = true
+    }
+
+    const handlePOMapping = (item) => {
+      selectedBudgetForMapping.value = item
+      showPOMapping.value = true
+    }
+
+    const handleActualsMapping = (item) => {
+      selectedBudgetForMapping.value = item
+      showActualsMapping.value = true
+    }
+
+    const handleApprovals = (item) => {
+      console.log('Opening approvals for:', item)
+      // TODO: Implement approvals dialog
+    }
+
+    const handleTransfers = (item) => {
+      console.log('Opening transfers for:', item)
+      // TODO: Implement transfers dialog
+    }
+
+    const handleSettings = (item) => {
+      console.log('Opening settings for:', item)
+      // TODO: Implement settings dialog
+    }
+
+    const handleNotes = (item) => {
+      console.log('Opening notes for:', item)
+      // TODO: Implement notes dialog
+    }
+
+    const handleAuditTrail = (item) => {
+      console.log('Opening audit trail for:', item)
+      // TODO: Implement audit trail dialog
+    }
+
+    const handleRowSelected = (item) => {
+      selectedItem.value = { ...item, type: 'budget' }
+      budgetsStore.selectBudget(item.budget_id)
+    }
+
+    const handleEditBudget = (budget) => {
+      console.log('Editing budget:', budget)
+      // TODO: Implement budget editing dialog
+    }
+
+    const handleUsersUpdated = () => {
+      // Обновляем данные бюджета после изменения пользователей
+      budgetsStore.fetchBudgets({ fiscalYear: selectedYear.value })
+    }
+
+    const handleMappingUpdated = () => {
+      // Обновляем данные бюджета после изменения маппинга
+      budgetsStore.fetchBudgets({ fiscalYear: selectedYear.value })
+    }
+
     // Watchers
     watch(currentView, (newView) => {
       budgetsStore.setView(newView)
@@ -1136,6 +1118,11 @@ export default {
       isRequestFormValid,
       isSubmittingRequest,
       newRequest,
+      showUserManagement,
+      selectedBudgetForUserManagement,
+      showPOMapping,
+      showActualsMapping,
+      selectedBudgetForMapping,
 
       // Methods
       formatCurrency,
@@ -1162,7 +1149,26 @@ export default {
       viewRequestDetails,
       onRequestStatusFilter,
       approveBudgetRequest,
-      rejectBudgetRequest
+      rejectBudgetRequest,
+
+      // New event handlers
+      handleNewItem,
+      handleDeleteItems,
+      handleCopyItems,
+      handleMoveItems,
+      handleImportData,
+      handleUserManagement,
+      handlePOMapping,
+      handleActualsMapping,
+      handleApprovals,
+      handleTransfers,
+      handleSettings,
+      handleNotes,
+      handleAuditTrail,
+      handleRowSelected,
+      handleEditBudget,
+      handleUsersUpdated,
+      handleMappingUpdated
     }
   }
 }
