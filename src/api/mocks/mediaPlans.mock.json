@@ -1,0 +1,583 @@
+[
+  {
+    "plan_id": "plan_tech_launch_001",
+    "campaign_id": "camp_tech_launch_2024",
+    "mix_id": "mix_tech_launch_001",
+    "plan_name": "Детальный медиа-план запуска ProjectFlow Pro",
+    "plan_description": "Пошаговый план размещения рекламы по всем каналам с временными интервалами и бюджетным распределением",
+    "plan_type": "integrated_launch",
+    "plan_period": {
+      "start_date": "2024-12-01",
+      "end_date": "2025-05-31"
+    },
+    "total_budget": 5000000,
+    "currency": "RUB",
+    "target_audience": {
+      "primary": "CTO, IT-директора, руководители разработки",
+      "size": 150000,
+      "geographic_focus": "Russia"
+    },
+    "flights": [
+      {
+        "flight_id": "flight_google_search_001",
+        "flight_name": "Google Search - Основные запросы",
+        "channel": "google",
+        "format": "search_ads",
+        "start_date": "2024-12-01",
+        "end_date": "2025-05-31",
+        "budget": 1200000,
+        "daily_budget": 6557,
+        "targeting": {
+          "keywords": ["project management software", "управление проектами", "saas для pm"],
+          "match_types": ["exact", "phrase", "broad_modified"],
+          "geographic": "Russia, major cities",
+          "device": "all",
+          "audience_segments": ["in-market: business software"]
+        },
+        "ad_formats": ["responsive_search_ads", "call_extensions"],
+        "bidding_strategy": "maximize_conversions",
+        "frequency_cap": {"daily": 3, "weekly": 15},
+        "quality_score_target": 8.0,
+        "expected_metrics": {
+          "impressions": 480000,
+          "clicks": 14400,
+          "conversions": 576,
+          "ctr": 3.0,
+          "cpc": 83.33,
+          "cpa": 2083
+        },
+        "status": "active"
+      },
+      {
+        "flight_id": "flight_google_display_002",
+        "flight_name": "Google Display - Ретаргетинг",
+        "channel": "google",
+        "format": "display",
+        "start_date": "2024-12-15",
+        "end_date": "2025-05-31",
+        "budget": 800000,
+        "daily_budget": 4878,
+        "targeting": {
+          "audiences": ["website_visitors", "video_viewers", "similar_to_converters"],
+          "placements": ["managed_placements", "automatic"],
+          "demographics": "25-55, business professionals",
+          "interests": ["business_management", "software_solutions"]
+        },
+        "ad_formats": ["responsive_display", "image_ads", "video_ads"],
+        "bidding_strategy": "target_cpa",
+        "frequency_cap": {"daily": 2, "weekly": 8},
+        "expected_metrics": {
+          "impressions": 3200000,
+          "clicks": 64000,
+          "conversions": 320,
+          "ctr": 2.0,
+          "cpc": 12.5,
+          "cpa": 2500
+        },
+        "status": "planned"
+      },
+      {
+        "flight_id": "flight_linkedin_sponsored_003",
+        "flight_name": "LinkedIn Sponsored Content",
+        "channel": "linkedin",
+        "format": "sponsored_content",
+        "start_date": "2024-12-01",
+        "end_date": "2025-05-31",
+        "budget": 750000,
+        "daily_budget": 4098,
+        "targeting": {
+          "job_titles": ["CTO", "IT Director", "Project Manager", "VP Engineering"],
+          "company_size": ["201-500", "501-1000", "1001-5000", "5001+"],
+          "industries": ["computer_software", "information_technology", "internet"],
+          "skills": ["project management", "software development", "team leadership"],
+          "geographic": "Russia"
+        },
+        "ad_formats": ["single_image", "video", "carousel", "text"],
+        "bidding_strategy": "maximum_delivery",
+        "frequency_cap": {"daily": 2, "weekly": 10},
+        "expected_metrics": {
+          "impressions": 1500000,
+          "clicks": 45000,
+          "conversions": 225,
+          "ctr": 3.0,
+          "cpc": 16.67,
+          "cpa": 3333
+        },
+        "status": "active"
+      },
+      {
+        "flight_id": "flight_linkedin_message_004",
+        "flight_name": "LinkedIn Message Ads",
+        "channel": "linkedin",
+        "format": "message_ads",
+        "start_date": "2025-01-15",
+        "end_date": "2025-04-15",
+        "budget": 500000,
+        "daily_budget": 5556,
+        "targeting": {
+          "job_titles": ["CTO", "IT Director", "VP Engineering"],
+          "company_size": ["501-1000", "1001-5000", "5001+"],
+          "seniority": ["senior", "c-level"],
+          "years_experience": "10+",
+          "geographic": "Moscow, Saint Petersburg"
+        },
+        "ad_formats": ["conversation_ads", "message_ads"],
+        "bidding_strategy": "cost_per_send",
+        "frequency_cap": {"monthly": 2},
+        "expected_metrics": {
+          "sends": 25000,
+          "opens": 7500,
+          "clicks": 1500,
+          "conversions": 150,
+          "open_rate": 30.0,
+          "ctr": 20.0,
+          "cpa": 3333
+        },
+        "status": "planned"
+      },
+      {
+        "flight_id": "flight_events_conferences_005",
+        "flight_name": "IT Конференции и события",
+        "channel": "events",
+        "format": "conference_participation",
+        "start_date": "2025-02-01",
+        "end_date": "2025-05-31",
+        "budget": 1000000,
+        "targeting": {
+          "events": ["HighLoad++ 2025", "DevOps Days Moscow", "PMCon 2025", "TechLead Conf"],
+          "event_types": ["conference", "meetup", "workshop"],
+          "audience": "IT professionals, CTOs, Project Managers",
+          "geographic": "Moscow, Saint Petersburg, Ekaterinburg"
+        },
+        "activities": [
+          {
+            "type": "booth",
+            "budget": 400000,
+            "description": "Стенд с демо-зоной и консультациями"
+          },
+          {
+            "type": "speaking",
+            "budget": 200000,
+            "description": "Доклады о лучших практиках PM"
+          },
+          {
+            "type": "sponsorship",
+            "budget": 300000,
+            "description": "Спонсорство key events"
+          },
+          {
+            "type": "networking",
+            "budget": 100000,
+            "description": "Networking активности и afterparty"
+          }
+        ],
+        "expected_metrics": {
+          "event_attendees": 25000,
+          "booth_visitors": 5000,
+          "demo_requests": 1000,
+          "qualified_leads": 250,
+          "cpa": 4000
+        },
+        "status": "planned"
+      },
+      {
+        "flight_id": "flight_content_blog_006",
+        "flight_name": "Контент-маркетинг и блог",
+        "channel": "content",
+        "format": "owned_content",
+        "start_date": "2024-12-01",
+        "end_date": "2025-05-31",
+        "budget": 350000,
+        "content_types": [
+          {
+            "type": "blog_posts",
+            "quantity": 24,
+            "budget": 120000,
+            "topics": ["PM best practices", "team productivity", "software reviews"]
+          },
+          {
+            "type": "case_studies",
+            "quantity": 6,
+            "budget": 90000,
+            "focus": "successful implementations, ROI stories"
+          },
+          {
+            "type": "webinars",
+            "quantity": 8,
+            "budget": 80000,
+            "themes": ["project management trends", "team collaboration"]
+          },
+          {
+            "type": "whitepapers",
+            "quantity": 4,
+            "budget": 60000,
+            "subjects": ["PM methodology", "digital transformation"]
+          }
+        ],
+        "distribution": {
+          "organic_seo": 40,
+          "email_promotion": 30,
+          "social_sharing": 20,
+          "partner_channels": 10
+        },
+        "expected_metrics": {
+          "content_views": 300000,
+          "content_downloads": 18000,
+          "email_signups": 3600,
+          "qualified_leads": 180,
+          "cpa": 1944
+        },
+        "status": "active"
+      },
+      {
+        "flight_id": "flight_email_nurture_007",
+        "flight_name": "Email-маркетинг и nurturing",
+        "channel": "email",
+        "format": "email_campaigns",
+        "start_date": "2024-12-01",
+        "end_date": "2025-05-31",
+        "budget": 150000,
+        "email_types": [
+          {
+            "type": "welcome_series",
+            "budget": 30000,
+            "description": "5-step onboarding sequence"
+          },
+          {
+            "type": "nurture_campaigns",
+            "budget": 60000,
+            "description": "Educational content по PM"
+          },
+          {
+            "type": "product_updates",
+            "budget": 30000,
+            "description": "Feature announcements и updates"
+          },
+          {
+            "type": "event_invitations",
+            "budget": 30000,
+            "description": "Приглашения на webinars и events"
+          }
+        ],
+        "segmentation": {
+          "new_leads": 40,
+          "engaged_prospects": 35,
+          "trial_users": 25
+        },
+        "expected_metrics": {
+          "emails_sent": 500000,
+          "unique_opens": 175000,
+          "clicks": 25000,
+          "conversions": 125,
+          "open_rate": 35.0,
+          "ctr": 14.3,
+          "cpa": 1200
+        },
+        "status": "active"
+      }
+    ],
+    "kpis": {
+      "total_leads": 1890,
+      "qualified_leads": 567,
+      "cost_per_lead": 2646,
+      "cost_per_sql": 8819,
+      "lead_conversion_rate": 30.0,
+      "customer_acquisition_cost": 26460,
+      "return_on_ad_spend": 4.0
+    },
+    "timeline_milestones": [
+      {
+        "date": "2024-12-01",
+        "milestone": "Launch Google Search и LinkedIn campaigns"
+      },
+      {
+        "date": "2024-12-15",
+        "milestone": "Активация Google Display ретаргетинга"
+      },
+      {
+        "date": "2025-01-15",
+        "milestone": "Старт LinkedIn Message Ads"
+      },
+      {
+        "date": "2025-02-01",
+        "milestone": "Начало участия в конференциях"
+      },
+      {
+        "date": "2025-03-01",
+        "milestone": "Mid-campaign optimization checkpoint"
+      }
+    ],
+    "optimization_rules": [
+      {
+        "metric": "cpa",
+        "threshold": 3000,
+        "action": "reduce_bids_or_pause"
+      },
+      {
+        "metric": "quality_score",
+        "threshold": 6.0,
+        "action": "improve_ad_relevance"
+      },
+      {
+        "metric": "impression_share",
+        "threshold": 70.0,
+        "action": "increase_bids_or_budget"
+      }
+    ],
+    "status": "active",
+    "approval_status": "approved",
+    "created_by": "strategy_team",
+    "approved_by": "marketing_director",
+    "created_at": "2024-11-20T14:00:00Z",
+    "updated_at": "2024-12-01T09:30:00Z"
+  },
+  {
+    "plan_id": "plan_beauty_awareness_002",
+    "campaign_id": "camp_beauty_brand_2024",
+    "mix_id": "mix_beauty_awareness_002",
+    "plan_name": "Beauty Brand Awareness - Social Media Focus",
+    "plan_description": "Интенсивная кампания повышения узнаваемости beauty бренда через social media каналы",
+    "plan_type": "brand_awareness",
+    "plan_period": {
+      "start_date": "2024-12-01",
+      "end_date": "2025-03-31"
+    },
+    "total_budget": 8000000,
+    "currency": "RUB",
+    "target_audience": {
+      "primary": "Женщины 18-40, интересующиеся красотой",
+      "size": 2500000,
+      "geographic_focus": "Russia, cities 500K+"
+    },
+    "flights": [
+      {
+        "flight_id": "flight_instagram_feed_001",
+        "flight_name": "Instagram Feed & Stories",
+        "channel": "instagram",
+        "format": "feed_and_stories",
+        "start_date": "2024-12-01",
+        "end_date": "2025-03-31",
+        "budget": 1600000,
+        "daily_budget": 13333,
+        "targeting": {
+          "demographics": "Women 18-40",
+          "interests": ["beauty", "skincare", "makeup", "cosmetics"],
+          "behaviors": ["beauty shoppers", "luxury goods"],
+          "lookalike": "website_visitors_last_180_days",
+          "geographic": "Russia, cities 500K+"
+        },
+        "ad_formats": ["photo", "video", "carousel", "collection"],
+        "placements": ["feed", "stories", "explore"],
+        "frequency_cap": {"daily": 4, "weekly": 20},
+        "expected_metrics": {
+          "impressions": 8000000,
+          "clicks": 480000,
+          "engagement": 640000,
+          "ctr": 6.0,
+          "cpc": 3.33,
+          "engagement_rate": 8.0
+        },
+        "status": "active"
+      },
+      {
+        "flight_id": "flight_instagram_reels_002",
+        "flight_name": "Instagram Reels",
+        "channel": "instagram",
+        "format": "reels",
+        "start_date": "2024-12-01",
+        "end_date": "2025-03-31",
+        "budget": 1200000,
+        "daily_budget": 10000,
+        "targeting": {
+          "demographics": "Women 18-35",
+          "interests": ["beauty trends", "makeup tutorials", "skincare routines"],
+          "custom_audiences": ["engaged_with_beauty_content"],
+          "geographic": "Russia"
+        },
+        "content_strategy": {
+          "tutorial_videos": 40,
+          "before_after": 30,
+          "product_demos": 20,
+          "user_generated": 10
+        },
+        "frequency_cap": {"daily": 3, "weekly": 15},
+        "expected_metrics": {
+          "impressions": 7000000,
+          "plays": 5250000,
+          "clicks": 420000,
+          "shares": 105000,
+          "completion_rate": 75.0,
+          "ctr": 6.0
+        },
+        "status": "active"
+      },
+      {
+        "flight_id": "flight_tiktok_infeed_003",
+        "flight_name": "TikTok In-Feed Video",
+        "channel": "tiktok",
+        "format": "in_feed_video",
+        "start_date": "2024-12-15",
+        "end_date": "2025-03-31",
+        "budget": 2000000,
+        "daily_budget": 18868,
+        "targeting": {
+          "demographics": "Women 18-35",
+          "interests": ["beauty", "makeup", "skincare", "fashion"],
+          "behaviors": ["beauty content engagement", "shopping behaviors"],
+          "geographic": "Russia, Tier 1-2 cities"
+        },
+        "content_types": {
+          "transformation_videos": 35,
+          "product_reviews": 25,
+          "beauty_hacks": 25,
+          "trending_challenges": 15
+        },
+        "frequency_cap": {"daily": 5, "weekly": 25},
+        "expected_metrics": {
+          "impressions": 25000000,
+          "video_views": 18750000,
+          "clicks": 1250000,
+          "shares": 375000,
+          "completion_rate": 75.0,
+          "ctr": 5.0
+        },
+        "status": "planned"
+      },
+      {
+        "flight_id": "flight_youtube_preroll_004",
+        "flight_name": "YouTube Pre-Roll & Discovery",
+        "channel": "youtube",
+        "format": "video_ads",
+        "start_date": "2024-12-01",
+        "end_date": "2025-03-31",
+        "budget": 1600000,
+        "daily_budget": 13333,
+        "targeting": {
+          "demographics": "Women 18-45",
+          "interests": ["beauty & wellness", "style & fashion"],
+          "keywords": ["makeup tutorial", "skincare routine", "beauty review"],
+          "placements": ["beauty channels", "lifestyle channels"],
+          "geographic": "Russia"
+        },
+        "video_formats": {
+          "skippable_15s": 50,
+          "non_skippable_6s": 30,
+          "discovery_ads": 20
+        },
+        "frequency_cap": {"daily": 2, "weekly": 10},
+        "expected_metrics": {
+          "impressions": 8000000,
+          "views": 6400000,
+          "clicks": 320000,
+          "view_rate": 80.0,
+          "ctr": 4.0,
+          "cpv": 2.5
+        },
+        "status": "active"
+      },
+      {
+        "flight_id": "flight_influencer_micro_005",
+        "flight_name": "Micro-Influencer Partnerships",
+        "channel": "influencers",
+        "format": "sponsored_content",
+        "start_date": "2024-12-01",
+        "end_date": "2025-03-31",
+        "budget": 800000,
+        "influencer_tiers": {
+          "micro_10k_100k": {
+            "count": 40,
+            "budget": 400000,
+            "avg_followers": 50000
+          },
+          "mid_100k_500k": {
+            "count": 15,
+            "budget": 300000,
+            "avg_followers": 250000
+          },
+          "macro_500k_1m": {
+            "count": 5,
+            "budget": 100000,
+            "avg_followers": 750000
+          }
+        },
+        "content_types": {
+          "product_reviews": 40,
+          "tutorials": 30,
+          "unboxing": 20,
+          "lifestyle_integration": 10
+        },
+        "expected_metrics": {
+          "total_reach": 5000000,
+          "total_engagement": 400000,
+          "clicks_to_profile": 100000,
+          "promo_code_usage": 12500,
+          "avg_engagement_rate": 8.0
+        },
+        "status": "active"
+      },
+      {
+        "flight_id": "flight_google_brand_006",
+        "flight_name": "Google Brand Protection",
+        "channel": "google",
+        "format": "search_ads",
+        "start_date": "2024-12-01",
+        "end_date": "2025-03-31",
+        "budget": 400000,
+        "daily_budget": 3333,
+        "targeting": {
+          "keywords": ["brand name", "brand name косметика", "brand name отзывы"],
+          "match_types": ["exact", "phrase"],
+          "competitors": ["competitor brand names"],
+          "geographic": "Russia"
+        },
+        "bidding_strategy": "target_impression_share",
+        "target_impression_share": 90.0,
+        "expected_metrics": {
+          "impressions": 1000000,
+          "clicks": 40000,
+          "brand_searches": 75000,
+          "ctr": 4.0,
+          "impression_share": 90.0
+        },
+        "status": "active"
+      }
+    ],
+    "kpis": {
+      "brand_awareness_lift": 25.0,
+      "total_reach": 1800000,
+      "frequency": 4.2,
+      "video_completion_rate": 75.0,
+      "engagement_rate": 6.5,
+      "website_traffic_increase": 150.0,
+      "social_followers_growth": 50000
+    },
+    "content_calendar": [
+      {
+        "week": 1,
+        "theme": "Brand Introduction",
+        "content_focus": "brand story, values, mission"
+      },
+      {
+        "week": 2,
+        "theme": "Product Showcase",
+        "content_focus": "hero products, key benefits"
+      },
+      {
+        "week": 3,
+        "theme": "User Generated Content",
+        "content_focus": "customer testimonials, before/after"
+      },
+      {
+        "week": 4,
+        "theme": "Educational Content",
+        "content_focus": "tutorials, tips, expert advice"
+      }
+    ],
+    "status": "active",
+    "approval_status": "approved",
+    "created_by": "beauty_team",
+    "approved_by": "brand_manager",
+    "created_at": "2024-11-25T16:00:00Z",
+    "updated_at": "2024-12-01T10:15:00Z"
+  }
+]

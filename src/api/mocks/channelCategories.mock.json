@@ -1,0 +1,122 @@
+[
+  {
+    "category_id": "brand_performance",
+    "name": "Брендформанс",
+    "description": "Рекламные каналы, ориентированные на повышение узнаваемости бренда и производительности",
+    "color": "#FF6B35",
+    "icon": "mdi-trending-up",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "contextual_advertising",
+    "name": "Контекстная реклама",
+    "description": "Поисковая и контекстная реклама в поисковых системах",
+    "color": "#4ECDC4",
+    "icon": "mdi-magnify",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "targeted_advertising",
+    "name": "Таргетированная реклама",
+    "description": "Таргетированная реклама в социальных сетях",
+    "color": "#45B7D1",
+    "icon": "mdi-target",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "organic_search",
+    "name": "Органический поиск",
+    "description": "Органический трафик из поисковых систем",
+    "color": "#96CEB4",
+    "icon": "mdi-earth",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "referrals_direct",
+    "name": "Рефералы/Прямые заходы",
+    "description": "Прямые переходы и переходы с других сайтов",
+    "color": "#FFEAA7",
+    "icon": "mdi-link-variant",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "marketplaces",
+    "name": "Маркетплейсы",
+    "description": "Трафик с торговых площадок и маркетплейсов",
+    "color": "#FD79A8",
+    "icon": "mdi-store",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "yandex_zen",
+    "name": "Я.Дзен",
+    "description": "Трафик из Яндекс.Дзен",
+    "color": "#A29BFE",
+    "icon": "mdi-book-open-page-variant",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "crm_marketing",
+    "name": "CRM маркетинг",
+    "description": "Email-маркетинг и CRM-кампании",
+    "color": "#E17055",
+    "icon": "mdi-email-multiple",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "email",
+    "name": "Email",
+    "description": "Email-рассылки и уведомления",
+    "color": "#00B894",
+    "icon": "mdi-email",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "addigital",
+    "name": "Addigital",
+    "description": "Рекламная сеть Addigital",
+    "color": "#6C5CE7",
+    "icon": "mdi-advertisement",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "gdeslon",
+    "name": "Gdeslon",
+    "description": "Партнерская сеть Gdeslon",
+    "color": "#FD79A8",
+    "icon": "mdi-handshake",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category_id": "other",
+    "name": "Другое",
+    "description": "Прочие источники трафика",
+    "color": "#B2BEC3",
+    "icon": "mdi-dots-horizontal",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+]

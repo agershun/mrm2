@@ -1,0 +1,532 @@
+[
+  {
+    "prompt_id": "prompt_campaign_card",
+    "name": "Создание карточки рекламной кампании",
+    "description": "Создание структурированной карточки рекламной кампании по краткому описанию",
+    "category": "campaign_planning",
+    "type": "campaign_analysis",
+    "step": 1,
+    "sequence_order": 1,
+    "content": "**Роль LLM**: ассистент-маркетолога, умеющий извлекать и структурировать данные для рекламных кампаний.\n\n**Задача**: На основе текстового описания рекламной кампании создать структурированную карточку рекламной кампании с заполнением ключевых полей, необходимых для последующего медиа-планирования.\n\n**Инструкция:**\n\nТы работаешь как интеллектуальный помощник в системе управления маркетингом (СПРК). Система получает от пользователя описание рекламной кампании в свободной форме — это может быть краткий текст, стратегия или кейс.\n\nНа основании этого описания тебе нужно:\n\n1. Прочитать и понять текст.\n2. Извлечь ключевые параметры.\n3. Сформировать карточку рекламной кампании в виде таблицы.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "campaign_description": {
+          "type": "string",
+          "description": "Текстовое описание рекламной кампании"
+        }
+      },
+      "required": ["campaign_description"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "campaign_card": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "goal": {"type": "string"},
+            "type": {"type": "string"},
+            "description": {"type": "string"},
+            "target_audience": {"type": "string"},
+            "channels": {"type": "array"},
+            "geography": {"type": "string"},
+            "period": {"type": "string"},
+            "budget": {"type": "string"},
+            "key_kpis": {"type": "array"}
+          }
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 2000,
+      "temperature": 0.3,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["кампания", "анализ", "структурирование"]
+  },
+  {
+    "prompt_id": "prompt_campaign_params",
+    "name": "Формирование параметров кампании",
+    "description": "Создание таблицы параметров рекламной кампании на основе карточки",
+    "category": "campaign_planning",
+    "type": "parameter_extraction",
+    "step": 2,
+    "sequence_order": 2,
+    "content": "**Роль LLM**: ассистент по медиапланированию, работающий с базой параметров рекламных кампаний.\n\n**Задача**: На основании карточки рекламной кампании, сформированной ранее, создать таблицу с параметрами рекламной кампании. Эти параметры будут использоваться для построения медиамикса, оценки бюджета, формирования медиаплана.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "campaign_card": {
+          "type": "object",
+          "description": "Карточка кампании из предыдущего шага"
+        }
+      },
+      "required": ["campaign_card"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "parameter": {"type": "string"},
+              "value": {"type": "string"},
+              "source": {"type": "string"},
+              "confidence": {"type": "string"},
+              "comment": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 2500,
+      "temperature": 0.2,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["параметры", "структурирование"]
+  },
+  {
+    "prompt_id": "prompt_structured_params",
+    "name": "Структурирование параметров для загрузки",
+    "description": "Создание финальной таблицы параметров в формате для загрузки в систему",
+    "category": "campaign_planning",
+    "type": "data_structuring",
+    "step": 3,
+    "sequence_order": 3,
+    "content": "**Роль LLM**: подготовка структурированных данных для загрузки в информационную систему управления маркетингом.\n\n**Задача**: На основе ранее собранных параметров рекламной кампании, сгенерировать финальную таблицу параметров в формате, пригодном для загрузки в систему.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "raw_parameters": {
+          "type": "array",
+          "description": "Необработанные параметры из предыдущего шага"
+        }
+      },
+      "required": ["raw_parameters"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "structured_parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "value": {"type": "string"},
+              "type": {"type": "string"},
+              "source": {"type": "string"},
+              "confidence": {"type": "string"},
+              "version": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 2000,
+      "temperature": 0.1,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["структурирование", "данные"]
+  },
+  {
+    "prompt_id": "prompt_media_mix",
+    "name": "Генерация медиа-микса",
+    "description": "Создание проекта медиа-микса на основе параметров кампании",
+    "category": "media_planning",
+    "type": "media_mix_generation",
+    "step": 4,
+    "sequence_order": 4,
+    "content": "**Роль LLM**: стратег по медиапланированию, формирующий медиамикс на основании параметров кампании, базы знаний и ограничений.\n\n**Задача**: На основании параметров рекламной кампании (ЦА, каналы, сроки, цели, бюджет и KPI), сгенерировать черновой вариант медиа-микса — распределение бюджета по каналам, с указанием предполагаемых охватов, стоимости и эффективности.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "campaign_parameters": {
+          "type": "array",
+          "description": "Структурированные параметры кампании"
+        },
+        "budget_constraints": {
+          "type": "object",
+          "description": "Ограничения по бюджету"
+        },
+        "historical_data": {
+          "type": "array",
+          "description": "Исторические данные по эффективности каналов"
+        }
+      },
+      "required": ["campaign_parameters"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "media_mix": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "channel": {"type": "string"},
+              "segment": {"type": "string"},
+              "format": {"type": "string"},
+              "budget": {"type": "number"},
+              "reach": {"type": "number"},
+              "cpm": {"type": "number"},
+              "kpis": {"type": "array"}
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 3000,
+      "temperature": 0.4,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["медиа-микс", "планирование"]
+  },
+  {
+    "prompt_id": "prompt_optimize_mix",
+    "name": "Оптимизация медиа-микса",
+    "description": "Оптимизация медиамикса под цели кампании и ограничения",
+    "category": "media_planning",
+    "type": "optimization",
+    "step": 5,
+    "sequence_order": 5,
+    "content": "**Роль LLM**: медиапланер-оптимизатор, умеющий анализировать медиамиксы и перераспределять ресурсы с учетом заданных KPI и ограничений.\n\n**Задача**: Проанализировать исходный проект медиамикса и оптимизировать его по заданной цели (например, максимизация охвата, снижение CPM, фокус на ключевом канале и т.д.).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "initial_media_mix": {
+          "type": "array",
+          "description": "Исходный медиа-микс"
+        },
+        "optimization_goals": {
+          "type": "object",
+          "description": "Цели оптимизации"
+        },
+        "constraints": {
+          "type": "object",
+          "description": "Ограничения"
+        }
+      },
+      "required": ["initial_media_mix", "optimization_goals"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "optimized_media_mix": {
+          "type": "array"
+        },
+        "optimization_summary": {
+          "type": "object"
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 3500,
+      "temperature": 0.3,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["оптимизация", "медиа-микс"]
+  },
+  {
+    "prompt_id": "prompt_media_plan",
+    "name": "Формирование медиа-плана",
+    "description": "Создание детального медиа-плана на основе оптимизированного медиа-микса",
+    "category": "media_planning",
+    "type": "media_plan_generation",
+    "step": 6,
+    "sequence_order": 6,
+    "content": "**Роль LLM**: медиапланер, который формирует финальный медиаплан на основе утверждённого медиамикса.\n\n**Задача**: Преобразовать оптимизированный медиамикс в подробный медиаплан — добавить конкретные даты размещений, детализацию по форматам, привязку к подрядчикам и другие параметры, необходимые для утверждения и запуска кампании.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "optimized_media_mix": {
+          "type": "array",
+          "description": "Оптимизированный медиа-микс"
+        },
+        "campaign_dates": {
+          "type": "object",
+          "description": "Даты проведения кампании"
+        },
+        "contractors": {
+          "type": "array",
+          "description": "Список подрядчиков"
+        }
+      },
+      "required": ["optimized_media_mix", "campaign_dates"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "media_plan": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "channel": {"type": "string"},
+              "format": {"type": "string"},
+              "period": {"type": "string"},
+              "cost": {"type": "number"},
+              "placements": {"type": "number"},
+              "contractor": {"type": "string"},
+              "kpis": {"type": "array"}
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 4000,
+      "temperature": 0.2,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["медиа-план", "планирование"]
+  },
+  {
+    "prompt_id": "prompt_final_document",
+    "name": "Формирование финального документа",
+    "description": "Создание финального медиаплана для согласования в формате PDF/XLSX",
+    "category": "documentation",
+    "type": "document_generation",
+    "step": 7,
+    "sequence_order": 7,
+    "content": "**Роль LLM**: генератор финальной версии медиаплана в формате, пригодном для отправки, презентации и утверждения.\n\n**Задача**: На основе структурированного медиаплана создать оформленный документ (PDF или XLSX), содержащий всю необходимую информацию для принятия решения: описание кампании, параметры, таблицу медиаплана, резюме бюджета и KPI.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "media_plan": {
+          "type": "array",
+          "description": "Детальный медиа-план"
+        },
+        "campaign_summary": {
+          "type": "object",
+          "description": "Сводка по кампании"
+        },
+        "format": {
+          "type": "string",
+          "enum": ["PDF", "XLSX", "Markdown"],
+          "description": "Требуемый формат документа"
+        }
+      },
+      "required": ["media_plan", "campaign_summary"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "document": {
+          "type": "object",
+          "description": "Структурированный документ для экспорта"
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 5000,
+      "temperature": 0.1,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["документ", "экспорт"]
+  },
+  {
+    "prompt_id": "prompt_kpi_analysis",
+    "name": "Анализ KPI каналов",
+    "description": "Заполнение таблицы ключевых показателей эффективности рекламных каналов",
+    "category": "analytics",
+    "type": "kpi_analysis",
+    "step": 8,
+    "sequence_order": 8,
+    "content": "**Роль LLM**: аналитик-маркетолог, обобщающий исторические данные по эффективности рекламных каналов для последующего использования в медиапланировании и оценке ROI.\n\n**Задача**: На основе данных из предыдущих кампаний, параметров текущей кампании, таблиц с исторической эффективностью каналов, заполнить таблицу ключевых показателей эффективности рекламных каналов и мероприятий.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "historical_data": {
+          "type": "array",
+          "description": "Исторические данные по каналам"
+        },
+        "campaign_data": {
+          "type": "object",
+          "description": "Данные текущей кампании"
+        }
+      },
+      "required": ["historical_data"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "kpi_table": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "channel": {"type": "string"},
+              "format": {"type": "string"},
+              "segment": {"type": "string"},
+              "period": {"type": "string"},
+              "kpi_type": {"type": "string"},
+              "value": {"type": "number"},
+              "unit": {"type": "string"},
+              "source": {"type": "string"},
+              "reliability": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 3000,
+      "temperature": 0.2,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["KPI", "аналитика"]
+  },
+  {
+    "prompt_id": "prompt_historical_data",
+    "name": "Обработка исторических данных",
+    "description": "Заполнение таблицы исторических данных об эффективности рекламных каналов",
+    "category": "analytics",
+    "type": "historical_analysis",
+    "step": 9,
+    "sequence_order": 9,
+    "content": "**Роль LLM**: системный аналитик, обрабатывающий исторические данные по рекламным каналам для наполнения базы знаний.\n\n**Задача**: На основе входной таблицы с фактическими результатами рекламных кампаний — заполнить стандартную таблицу исторических данных, содержащую канал, сегмент ЦА, период, стоимость, показатели эффективности (CPM, CTR и пр.), метаданные (источник, надёжность и т.п.).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "raw_data": {
+          "type": "array",
+          "description": "Сырые данные из кампаний"
+        },
+        "data_format": {
+          "type": "string",
+          "description": "Формат входных данных"
+        }
+      },
+      "required": ["raw_data"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "historical_data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "channel": {"type": "string"},
+              "format": {"type": "string"},
+              "segment": {"type": "string"},
+              "period": {"type": "string"},
+              "cost": {"type": "number"},
+              "currency": {"type": "string"},
+              "kpi_type": {"type": "string"},
+              "value": {"type": "number"},
+              "unit": {"type": "string"},
+              "source": {"type": "string"},
+              "reliability": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 3500,
+      "temperature": 0.1,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["исторические данные", "обработка"]
+  },
+  {
+    "prompt_id": "prompt_file_analysis",
+    "name": "Анализ маркетингового файла",
+    "description": "Анализ загруженного маркетингового файла и оценка его полезности",
+    "category": "document_analysis",
+    "type": "file_analysis",
+    "step": 10,
+    "sequence_order": 10,
+    "content": "Проанализируй следующий текст, содержащий маркетинговый кейс или описание маркетинговой кампании. На основе его содержания сформируй следующую информацию:\n\n1. Краткое описание содержимого (одна строка, не более 100 символов).\n2. Развёрнутое описание содержимого (два абзаца).\n3. Оцени полезность этого материала для создания маркетинг-микса и маркетингового плана по шкале от 1 до 10. Учитывай такие аспекты, как наличие информации о целевой аудитории, каналах продвижения, бюджете, позиционировании, результатах и инсайтах.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "file_content": {
+          "type": "string",
+          "description": "Содержимое загруженного файла"
+        },
+        "file_type": {
+          "type": "string",
+          "description": "Тип файла"
+        }
+      },
+      "required": ["file_content"]
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "brief_description": {"type": "string"},
+        "detailed_description": {"type": "string"},
+        "usefulness_score": {"type": "number"},
+        "extracted_data": {
+          "type": "object",
+          "description": "Извлеченные структурированные данные"
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 2000,
+      "temperature": 0.3,
+      "model": "gpt-4"
+    },
+    "version": "1.0",
+    "is_active": true,
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "system",
+    "tags": ["анализ файлов", "документы"]
+  }
+]

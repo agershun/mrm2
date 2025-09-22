@@ -114,6 +114,12 @@ const navigationItems = computed(() => [
     icon: 'mdi-robot'
   },
   {
+    name: 'CampaignsView',
+    path: '/campaigns-view',
+    title: 'Просмотр кампаний',
+    icon: 'mdi-eye'
+  },
+  {
     name: 'Activities',
     path: '/activities',
     title: 'Планы',
@@ -136,6 +142,18 @@ const navigationItems = computed(() => [
     path: '/insights',
     title: 'Аналитика',
     icon: 'mdi-chart-bar'
+  },
+  {
+    name: 'InsightsView',
+    path: '/insights-view',
+    title: 'Просмотр аналитики',
+    icon: 'mdi-chart-donut'
+  },
+  {
+    name: 'KnowledgeBase',
+    path: '/knowledge-base',
+    title: 'База знаний',
+    icon: 'mdi-brain'
   },
   {
     name: 'Configuration',

@@ -1,0 +1,312 @@
+[
+  {
+    "creative_id": "cr_2025_001",
+    "ad_group_id": "adg_2025_001",
+    "campaign_id": "camp_2025_001",
+    "external_ids": {
+      "meta": "creative_23845697890123456"
+    },
+    "name": "Новогодняя распродажа - Диваны - Карусель",
+    "status": "active",
+    "creative_type": "carousel",
+    "format": "carousel_mobile_feed",
+    "headline": "Новогодняя распродажа мебели до -50%!",
+    "description": "Успейте купить диваны и кресла по суперценам! Доставка по Москве бесплатно при заказе от 15 000 руб.",
+    "call_to_action": "shop_now",
+    "destination_url": "https://hobbycenter.ru/furniture/sale?utm_source=meta&utm_medium=cpc&utm_campaign=new_year_sale_2025",
+    "display_url": "hobbycenter.ru/распродажа",
+    "creative_assets": {
+      "images": [
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/sofa_red_1200x628.jpg",
+          "headline": "Диван Комфорт - скидка 45%",
+          "description": "Было 45 000 ₽, стало 24 750 ₽",
+          "link": "https://hobbycenter.ru/sofas/comfort-red"
+        },
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/armchair_blue_1200x628.jpg",
+          "headline": "Кресло Релакс - скидка 50%",
+          "description": "Было 18 000 ₽, стало 9 000 ₽",
+          "link": "https://hobbycenter.ru/armchairs/relax-blue"
+        },
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/sofa_corner_1200x628.jpg",
+          "headline": "Угловой диван Премиум - скидка 40%",
+          "description": "Было 65 000 ₽, стало 39 000 ₽",
+          "link": "https://hobbycenter.ru/sofas/corner-premium"
+        }
+      ],
+      "videos": [],
+      "logo": "https://cdn.hobbycenter.ru/logo/logo_square_200x200.png"
+    },
+    "targeting_expansion": true,
+    "dynamic_format": false,
+    "personalization": {
+      "dynamic_product_ads": false,
+      "catalog_id": null
+    },
+    "performance_metrics": {
+      "impressions": 125000,
+      "clicks": 4500,
+      "ctr": 3.6,
+      "cpc": 3.33,
+      "conversions": 127,
+      "cost_per_conversion": 118.11,
+      "roas": 3.8
+    },
+    "created_at": "2024-12-10T11:00:00Z",
+    "updated_at": "2024-12-20T15:30:00Z"
+  },
+  {
+    "creative_id": "cr_2025_002",
+    "ad_group_id": "adg_2025_002",
+    "campaign_id": "camp_2025_001",
+    "external_ids": {
+      "meta": "creative_23845697890123457"
+    },
+    "name": "Детская мебель - Стол и стул - Одиночное изображение",
+    "status": "active",
+    "creative_type": "single_image",
+    "format": "single_image_mobile_feed",
+    "headline": "Детская мебель с доставкой в СПб",
+    "description": "Создайте уютное пространство для вашего ребенка! Столы, стулья, шкафы из экологичных материалов.",
+    "call_to_action": "learn_more",
+    "destination_url": "https://hobbycenter.ru/kids-furniture?utm_source=meta&utm_medium=cpc&utm_campaign=new_year_sale_2025",
+    "display_url": "hobbycenter.ru/детская-мебель",
+    "creative_assets": {
+      "images": [
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/kids_desk_chair_1200x628.jpg",
+          "headline": "Детская мебель с доставкой в СПб",
+          "description": "Создайте уютное пространство для вашего ребенка! Столы, стулья, шкафы из экологичных материалов."
+        }
+      ],
+      "videos": [],
+      "logo": "https://cdn.hobbycenter.ru/logo/logo_square_200x200.png"
+    },
+    "targeting_expansion": false,
+    "dynamic_format": false,
+    "personalization": {
+      "dynamic_product_ads": false,
+      "catalog_id": null
+    },
+    "performance_metrics": {
+      "impressions": 78000,
+      "clicks": 2340,
+      "ctr": 3.0,
+      "cpc": 4.27,
+      "conversions": 64,
+      "cost_per_conversion": 156.25,
+      "roas": 2.9
+    },
+    "created_at": "2024-12-10T11:15:00Z",
+    "updated_at": "2024-12-20T15:30:00Z"
+  },
+  {
+    "creative_id": "cr_2025_003",
+    "ad_group_id": "adg_2025_003",
+    "campaign_id": "camp_2025_002",
+    "external_ids": {
+      "meta": "creative_23845697890123458"
+    },
+    "name": "Test B - Премиум диван - Альтернативный креатив",
+    "status": "active",
+    "creative_type": "single_image",
+    "format": "single_image_mobile_feed",
+    "headline": "Эксклюзивная мебель для вашего дома",
+    "description": "Откройте для себя коллекцию премиум мебели. Индивидуальный дизайн, высшее качество материалов.",
+    "call_to_action": "shop_now",
+    "destination_url": "https://hobbycenter.ru/premium-furniture?utm_source=meta&utm_medium=cpc&utm_campaign=new_year_sale_2025_test_b",
+    "display_url": "hobbycenter.ru/премиум",
+    "creative_assets": {
+      "images": [
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/premium_sofa_luxury_1200x628.jpg",
+          "headline": "Эксклюзивная мебель для вашего дома",
+          "description": "Откройте для себя коллекцию премиум мебели. Индивидуальный дизайн, высшее качество материалов."
+        }
+      ],
+      "videos": [],
+      "logo": "https://cdn.hobbycenter.ru/logo/logo_square_200x200.png"
+    },
+    "targeting_expansion": false,
+    "dynamic_format": false,
+    "personalization": {
+      "dynamic_product_ads": false,
+      "catalog_id": null
+    },
+    "performance_metrics": {
+      "impressions": 45000,
+      "clicks": 1800,
+      "ctr": 4.0,
+      "cpc": 4.44,
+      "conversions": 54,
+      "cost_per_conversion": 148.15,
+      "roas": 4.2
+    },
+    "created_at": "2024-12-10T11:30:00Z",
+    "updated_at": "2024-12-20T15:30:00Z"
+  },
+  {
+    "creative_id": "cr_2025_004",
+    "ad_group_id": "adg_2025_004",
+    "campaign_id": "camp_2025_003",
+    "external_ids": {
+      "google": "ad_12345678902"
+    },
+    "name": "Поисковое объявление - Товары для рукоделия",
+    "status": "active",
+    "creative_type": "text_ad",
+    "format": "expanded_text_ad",
+    "headline": "Товары для рукоделия в Хобби-центре",
+    "description": "Большой выбор материалов для творчества. Пряжа, ткани, фурнитура. Быстрая доставка по России.",
+    "headline_2": "Скидки до 30% на весь ассортимент",
+    "description_2": "Качественные материалы от проверенных производителей. Консультации мастеров бесплатно.",
+    "path_1": "рукоделие",
+    "path_2": "материалы",
+    "call_to_action": null,
+    "destination_url": "https://hobbycenter.ru/craft-supplies?utm_source=google&utm_medium=cpc&utm_campaign=craft_supplies_search",
+    "display_url": "hobbycenter.ru/рукоделие/материалы",
+    "creative_assets": {
+      "images": [],
+      "videos": [],
+      "sitelinks": [
+        {
+          "text": "Пряжа и нитки",
+          "url": "https://hobbycenter.ru/yarn"
+        },
+        {
+          "text": "Ткани для шитья",
+          "url": "https://hobbycenter.ru/fabrics"
+        },
+        {
+          "text": "Швейная фурнитура",
+          "url": "https://hobbycenter.ru/sewing-accessories"
+        },
+        {
+          "text": "Инструменты для творчества",
+          "url": "https://hobbycenter.ru/craft-tools"
+        }
+      ]
+    },
+    "targeting_expansion": false,
+    "dynamic_format": false,
+    "personalization": {
+      "dynamic_search_ads": false,
+      "catalog_id": null
+    },
+    "performance_metrics": {
+      "impressions": 89000,
+      "clicks": 3560,
+      "ctr": 4.0,
+      "cpc": 12.64,
+      "conversions": 178,
+      "cost_per_conversion": 252.81,
+      "roas": 2.1
+    },
+    "created_at": "2024-11-28T09:30:00Z",
+    "updated_at": "2024-12-20T11:35:00Z"
+  },
+  {
+    "creative_id": "cr_2025_005",
+    "ad_group_id": "adg_2025_005",
+    "campaign_id": "camp_2025_004",
+    "external_ids": {
+      "yandex": "ad_9876543211"
+    },
+    "name": "Ретаргетинг - Забытая корзина - Баннер",
+    "status": "active",
+    "creative_type": "banner",
+    "format": "adaptive_banner",
+    "headline": "Вы забыли оформить заказ",
+    "description": "Товары из вашей корзины ждут вас! Завершите покупку и получите скидку 10%.",
+    "call_to_action": "shop_now",
+    "destination_url": "https://hobbycenter.ru/cart?utm_source=yandex&utm_medium=cpc&utm_campaign=retargeting_product_viewers",
+    "display_url": "hobbycenter.ru/корзина",
+    "creative_assets": {
+      "images": [
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/cart_reminder_300x250.jpg",
+          "headline": "Вы забыли оформить заказ",
+          "description": "Товары из вашей корзины ждут вас! Завершите покупку и получите скидку 10%."
+        },
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/cart_reminder_728x90.jpg",
+          "headline": "Вы забыли оформить заказ",
+          "description": "Товары из вашей корзины ждут вас! Завершите покупку и получите скидку 10%."
+        }
+      ],
+      "videos": [],
+      "logo": "https://cdn.hobbycenter.ru/logo/logo_square_100x100.png"
+    },
+    "targeting_expansion": false,
+    "dynamic_format": true,
+    "personalization": {
+      "dynamic_product_ads": true,
+      "catalog_id": "catalog_hobbycenter_main"
+    },
+    "performance_metrics": {
+      "impressions": 34000,
+      "clicks": 1020,
+      "ctr": 3.0,
+      "cpc": 7.84,
+      "conversions": 76,
+      "cost_per_conversion": 105.26,
+      "roas": 5.7
+    },
+    "created_at": "2024-12-08T16:30:00Z",
+    "updated_at": "2024-12-18T13:55:00Z"
+  },
+  {
+    "creative_id": "cr_2025_006",
+    "ad_group_id": "adg_2025_006",
+    "campaign_id": "camp_2025_005",
+    "external_ids": {
+      "meta": "creative_23845697890123460"
+    },
+    "name": "Lookalike - Бренд видео - Узнаваемость",
+    "status": "paused",
+    "creative_type": "video",
+    "format": "video_mobile_feed",
+    "headline": "Хобби-центр - ваш мир творчества",
+    "description": "Откройте мир безграничных возможностей для творчества. Мебель, товары для рукоделия, декор для дома.",
+    "call_to_action": "learn_more",
+    "destination_url": "https://hobbycenter.ru/?utm_source=meta&utm_medium=cpm&utm_campaign=lookalike_customers",
+    "display_url": "hobbycenter.ru",
+    "creative_assets": {
+      "images": [
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/brand_video_thumbnail_1200x628.jpg"
+        }
+      ],
+      "videos": [
+        {
+          "url": "https://cdn.hobbycenter.ru/ads/brand_video_30sec.mp4",
+          "duration": 30,
+          "thumbnail": "https://cdn.hobbycenter.ru/ads/brand_video_thumbnail_1200x628.jpg"
+        }
+      ],
+      "logo": "https://cdn.hobbycenter.ru/logo/logo_square_200x200.png"
+    },
+    "targeting_expansion": true,
+    "dynamic_format": false,
+    "personalization": {
+      "dynamic_product_ads": false,
+      "catalog_id": null
+    },
+    "performance_metrics": {
+      "impressions": 890000,
+      "clicks": 8900,
+      "ctr": 1.0,
+      "cpc": 1.35,
+      "conversions": 89,
+      "cost_per_conversion": 135.00,
+      "roas": 1.8,
+      "video_views": 445000,
+      "video_view_rate": 50.0,
+      "avg_watch_time": 15.2
+    },
+    "created_at": "2024-11-25T12:30:00Z",
+    "updated_at": "2024-12-15T09:40:00Z"
+  }
+]

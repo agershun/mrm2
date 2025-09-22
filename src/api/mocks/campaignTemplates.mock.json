@@ -1,0 +1,254 @@
+[
+  {
+    "template_id": "template_b2b_lead_gen",
+    "name": "B2B генерация лидов",
+    "description": "Шаблон для кампаний по генерации лидов в B2B сегменте",
+    "category": "b2b",
+    "industry": "technology",
+    "objective": "leads",
+    "default_parameters": {
+      "target_audience": "Руководители IT, CTO, технические директора 30-50 лет",
+      "channels": ["LinkedIn", "Google Ads", "Telegram", "Email"],
+      "budget_range": {
+        "min": 500000,
+        "max": 2000000
+      },
+      "duration_days": 60,
+      "kpis": [
+        {"type": "CPL", "target": 2500},
+        {"type": "conversion_rate", "target": 3.5},
+        {"type": "quality_score", "target": 8}
+      ],
+      "creative_formats": ["whitepaper", "webinar", "case_study"],
+      "landing_page_type": "lead_form"
+    },
+    "prompt_sequence": [
+      "prompt_campaign_card",
+      "prompt_campaign_params",
+      "prompt_structured_params",
+      "prompt_media_mix",
+      "prompt_optimize_mix",
+      "prompt_media_plan"
+    ],
+    "success_metrics": {
+      "leads_generated": 200,
+      "cost_per_lead": 2500,
+      "conversion_rate": 3.5
+    },
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "marketing_team",
+    "is_active": true,
+    "tags": ["B2B", "лиды", "технологии"]
+  },
+  {
+    "template_id": "template_b2c_awareness",
+    "name": "B2C повышение узнаваемости",
+    "description": "Шаблон для брендовых кампаний по повышению узнаваемости в B2C",
+    "category": "b2c",
+    "industry": "consumer_goods",
+    "objective": "brand_awareness",
+    "default_parameters": {
+      "target_audience": "Мужчины и женщины 25-45 лет, семьи с детьми",
+      "channels": ["TV", "YouTube", "Instagram", "TikTok", "Outdoor"],
+      "budget_range": {
+        "min": 2000000,
+        "max": 10000000
+      },
+      "duration_days": 30,
+      "kpis": [
+        {"type": "reach", "target": 2000000},
+        {"type": "frequency", "target": 3.5},
+        {"type": "brand_recall", "target": 25}
+      ],
+      "creative_formats": ["video_15s", "video_30s", "display_banner", "stories"],
+      "geography": ["Moscow", "SPb", "Regions"]
+    },
+    "prompt_sequence": [
+      "prompt_campaign_card",
+      "prompt_campaign_params",
+      "prompt_structured_params",
+      "prompt_media_mix",
+      "prompt_optimize_mix",
+      "prompt_media_plan",
+      "prompt_final_document"
+    ],
+    "success_metrics": {
+      "reach": 2000000,
+      "frequency": 3.5,
+      "cpm": 250
+    },
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "brand_team",
+    "is_active": true,
+    "tags": ["B2C", "бренд", "узнаваемость"]
+  },
+  {
+    "template_id": "template_ecommerce_sales",
+    "name": "E-commerce продажи",
+    "description": "Шаблон для кампаний по стимулированию продаж в интернет-магазинах",
+    "category": "ecommerce",
+    "industry": "retail",
+    "objective": "conversions",
+    "default_parameters": {
+      "target_audience": "Покупатели онлайн 20-55 лет, интересы: шоппинг, скидки",
+      "channels": ["Google Ads", "Yandex.Direct", "Facebook", "Instagram", "Criteo"],
+      "budget_range": {
+        "min": 800000,
+        "max": 5000000
+      },
+      "duration_days": 45,
+      "kpis": [
+        {"type": "ROAS", "target": 4.5},
+        {"type": "CPA", "target": 800},
+        {"type": "conversion_rate", "target": 2.8}
+      ],
+      "creative_formats": ["product_catalog", "dynamic_ads", "video_product", "carousel"],
+      "targeting_strategy": "retargeting + lookalike"
+    },
+    "prompt_sequence": [
+      "prompt_campaign_card",
+      "prompt_campaign_params",
+      "prompt_structured_params",
+      "prompt_media_mix",
+      "prompt_optimize_mix",
+      "prompt_media_plan"
+    ],
+    "success_metrics": {
+      "roas": 4.5,
+      "conversion_rate": 2.8,
+      "revenue": 3600000
+    },
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "ecommerce_team",
+    "is_active": true,
+    "tags": ["E-commerce", "продажи", "конверсии"]
+  },
+  {
+    "template_id": "template_app_install",
+    "name": "Установки мобильного приложения",
+    "description": "Шаблон для кампаний по привлечению установок мобильных приложений",
+    "category": "mobile",
+    "industry": "mobile_apps",
+    "objective": "app_installs",
+    "default_parameters": {
+      "target_audience": "Пользователи мобильных устройств 18-40 лет",
+      "channels": ["Facebook", "Google Ads", "TikTok", "Unity Ads", "ironSource"],
+      "budget_range": {
+        "min": 1000000,
+        "max": 8000000
+      },
+      "duration_days": 90,
+      "kpis": [
+        {"type": "CPI", "target": 150},
+        {"type": "retention_d1", "target": 35},
+        {"type": "retention_d7", "target": 15}
+      ],
+      "creative_formats": ["video_vertical", "playable_ads", "interstitial", "banner"],
+      "platforms": ["iOS", "Android"]
+    },
+    "prompt_sequence": [
+      "prompt_campaign_card",
+      "prompt_campaign_params",
+      "prompt_structured_params",
+      "prompt_media_mix",
+      "prompt_optimize_mix",
+      "prompt_media_plan"
+    ],
+    "success_metrics": {
+      "installs": 66667,
+      "cpi": 150,
+      "retention_d7": 15
+    },
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "mobile_team",
+    "is_active": true,
+    "tags": ["мобильные приложения", "установки", "UA"]
+  },
+  {
+    "template_id": "template_local_business",
+    "name": "Локальный бизнес",
+    "description": "Шаблон для продвижения локального бизнеса и услуг",
+    "category": "local",
+    "industry": "services",
+    "objective": "traffic",
+    "default_parameters": {
+      "target_audience": "Жители города 25-55 лет в радиусе 10 км",
+      "channels": ["Google My Business", "Yandex.Direct", "VK", "2GIS", "Local Radio"],
+      "budget_range": {
+        "min": 200000,
+        "max": 1000000
+      },
+      "duration_days": 30,
+      "kpis": [
+        {"type": "store_visits", "target": 500},
+        {"type": "calls", "target": 150},
+        {"type": "local_reach", "target": 50000}
+      ],
+      "creative_formats": ["local_ads", "maps_listing", "radio_spot", "outdoor_banner"],
+      "geo_targeting": "city_center + residential_areas"
+    },
+    "prompt_sequence": [
+      "prompt_campaign_card",
+      "prompt_campaign_params",
+      "prompt_structured_params",
+      "prompt_media_mix",
+      "prompt_media_plan"
+    ],
+    "success_metrics": {
+      "store_visits": 500,
+      "phone_calls": 150,
+      "local_awareness": 25
+    },
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "local_team",
+    "is_active": true,
+    "tags": ["локальный бизнес", "услуги", "гео-таргетинг"]
+  },
+  {
+    "template_id": "template_event_promotion",
+    "name": "Продвижение мероприятий",
+    "description": "Шаблон для кампаний по продвижению событий, конференций, концертов",
+    "category": "events",
+    "industry": "entertainment",
+    "objective": "engagement",
+    "default_parameters": {
+      "target_audience": "Целевая аудитория мероприятия по интересам и демографии",
+      "channels": ["Instagram", "Facebook", "Telegram", "Email", "PR", "Influencers"],
+      "budget_range": {
+        "min": 500000,
+        "max": 3000000
+      },
+      "duration_days": 45,
+      "kpis": [
+        {"type": "registrations", "target": 1000},
+        {"type": "engagement_rate", "target": 8},
+        {"type": "social_mentions", "target": 500}
+      ],
+      "creative_formats": ["event_teaser", "speaker_interview", "behind_scenes", "countdown"],
+      "campaign_phases": ["awareness", "consideration", "registration", "reminder"]
+    },
+    "prompt_sequence": [
+      "prompt_campaign_card",
+      "prompt_campaign_params",
+      "prompt_structured_params",
+      "prompt_media_mix",
+      "prompt_optimize_mix",
+      "prompt_media_plan"
+    ],
+    "success_metrics": {
+      "registrations": 1000,
+      "attendance_rate": 75,
+      "social_engagement": 8
+    },
+    "created_at": "2025-01-20T10:00:00Z",
+    "updated_at": "2025-01-20T10:00:00Z",
+    "created_by": "events_team",
+    "is_active": true,
+    "tags": ["мероприятия", "события", "engagement"]
+  }
+]

@@ -1,0 +1,325 @@
+[
+  {
+    "execution_id": "exec_plan_tech_launch_001",
+    "plan_id": "plan_tech_launch_001",
+    "execution_status": "in_progress",
+    "started_at": "2024-12-01T08:00:00Z",
+    "estimated_completion": "2024-12-08T18:00:00Z",
+    "completion_percentage": 75,
+    "platforms_status": {
+      "google_ads": {
+        "status": "completed",
+        "campaigns_created": 3,
+        "ad_groups_created": 12,
+        "ads_created": 36,
+        "setup_completion": "2024-12-01T12:30:00Z"
+      },
+      "linkedin_ads": {
+        "status": "completed",
+        "campaigns_created": 2,
+        "ad_groups_created": 8,
+        "ads_created": 16,
+        "setup_completion": "2024-12-01T14:15:00Z"
+      },
+      "facebook_ads": {
+        "status": "in_progress",
+        "campaigns_created": 1,
+        "ad_groups_created": 4,
+        "ads_created": 8,
+        "estimated_completion": "2024-12-02T10:00:00Z"
+      },
+      "email_platform": {
+        "status": "pending",
+        "sequences_to_create": 3,
+        "templates_to_setup": 15,
+        "estimated_start": "2024-12-02T14:00:00Z"
+      }
+    },
+    "created_campaigns": [
+      {
+        "platform": "google_ads",
+        "campaign_id": "camp_google_search_001",
+        "campaign_name": "ProjectFlow Pro - Search Core",
+        "status": "active",
+        "daily_budget": 6557,
+        "created_at": "2024-12-01T09:15:00Z"
+      },
+      {
+        "platform": "google_ads",
+        "campaign_id": "camp_google_display_001",
+        "campaign_name": "ProjectFlow Pro - Display Retargeting",
+        "status": "pending_review",
+        "daily_budget": 4878,
+        "created_at": "2024-12-01T09:45:00Z"
+      },
+      {
+        "platform": "linkedin_ads",
+        "campaign_id": "camp_linkedin_sponsored_001",
+        "campaign_name": "ProjectFlow Pro - B2B Sponsored",
+        "status": "active",
+        "daily_budget": 4098,
+        "created_at": "2024-12-01T13:20:00Z"
+      }
+    ],
+    "execution_log": [
+      {
+        "timestamp": "2024-12-01T08:00:00Z",
+        "action": "execution_started",
+        "details": "Начато выполнение медиа-плана для запуска ProjectFlow Pro",
+        "status": "info"
+      },
+      {
+        "timestamp": "2024-12-01T08:15:00Z",
+        "action": "google_ads_connection",
+        "details": "Подключение к Google Ads API успешно",
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-12-01T08:30:00Z",
+        "action": "campaign_creation_started",
+        "details": "Начато создание Google Search кампании",
+        "status": "info"
+      },
+      {
+        "timestamp": "2024-12-01T09:15:00Z",
+        "action": "campaign_created",
+        "details": "Google Search кампания создана успешно",
+        "platform": "google_ads",
+        "campaign_id": "camp_google_search_001",
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-12-01T09:45:00Z",
+        "action": "campaign_created",
+        "details": "Google Display кампания создана, ожидает модерации",
+        "platform": "google_ads",
+        "campaign_id": "camp_google_display_001",
+        "status": "warning"
+      },
+      {
+        "timestamp": "2024-12-01T11:00:00Z",
+        "action": "linkedin_ads_connection",
+        "details": "Подключение к LinkedIn Ads API успешно",
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-12-01T13:20:00Z",
+        "action": "campaign_created",
+        "details": "LinkedIn Sponsored Content кампания создана и запущена",
+        "platform": "linkedin_ads",
+        "campaign_id": "camp_linkedin_sponsored_001",
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-12-01T15:30:00Z",
+        "action": "facebook_setup_started",
+        "details": "Начата настройка Facebook Ads кампаний",
+        "status": "info"
+      },
+      {
+        "timestamp": "2024-12-01T16:45:00Z",
+        "action": "audience_creation",
+        "details": "Созданы custom audiences для ретаргетинга",
+        "platform": "facebook_ads",
+        "audiences_created": 5,
+        "status": "success"
+      }
+    ],
+    "performance_tracking": {
+      "setup_start": "2024-12-01T08:00:00Z",
+      "first_campaign_live": "2024-12-01T09:15:00Z",
+      "time_to_first_conversion": null,
+      "initial_quality_scores": {
+        "google_search": 8.2,
+        "google_display": 7.5
+      }
+    },
+    "next_steps": [
+      {
+        "action": "complete_facebook_setup",
+        "scheduled_for": "2024-12-02T10:00:00Z",
+        "responsible": "media_team"
+      },
+      {
+        "action": "setup_email_sequences",
+        "scheduled_for": "2024-12-02T14:00:00Z",
+        "responsible": "content_team"
+      },
+      {
+        "action": "enable_conversion_tracking",
+        "scheduled_for": "2024-12-03T09:00:00Z",
+        "responsible": "analytics_team"
+      }
+    ],
+    "budget_utilization": {
+      "total_budget": 5000000,
+      "setup_costs": 150000,
+      "media_budget_activated": 3750000,
+      "remaining_budget": 1100000
+    },
+    "issues_encountered": [
+      {
+        "timestamp": "2024-12-01T10:30:00Z",
+        "issue": "Google Display ads pending review",
+        "severity": "low",
+        "resolution": "Awaiting Google's approval process",
+        "estimated_resolution": "2024-12-02T12:00:00Z"
+      }
+    ],
+    "created_by": "automation_system",
+    "supervised_by": "media_manager",
+    "last_updated": "2024-12-01T17:00:00Z"
+  },
+  {
+    "execution_id": "exec_plan_beauty_awareness_002",
+    "plan_id": "plan_beauty_awareness_002",
+    "execution_status": "completed",
+    "started_at": "2024-11-28T10:00:00Z",
+    "completed_at": "2024-12-01T16:30:00Z",
+    "completion_percentage": 100,
+    "platforms_status": {
+      "instagram_ads": {
+        "status": "completed",
+        "campaigns_created": 4,
+        "ad_groups_created": 16,
+        "ads_created": 48,
+        "setup_completion": "2024-11-29T14:20:00Z"
+      },
+      "tiktok_ads": {
+        "status": "completed",
+        "campaigns_created": 2,
+        "ad_groups_created": 8,
+        "ads_created": 24,
+        "setup_completion": "2024-11-30T11:45:00Z"
+      },
+      "youtube_ads": {
+        "status": "completed",
+        "campaigns_created": 3,
+        "ad_groups_created": 9,
+        "ads_created": 27,
+        "setup_completion": "2024-12-01T09:30:00Z"
+      },
+      "influencer_platform": {
+        "status": "completed",
+        "partnerships_activated": 25,
+        "content_briefs_sent": 25,
+        "setup_completion": "2024-12-01T16:30:00Z"
+      }
+    },
+    "created_campaigns": [
+      {
+        "platform": "instagram_ads",
+        "campaign_id": "camp_instagram_feed_001",
+        "campaign_name": "Beauty Brand - Feed & Stories",
+        "status": "active",
+        "daily_budget": 13333,
+        "created_at": "2024-11-29T11:15:00Z"
+      },
+      {
+        "platform": "instagram_ads",
+        "campaign_id": "camp_instagram_reels_001",
+        "campaign_name": "Beauty Brand - Reels Focus",
+        "status": "active",
+        "daily_budget": 10000,
+        "created_at": "2024-11-29T12:30:00Z"
+      },
+      {
+        "platform": "tiktok_ads",
+        "campaign_id": "camp_tiktok_infeed_001",
+        "campaign_name": "Beauty Brand - TikTok In-Feed",
+        "status": "active",
+        "daily_budget": 18868,
+        "created_at": "2024-11-30T10:20:00Z"
+      },
+      {
+        "platform": "youtube_ads",
+        "campaign_id": "camp_youtube_preroll_001",
+        "campaign_name": "Beauty Brand - YouTube Discovery",
+        "status": "active",
+        "daily_budget": 13333,
+        "created_at": "2024-12-01T08:45:00Z"
+      }
+    ],
+    "execution_log": [
+      {
+        "timestamp": "2024-11-28T10:00:00Z",
+        "action": "execution_started",
+        "details": "Начато выполнение медиа-плана для beauty brand awareness",
+        "status": "info"
+      },
+      {
+        "timestamp": "2024-11-28T10:30:00Z",
+        "action": "creative_assets_upload",
+        "details": "Загружены все креативы для Instagram кампаний",
+        "assets_count": 48,
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-11-29T11:15:00Z",
+        "action": "campaign_created",
+        "details": "Instagram Feed кампания создана и активирована",
+        "platform": "instagram_ads",
+        "campaign_id": "camp_instagram_feed_001",
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-11-29T15:45:00Z",
+        "action": "audience_creation",
+        "details": "Созданы lookalike audiences на основе customer data",
+        "platform": "instagram_ads",
+        "audiences_created": 8,
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-11-30T10:20:00Z",
+        "action": "campaign_created",
+        "details": "TikTok In-Feed кампания запущена успешно",
+        "platform": "tiktok_ads",
+        "campaign_id": "camp_tiktok_infeed_001",
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-12-01T08:45:00Z",
+        "action": "campaign_created",
+        "details": "YouTube Pre-Roll кампания активирована",
+        "platform": "youtube_ads",
+        "campaign_id": "camp_youtube_preroll_001",
+        "status": "success"
+      },
+      {
+        "timestamp": "2024-12-01T16:30:00Z",
+        "action": "execution_completed",
+        "details": "Все кампании успешно настроены и запущены",
+        "total_campaigns": 12,
+        "status": "success"
+      }
+    ],
+    "performance_tracking": {
+      "setup_start": "2024-11-28T10:00:00Z",
+      "first_campaign_live": "2024-11-29T11:15:00Z",
+      "time_to_first_conversion": "2024-11-29T14:32:00Z",
+      "initial_performance": {
+        "instagram_ctr": 6.2,
+        "tiktok_completion_rate": 78.5,
+        "youtube_view_rate": 82.1
+      }
+    },
+    "budget_utilization": {
+      "total_budget": 8000000,
+      "setup_costs": 200000,
+      "media_budget_activated": 7800000,
+      "remaining_budget": 0
+    },
+    "final_results": {
+      "campaigns_created": 12,
+      "ad_groups_created": 33,
+      "ads_created": 99,
+      "audiences_created": 15,
+      "influencer_partnerships": 25,
+      "setup_duration_hours": 78.5
+    },
+    "created_by": "automation_system",
+    "supervised_by": "beauty_brand_manager",
+    "last_updated": "2024-12-01T16:30:00Z"
+  }
+]

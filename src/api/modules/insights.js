@@ -9,6 +9,9 @@ import apiClient from '../client.js'
 import performanceDataMock from '../mocks/performanceData.mock.json'
 import kpiDataMock from '../mocks/kpiData.mock.json'
 import funnelDataMock from '../mocks/funnelData.mock.json'
+import dashboardsMock from '../mocks/dashboards.mock.json'
+import reportsMock from '../mocks/reports.mock.json'
+import widgetsMock from '../mocks/widgets.mock.json'
 
 /**
  * Получает данные производительности с фильтрацией
@@ -753,6 +756,123 @@ export const getGeoData = async (params = {}) => {
   } catch (error) {
     apiClient.handleError(error)
     return [] // Always return empty array as fallback
+  }
+}
+
+/**
+ * Получает список дашбордов
+ * @returns {Promise<Array>} - Список дашбордов
+ */
+export const getDashboards = async () => {
+  try {
+    const response = await apiClient.get('/dashboards')
+    return [...dashboardsMock]
+  } catch (error) {
+    apiClient.handleError(error)
+    return []
+  }
+}
+
+/**
+ * Получает конкретный дашборд по ID
+ * @param {string} dashboardId - ID дашборда
+ * @returns {Promise<Object>} - Данные дашборда
+ */
+export const getDashboard = async (dashboardId) => {
+  try {
+    const response = await apiClient.get(`/dashboards/${dashboardId}`)
+
+    const dashboard = dashboardsMock.find(d => d.dashboard_id === dashboardId)
+    if (!dashboard) return null
+
+    // Получаем отчеты и виджеты для дашборда
+    const reports = reportsMock.filter(r => r.dashboard_id === dashboardId)
+    const widgets = widgetsMock.filter(w => w.dashboard_id === dashboardId)
+
+    return {
+      ...dashboard,
+      reports,
+      widgets
+    }
+  } catch (error) {
+    apiClient.handleError(error)
+    return null
+  }
+}
+
+/**
+ * Получает отчеты для дашборда
+ * @param {string} dashboardId - ID дашборда
+ * @param {string} tabId - ID вкладки (опционально)
+ * @returns {Promise<Array>} - Список отчетов
+ */
+export const getDashboardReports = async (dashboardId, tabId = null) => {
+  try {
+    const params = { dashboard_id: dashboardId }
+    if (tabId) params.tab_id = tabId
+
+    const response = await apiClient.get('/dashboard-reports', params)
+
+    let reports = reportsMock.filter(r => r.dashboard_id === dashboardId)
+    if (tabId) {
+      reports = reports.filter(r => r.tab_id === tabId)
+    }
+
+    return reports
+  } catch (error) {
+    apiClient.handleError(error)
+    return []
+  }
+}
+
+/**
+ * Получает виджеты для дашборда
+ * @param {string} dashboardId - ID дашборда
+ * @param {string} tabId - ID вкладки (опционально)
+ * @returns {Promise<Array>} - Список виджетов
+ */
+export const getDashboardWidgets = async (dashboardId, tabId = null) => {
+  try {
+    const params = { dashboard_id: dashboardId }
+    if (tabId) params.tab_id = tabId
+
+    const response = await apiClient.get('/dashboard-widgets', params)
+
+    let widgets = widgetsMock.filter(w => w.dashboard_id === dashboardId)
+    if (tabId) {
+      widgets = widgets.filter(w => w.tab_id === tabId)
+    }
+
+    return widgets
+  } catch (error) {
+    apiClient.handleError(error)
+    return []
+  }
+}
+
+/**
+ * Получает все отчеты
+ * @param {Object} filters - Фильтры: {category, type}
+ * @returns {Promise<Array>} - Список отчетов
+ */
+export const getReports = async (filters = {}) => {
+  try {
+    const response = await apiClient.get('/reports', filters)
+
+    let reports = [...reportsMock]
+
+    if (filters.category) {
+      reports = reports.filter(r => r.category === filters.category)
+    }
+
+    if (filters.type) {
+      reports = reports.filter(r => r.type === filters.type)
+    }
+
+    return reports
+  } catch (error) {
+    apiClient.handleError(error)
+    return []
   }
 }
 

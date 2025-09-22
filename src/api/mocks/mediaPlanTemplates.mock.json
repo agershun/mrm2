@@ -1,0 +1,354 @@
+[
+  {
+    "template_id": "template_integrated_launch",
+    "template_name": "Integrated Product Launch",
+    "template_description": "Комплексный шаблон для запуска продукта с использованием multiple channels",
+    "plan_type": "product_launch",
+    "industry": "technology",
+    "recommended_duration": {
+      "min": 12,
+      "max": 26,
+      "optimal": 20
+    },
+    "budget_range": {
+      "min": 3000000,
+      "max": 15000000,
+      "recommended": 8000000
+    },
+    "phase_structure": [
+      {
+        "phase": "Pre-Launch",
+        "duration_weeks": 4,
+        "budget_percentage": 20,
+        "objectives": ["audience building", "awareness creation", "interest generation"],
+        "recommended_channels": ["content", "email", "social_organic"]
+      },
+      {
+        "phase": "Launch",
+        "duration_weeks": 8,
+        "budget_percentage": 50,
+        "objectives": ["conversion maximization", "reach optimization", "engagement"],
+        "recommended_channels": ["google", "facebook", "instagram", "linkedin"]
+      },
+      {
+        "phase": "Post-Launch",
+        "duration_weeks": 8,
+        "budget_percentage": 30,
+        "objectives": ["retention", "optimization", "scale"],
+        "recommended_channels": ["retargeting", "lookalike", "email", "content"]
+      }
+    ],
+    "channel_allocation": {
+      "google": 35,
+      "facebook": 20,
+      "instagram": 15,
+      "linkedin": 15,
+      "content": 10,
+      "email": 5
+    },
+    "flight_templates": [
+      {
+        "name": "Search Foundation",
+        "channel": "google",
+        "format": "search_ads",
+        "timing": "continuous",
+        "budget_share": 60
+      },
+      {
+        "name": "Display Retargeting",
+        "channel": "google",
+        "format": "display",
+        "timing": "week_2_onwards",
+        "budget_share": 40
+      },
+      {
+        "name": "Social Awareness",
+        "channel": "facebook",
+        "format": "feed_ads",
+        "timing": "continuous",
+        "budget_share": 70
+      },
+      {
+        "name": "Social Conversion",
+        "channel": "facebook",
+        "format": "dynamic_ads",
+        "timing": "week_4_onwards",
+        "budget_share": 30
+      }
+    ],
+    "kpi_benchmarks": {
+      "cpl": 2500,
+      "cac": 15000,
+      "roas": 4.0,
+      "brand_awareness_lift": 20
+    },
+    "usage_count": 15,
+    "success_rate": 87,
+    "created_at": "2024-09-01T10:00:00Z",
+    "updated_at": "2024-11-15T14:30:00Z"
+  },
+  {
+    "template_id": "template_social_awareness",
+    "template_name": "Social Media Brand Awareness",
+    "template_description": "Фокус на повышении узнаваемости бренда через social platforms",
+    "plan_type": "brand_awareness",
+    "industry": "consumer_goods",
+    "recommended_duration": {
+      "min": 8,
+      "max": 16,
+      "optimal": 12
+    },
+    "budget_range": {
+      "min": 2000000,
+      "max": 10000000,
+      "recommended": 5000000
+    },
+    "phase_structure": [
+      {
+        "phase": "Reach Building",
+        "duration_weeks": 4,
+        "budget_percentage": 40,
+        "objectives": ["maximum reach", "broad awareness"],
+        "recommended_channels": ["facebook", "instagram", "youtube"]
+      },
+      {
+        "phase": "Engagement Focus",
+        "duration_weeks": 4,
+        "budget_percentage": 35,
+        "objectives": ["engagement optimization", "community building"],
+        "recommended_channels": ["instagram", "tiktok", "influencers"]
+      },
+      {
+        "phase": "Conversion Bridge",
+        "duration_weeks": 4,
+        "budget_percentage": 25,
+        "objectives": ["interest to action", "retargeting"],
+        "recommended_channels": ["facebook", "google", "email"]
+      }
+    ],
+    "channel_allocation": {
+      "instagram": 30,
+      "facebook": 25,
+      "tiktok": 20,
+      "youtube": 15,
+      "influencers": 10
+    },
+    "creative_strategy": {
+      "video_content": 60,
+      "image_content": 25,
+      "ugc_content": 15,
+      "refresh_frequency": "weekly"
+    },
+    "kpi_benchmarks": {
+      "reach": 1500000,
+      "frequency": 4.0,
+      "engagement_rate": 6.0,
+      "brand_recall": 25,
+      "video_completion": 70
+    },
+    "usage_count": 22,
+    "success_rate": 79,
+    "created_at": "2024-08-15T12:00:00Z",
+    "updated_at": "2024-11-20T16:45:00Z"
+  },
+  {
+    "template_id": "template_performance_ecommerce",
+    "template_name": "Performance E-commerce",
+    "template_description": "Оптимизированный под конверсии план для e-commerce проектов",
+    "plan_type": "performance",
+    "industry": "ecommerce",
+    "recommended_duration": {
+      "min": 4,
+      "max": 12,
+      "optimal": 8
+    },
+    "budget_range": {
+      "min": 1500000,
+      "max": 8000000,
+      "recommended": 4000000
+    },
+    "phase_structure": [
+      {
+        "phase": "Testing & Learning",
+        "duration_weeks": 2,
+        "budget_percentage": 30,
+        "objectives": ["audience validation", "creative testing", "funnel optimization"],
+        "recommended_channels": ["facebook", "google", "instagram"]
+      },
+      {
+        "phase": "Scaling",
+        "duration_weeks": 4,
+        "budget_percentage": 50,
+        "objectives": ["volume scaling", "efficiency optimization"],
+        "recommended_channels": ["facebook", "google", "instagram", "tiktok"]
+      },
+      {
+        "phase": "Retention",
+        "duration_weeks": 2,
+        "budget_percentage": 20,
+        "objectives": ["customer retention", "lifetime value"],
+        "recommended_channels": ["email", "retargeting", "lookalike"]
+      }
+    ],
+    "channel_allocation": {
+      "google": 40,
+      "facebook": 30,
+      "instagram": 20,
+      "email": 10
+    },
+    "optimization_focus": [
+      "conversion_rate",
+      "return_on_ad_spend",
+      "customer_acquisition_cost",
+      "lifetime_value"
+    ],
+    "automated_rules": [
+      {
+        "metric": "roas",
+        "threshold": 3.0,
+        "action": "increase_budget"
+      },
+      {
+        "metric": "cpa",
+        "threshold": 1500,
+        "action": "pause_or_optimize"
+      }
+    ],
+    "kpi_benchmarks": {
+      "roas": 4.5,
+      "cpa": 1200,
+      "conversion_rate": 3.5,
+      "aov": 2500
+    },
+    "usage_count": 31,
+    "success_rate": 83,
+    "created_at": "2024-07-20T09:30:00Z",
+    "updated_at": "2024-11-10T11:15:00Z"
+  },
+  {
+    "template_id": "template_local_business",
+    "template_name": "Local Business Promotion",
+    "template_description": "Шаблон для продвижения локального бизнеса и увеличения foot traffic",
+    "plan_type": "local_awareness",
+    "industry": "local_services",
+    "recommended_duration": {
+      "min": 4,
+      "max": 12,
+      "optimal": 8
+    },
+    "budget_range": {
+      "min": 300000,
+      "max": 1500000,
+      "recommended": 800000
+    },
+    "phase_structure": [
+      {
+        "phase": "Local Awareness",
+        "duration_weeks": 3,
+        "budget_percentage": 40,
+        "objectives": ["local visibility", "brand recognition"],
+        "recommended_channels": ["google_local", "facebook_local", "yandex"]
+      },
+      {
+        "phase": "Drive Actions",
+        "duration_weeks": 3,
+        "budget_percentage": 40,
+        "objectives": ["store visits", "calls", "appointments"],
+        "recommended_channels": ["google_local", "facebook", "instagram"]
+      },
+      {
+        "phase": "Retention",
+        "duration_weeks": 2,
+        "budget_percentage": 20,
+        "objectives": ["customer retention", "reviews", "referrals"],
+        "recommended_channels": ["email", "social_organic", "local_media"]
+      }
+    ],
+    "channel_allocation": {
+      "google": 40,
+      "facebook": 25,
+      "yandex": 15,
+      "instagram": 10,
+      "local_media": 10
+    },
+    "local_optimization": {
+      "google_my_business": true,
+      "local_seo": true,
+      "review_management": true,
+      "local_listings": true
+    },
+    "kpi_benchmarks": {
+      "store_visits": 1000,
+      "phone_calls": 200,
+      "local_awareness": 35,
+      "review_score": 4.5
+    },
+    "usage_count": 28,
+    "success_rate": 91,
+    "created_at": "2024-06-10T14:20:00Z",
+    "updated_at": "2024-10-25T13:40:00Z"
+  },
+  {
+    "template_id": "template_b2b_leadgen",
+    "template_name": "B2B Lead Generation",
+    "template_description": "Специализированный план для генерации B2B лидов с длинным sales cycle",
+    "plan_type": "lead_generation",
+    "industry": "b2b_services",
+    "recommended_duration": {
+      "min": 8,
+      "max": 24,
+      "optimal": 16
+    },
+    "budget_range": {
+      "min": 2000000,
+      "max": 12000000,
+      "recommended": 6000000
+    },
+    "phase_structure": [
+      {
+        "phase": "Awareness & Education",
+        "duration_weeks": 6,
+        "budget_percentage": 30,
+        "objectives": ["thought leadership", "problem awareness"],
+        "recommended_channels": ["linkedin", "google", "content"]
+      },
+      {
+        "phase": "Consideration",
+        "duration_weeks": 6,
+        "budget_percentage": 40,
+        "objectives": ["lead generation", "nurturing", "qualification"],
+        "recommended_channels": ["linkedin", "google", "email", "events"]
+      },
+      {
+        "phase": "Decision Support",
+        "duration_weeks": 4,
+        "budget_percentage": 30,
+        "objectives": ["sales support", "objection handling", "closing"],
+        "recommended_channels": ["retargeting", "email", "direct_outreach"]
+      }
+    ],
+    "channel_allocation": {
+      "linkedin": 35,
+      "google": 30,
+      "content": 15,
+      "email": 10,
+      "events": 10
+    },
+    "lead_nurturing": {
+      "email_sequences": 5,
+      "content_touchpoints": 8,
+      "retargeting_campaigns": 3,
+      "sales_enablement": true
+    },
+    "kpi_benchmarks": {
+      "cpl": 3000,
+      "sql_rate": 25,
+      "sales_cycle_days": 90,
+      "customer_ltv": 500000
+    },
+    "usage_count": 18,
+    "success_rate": 85,
+    "created_at": "2024-05-15T11:00:00Z",
+    "updated_at": "2024-11-05T15:20:00Z"
+  }
+]

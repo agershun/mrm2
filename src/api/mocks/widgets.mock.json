@@ -1,0 +1,192 @@
+[
+  {
+    "widget_id": "total_revenue_kpi",
+    "name": "Общая выручка",
+    "description": "Общая выручка за период",
+    "type": "kpi",
+    "dashboard_id": "performance_overview",
+    "tab_id": "kpi_summary",
+    "position": { "x": 0, "y": 0, "width": 3, "height": 2 },
+    "data_source": "main_kpis",
+    "settings": {
+      "metric": "revenue",
+      "format": "currency",
+      "show_trend": true,
+      "show_target": true,
+      "color": "primary"
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "overall_roi_kpi",
+    "name": "Общий ROI",
+    "description": "Общий возврат на инвестиции",
+    "type": "kpi",
+    "dashboard_id": "romi",
+    "tab_id": "romi_overview",
+    "position": { "x": 0, "y": 0, "width": 3, "height": 2 },
+    "data_source": "main_kpis",
+    "settings": {
+      "metric": "roi",
+      "format": "percent",
+      "show_trend": true,
+      "show_target": true,
+      "color": "success"
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "conversions_kpi",
+    "name": "Конверсии",
+    "description": "Общее количество конверсий",
+    "type": "kpi",
+    "dashboard_id": "performance_overview",
+    "tab_id": "kpi_summary",
+    "position": { "x": 3, "y": 0, "width": 3, "height": 2 },
+    "data_source": "main_kpis",
+    "settings": {
+      "metric": "conversions",
+      "format": "number",
+      "show_trend": true,
+      "show_target": true,
+      "color": "info"
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "cpa_kpi",
+    "name": "CPA",
+    "description": "Стоимость привлечения клиента",
+    "type": "kpi",
+    "dashboard_id": "performance_overview",
+    "tab_id": "kpi_summary",
+    "position": { "x": 6, "y": 0, "width": 3, "height": 2 },
+    "data_source": "main_kpis",
+    "settings": {
+      "metric": "cpa",
+      "format": "currency",
+      "show_trend": true,
+      "show_target": true,
+      "color": "warning"
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "ctr_kpi",
+    "name": "CTR",
+    "description": "Кликабельность рекламных объявлений",
+    "type": "kpi",
+    "dashboard_id": "performance_overview",
+    "tab_id": "kpi_summary",
+    "position": { "x": 9, "y": 0, "width": 3, "height": 2 },
+    "data_source": "main_kpis",
+    "settings": {
+      "metric": "ctr",
+      "format": "percent",
+      "show_trend": true,
+      "show_target": true,
+      "color": "purple"
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "investment_total",
+    "name": "Общие инвестиции",
+    "description": "Общая сумма маркетинговых инвестиций",
+    "type": "kpi",
+    "dashboard_id": "investment_planning",
+    "tab_id": "planning_summary",
+    "position": { "x": 0, "y": 0, "width": 4, "height": 2 },
+    "data_source": "investment_summary",
+    "settings": {
+      "metric": "total_investment",
+      "format": "currency",
+      "show_trend": true,
+      "show_budget": true,
+      "color": "primary"
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "budget_utilization",
+    "name": "Использование бюджета",
+    "description": "Процент использования бюджета",
+    "type": "progress",
+    "dashboard_id": "investment_planning",
+    "tab_id": "planning_summary",
+    "position": { "x": 4, "y": 0, "width": 4, "height": 2 },
+    "data_source": "budget_utilization",
+    "settings": {
+      "show_percentage": true,
+      "show_amounts": true,
+      "color": "success",
+      "warning_threshold": 80,
+      "danger_threshold": 95
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "data_quality_score",
+    "name": "Качество данных",
+    "description": "Общая оценка качества данных",
+    "type": "gauge",
+    "dashboard_id": "health_check",
+    "tab_id": "data_quality",
+    "position": { "x": 6, "y": 0, "width": 6, "height": 4 },
+    "data_source": "data_quality_score",
+    "settings": {
+      "min_value": 0,
+      "max_value": 100,
+      "unit": "%",
+      "color_ranges": [
+        { "min": 0, "max": 60, "color": "error" },
+        { "min": 60, "max": 80, "color": "warning" },
+        { "min": 80, "max": 100, "color": "success" }
+      ]
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "growing_segments_list",
+    "name": "Быстрорастущие сегменты",
+    "description": "Сегменты с наибольшим ростом",
+    "type": "list",
+    "dashboard_id": "performance_overview",
+    "tab_id": "trends_analysis",
+    "position": { "x": 0, "y": 2, "width": 6, "height": 4 },
+    "data_source": "growing_segments",
+    "settings": {
+      "show_growth": true,
+      "show_count": true,
+      "max_items": 5
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "widget_id": "forecast_accuracy",
+    "name": "Точность прогнозов",
+    "description": "Точность прогнозной модели",
+    "type": "kpi",
+    "dashboard_id": "performance_overview",
+    "tab_id": "trends_analysis",
+    "position": { "x": 6, "y": 2, "width": 3, "height": 2 },
+    "data_source": "forecast_accuracy",
+    "settings": {
+      "metric": "accuracy",
+      "format": "percent",
+      "show_trend": false,
+      "color": "info"
+    },
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  }
+]

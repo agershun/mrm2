@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // Lazy load views для оптимизации
 const Main = () => import('@/views/Main.vue')
 const Campaigns = () => import('@/views/Campaigns.vue')
+const CampaignsView = () => import('@/views/CampaignsView.vue')
 const CampaignWorkspace = () => import('@/views/CampaignWorkspace.vue')
 const KnowledgeBase = () => import('@/views/KnowledgeBase.vue')
 const Strategy = () => import('@/views/Strategy.vue')
@@ -10,6 +11,7 @@ const Activities = () => import('@/views/Activities.vue')
 const Budgets = () => import('@/views/Budgets.vue')
 const Investments = () => import('@/views/Investments.vue')
 const Insights = () => import('@/views/Insights.vue')
+const InsightsView = () => import('@/views/InsightsView.vue')
 const Configuration = () => import('@/views/Configuration.vue')
 const Settings = () => import('@/views/Settings.vue')
 const Profile = () => import('@/views/Profile.vue')
@@ -29,6 +31,15 @@ const routes = [
         meta: {
           title: 'Кампании',
           icon: 'mdi-robot'
+        }
+      },
+      {
+        path: '/campaigns-view',
+        name: 'CampaignsView',
+        component: CampaignsView,
+        meta: {
+          title: 'Просмотр кампаний',
+          icon: 'mdi-eye'
         }
       },
       {
@@ -92,6 +103,15 @@ const routes = [
         meta: {
           title: 'Аналитика',
           icon: 'mdi-chart-bar'
+        }
+      },
+      {
+        path: '/insights-view',
+        name: 'InsightsView',
+        component: InsightsView,
+        meta: {
+          title: 'Просмотр аналитики',
+          icon: 'mdi-chart-donut'
         }
       },
       {

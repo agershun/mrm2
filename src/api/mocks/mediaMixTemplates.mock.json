@@ -1,0 +1,226 @@
+[
+  {
+    "template_id": "template_b2b_tech",
+    "template_name": "B2B Technology Launch",
+    "template_description": "Шаблон медиа-микса для запуска B2B технологических продуктов",
+    "industry": "technology",
+    "campaign_type": "lead_generation",
+    "target_audience": "B2B decision makers",
+    "budget_range": {
+      "min": 2000000,
+      "max": 10000000,
+      "recommended": 5000000
+    },
+    "channels_mix": [
+      {
+        "channel": "google",
+        "percentage": 40,
+        "rationale": "Высокий intent аудитории при поиске решений"
+      },
+      {
+        "channel": "linkedin",
+        "percentage": 25,
+        "rationale": "Основная B2B платформа для decision makers"
+      },
+      {
+        "channel": "events",
+        "percentage": 20,
+        "rationale": "Прямой контакт с целевой аудиторией"
+      },
+      {
+        "channel": "content",
+        "percentage": 10,
+        "rationale": "Образовательный контент для nurturing"
+      },
+      {
+        "channel": "email",
+        "percentage": 5,
+        "rationale": "Персонализированная коммуникация"
+      }
+    ],
+    "expected_kpis": {
+      "cpl": 2500,
+      "conversion_rate": 4.5,
+      "roi": 5.0,
+      "sales_cycle_days": 90
+    },
+    "best_practices": [
+      "Фокус на ROI и business value в креативах",
+      "Account-based marketing для крупных клиентов",
+      "Длинные sales funnel с nurturing",
+      "Интеграция online и offline touchpoints"
+    ],
+    "usage_count": 12,
+    "success_rate": 85,
+    "created_at": "2024-10-01T10:00:00Z",
+    "updated_at": "2024-11-15T14:30:00Z"
+  },
+  {
+    "template_id": "template_ecommerce_fashion",
+    "template_name": "E-commerce Fashion",
+    "template_description": "Медиа-микс для продвижения fashion e-commerce проектов",
+    "industry": "fashion",
+    "campaign_type": "ecommerce",
+    "target_audience": "Fashion consumers",
+    "budget_range": {
+      "min": 1000000,
+      "max": 8000000,
+      "recommended": 3500000
+    },
+    "channels_mix": [
+      {
+        "channel": "instagram",
+        "percentage": 35,
+        "rationale": "Визуальная платформа, идеальна для fashion"
+      },
+      {
+        "channel": "facebook",
+        "percentage": 25,
+        "rationale": "Широкий охват и хорошая конверсия"
+      },
+      {
+        "channel": "google",
+        "percentage": 20,
+        "rationale": "Поисковый трафик с высоким intent"
+      },
+      {
+        "channel": "tiktok",
+        "percentage": 15,
+        "rationale": "Молодая аудитория и viral potential"
+      },
+      {
+        "channel": "influencers",
+        "percentage": 5,
+        "rationale": "Аутентичные рекомендации"
+      }
+    ],
+    "expected_kpis": {
+      "roas": 4.0,
+      "cpa": 800,
+      "aov": 2500,
+      "repeat_purchase_rate": 35
+    },
+    "best_practices": [
+      "UGC контент показывает высокую конверсию",
+      "Сезонные кампании и limited time offers",
+      "Ретаргетинг на abandoned cart",
+      "Social proof через отзывы и рейтинги"
+    ],
+    "usage_count": 18,
+    "success_rate": 78,
+    "created_at": "2024-09-15T12:00:00Z",
+    "updated_at": "2024-11-20T16:45:00Z"
+  },
+  {
+    "template_id": "template_app_launch",
+    "template_name": "Mobile App Launch",
+    "template_description": "Шаблон для запуска мобильных приложений",
+    "industry": "mobile_apps",
+    "campaign_type": "app_installs",
+    "target_audience": "Mobile users",
+    "budget_range": {
+      "min": 1500000,
+      "max": 6000000,
+      "recommended": 3000000
+    },
+    "channels_mix": [
+      {
+        "channel": "facebook",
+        "percentage": 40,
+        "rationale": "Лучшая платформа для app install campaigns"
+      },
+      {
+        "channel": "google",
+        "percentage": 30,
+        "rationale": "Play Store и поисковые кампании"
+      },
+      {
+        "channel": "tiktok",
+        "percentage": 15,
+        "rationale": "Высокий engagement молодой аудитории"
+      },
+      {
+        "channel": "apple_search_ads",
+        "percentage": 10,
+        "rationale": "App Store optimization"
+      },
+      {
+        "channel": "influencers",
+        "percentage": 5,
+        "rationale": "App reviews и demonstrations"
+      }
+    ],
+    "expected_kpis": {
+      "cpi": 45,
+      "retention_d1": 40,
+      "retention_d7": 25,
+      "ltv": 180
+    },
+    "best_practices": [
+      "Video креативы с демонстрацией app interface",
+      "A/B тестирование landing screens",
+      "Фокус на retention, а не только на installs",
+      "Локализация креативов для разных рынков"
+    ],
+    "usage_count": 25,
+    "success_rate": 82,
+    "created_at": "2024-08-20T09:30:00Z",
+    "updated_at": "2024-11-10T11:15:00Z"
+  },
+  {
+    "template_id": "template_local_business",
+    "template_name": "Local Business",
+    "template_description": "Медиа-микс для локального бизнеса",
+    "industry": "local_services",
+    "campaign_type": "local_awareness",
+    "target_audience": "Local consumers",
+    "budget_range": {
+      "min": 300000,
+      "max": 1500000,
+      "recommended": 750000
+    },
+    "channels_mix": [
+      {
+        "channel": "google",
+        "percentage": 45,
+        "rationale": "Google My Business и локальные запросы"
+      },
+      {
+        "channel": "facebook",
+        "percentage": 25,
+        "rationale": "Локальный таргетинг и event promotion"
+      },
+      {
+        "channel": "yandex",
+        "percentage": 15,
+        "rationale": "Локальные справочники и карты"
+      },
+      {
+        "channel": "local_media",
+        "percentage": 10,
+        "rationale": "Местные сайты и радио"
+      },
+      {
+        "channel": "outdoor",
+        "percentage": 5,
+        "rationale": "Билборды и local presence"
+      }
+    ],
+    "expected_kpis": {
+      "store_visits": 1500,
+      "calls_generated": 300,
+      "local_awareness": 40,
+      "foot_traffic_increase": 25
+    },
+    "best_practices": [
+      "Локальные отзывы и рейтинги критически важны",
+      "Сезонные акции и местные события",
+      "Мобильная оптимизация для local search",
+      "Integration с Google Maps и Yandex Maps"
+    ],
+    "usage_count": 35,
+    "success_rate": 88,
+    "created_at": "2024-07-10T14:20:00Z",
+    "updated_at": "2024-10-25T13:40:00Z"
+  }
+]

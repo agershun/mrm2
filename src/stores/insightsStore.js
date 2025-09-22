@@ -575,6 +575,33 @@ export const useInsightsStore = defineStore('insights', () => {
   const performanceTimeData = ref([])
   const roiKPIs = ref([])
 
+  // Состояние для новой архитектуры дашбордов
+  const dashboards = ref([])
+  const reportsData = ref([])
+  const currentDashboardData = ref(null)
+  const currentReportData = ref(null)
+  const projects = ref([
+    {
+      project_id: 'q4_2025',
+      name: 'Q4 2025',
+      description: 'Четвертый квартал 2025 года',
+      type: 'quarterly'
+    },
+    {
+      project_id: 'year_2025',
+      name: '2025 год',
+      description: 'Годовой проект 2025',
+      type: 'yearly'
+    },
+    {
+      project_id: 'yoy_comparison',
+      name: 'Год к году',
+      description: 'Сравнение с предыдущим годом',
+      type: 'comparison'
+    }
+  ])
+  const savedViews = ref([])
+
   const loadPerformanceTimeData = async (params = {}) => {
     try {
       console.log('[InsightsStore] Loading performance time data...')
@@ -600,6 +627,487 @@ export const useInsightsStore = defineStore('insights', () => {
       throw error
     }
   }
+
+  // Новые методы для дашбордов
+  const loadDashboards = async () => {
+    try {
+      console.log('[InsightsStore] Loading dashboards...')
+      const data = await api.insights.getDashboards()
+      dashboards.value = data || []
+      return data
+    } catch (error) {
+      console.error('[InsightsStore] Error loading dashboards:', error)
+      appStore.showError('Ошибка загрузки дашбордов: ' + error.message)
+      throw error
+    }
+  }
+
+  const loadReports = async (filters = {}) => {
+    try {
+      console.log('[InsightsStore] Loading reports with filters:', filters)
+      const data = await api.insights.getReports(filters)
+      reportsData.value = data || []
+      return data
+    } catch (error) {
+      console.error('[InsightsStore] Error loading reports:', error)
+      appStore.showError('Ошибка загрузки отчетов: ' + error.message)
+      throw error
+    }
+  }
+
+  const loadDashboardData = async (dashboardId, project = null) => {
+    try {
+      isLoading.value = true
+      console.log('[InsightsStore] Loading dashboard data for:', dashboardId)
+
+      const dashboard = await api.insights.getDashboard(dashboardId)
+      const dashboardReports = await api.insights.getDashboardReports(dashboardId)
+      const dashboardWidgetsData = await api.insights.getDashboardWidgets(dashboardId)
+
+      // Загружаем данные в зависимости от типа дашборда
+      let data = {}
+
+      if (dashboardId === 'investment_planning') {
+        console.log('[InsightsStore] Loading Investment Planning data with real integration...')
+        data = await loadRealInvestmentPlanningData({ project })
+      } else if (dashboardId === 'romi') {
+        console.log('[InsightsStore] Loading ROMI data with real integration...')
+        data = await loadRealROMIData({ project })
+      } else if (dashboardId === 'health_check') {
+        console.log('[InsightsStore] Loading Health Check data with real integration...')
+        data = await loadRealHealthCheckData()
+      } else if (dashboardId === 'performance_overview') {
+        console.log('[InsightsStore] Loading Performance Overview data with real integration...')
+        data = await loadRealPerformanceOverviewData({ project })
+      } else {
+        // Fallback для других дашбордов
+        const [mainKPIs, revData, chData, topCamp] = await Promise.all([
+          loadMainKPIs(),
+          loadRevenueData(),
+          loadChannelData(),
+          loadTopCampaigns()
+        ])
+        data = { mainKPIs, revenueData: revData, channelData: chData, topCampaigns: topCamp }
+      }
+
+      currentDashboardData.value = {
+        dashboard,
+        reports: dashboardReports,
+        widgets: dashboardWidgetsData,
+        data
+      }
+
+      console.log('[InsightsStore] Dashboard data loaded with integration:', currentDashboardData.value)
+      return currentDashboardData.value
+    } catch (error) {
+      console.error('[InsightsStore] Error loading dashboard data:', error)
+      appStore.showError('Ошибка загрузки данных дашборда: ' + error.message)
+      throw error
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  const loadReportData = async (reportId, project = null) => {
+    try {
+      isLoading.value = true
+      console.log('[InsightsStore] Loading report data for:', reportId)
+
+      // Находим отчет в списке
+      const report = reportsData.value.find(r => r.report_id === reportId)
+      if (!report) {
+        throw new Error('Отчет не найден')
+      }
+
+      // Загружаем данные в зависимости от источника данных отчета
+      let data = {}
+      switch (report.data_source) {
+        case 'main_kpis':
+          data = await loadMainKPIs()
+          break
+        case 'channel_revenue':
+          data = await loadChannelData()
+          break
+        case 'top_campaigns':
+          data = await loadTopCampaigns()
+          break
+        default:
+          data = await generateReport({
+            type: report.type,
+            source: report.data_source,
+            project
+          })
+      }
+
+      currentReportData.value = {
+        report,
+        data
+      }
+
+      return currentReportData.value
+    } catch (error) {
+      console.error('[InsightsStore] Error loading report data:', error)
+      appStore.showError('Ошибка загрузки данных отчета: ' + error.message)
+      throw error
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  const loadProjects = async () => {
+    try {
+      console.log('[InsightsStore] Loading projects...')
+      // Проекты уже определены в state, но можно добавить загрузку с API
+      return projects.value
+    } catch (error) {
+      console.error('[InsightsStore] Error loading projects:', error)
+      throw error
+    }
+  }
+
+  const loadSavedViews = async () => {
+    try {
+      console.log('[InsightsStore] Loading saved views...')
+      // TODO: Реализовать загрузку с API
+      savedViews.value = [
+        {
+          view_id: 'view_001',
+          name: 'Q4 Performance Overview',
+          description: 'Обзор производительности за Q4',
+          dashboard_id: 'performance_overview',
+          tab_id: 'kpi_summary',
+          filters: { period: 'Q4', year: '2025' },
+          project: 'q4_2025',
+          created_at: '2025-09-15T10:00:00Z'
+        },
+        {
+          view_id: 'view_002',
+          name: 'ROI by Channels',
+          description: 'ROI анализ по каналам',
+          dashboard_id: 'romi',
+          tab_id: 'channel_performance',
+          filters: { channels: ['Google Ads', 'Email', 'Instagram'] },
+          project: 'q4_2025',
+          created_at: '2025-09-10T14:30:00Z'
+        }
+      ]
+      return savedViews.value
+    } catch (error) {
+      console.error('[InsightsStore] Error loading saved views:', error)
+      throw error
+    }
+  }
+
+  const saveView = async (viewData) => {
+    try {
+      console.log('[InsightsStore] Saving view:', viewData)
+      const newView = {
+        view_id: `view_${Date.now()}`,
+        ...viewData,
+        created_at: new Date().toISOString()
+      }
+      savedViews.value.push(newView)
+      appStore.showSuccess('Представление сохранено')
+      return newView
+    } catch (error) {
+      console.error('[InsightsStore] Error saving view:', error)
+      appStore.showError('Ошибка сохранения представления: ' + error.message)
+      throw error
+    }
+  }
+
+  const deleteView = async (viewId) => {
+    try {
+      console.log('[InsightsStore] Deleting view:', viewId)
+      const index = savedViews.value.findIndex(v => v.view_id === viewId)
+      if (index !== -1) {
+        savedViews.value.splice(index, 1)
+        appStore.showSuccess('Представление удалено')
+      }
+    } catch (error) {
+      console.error('[InsightsStore] Error deleting view:', error)
+      appStore.showError('Ошибка удаления представления: ' + error.message)
+      throw error
+    }
+  }
+
+  const updateWidget = async (widget) => {
+    try {
+      console.log('[InsightsStore] Updating widget:', widget)
+      // TODO: Реализовать обновление через API
+      return widget
+    } catch (error) {
+      console.error('[InsightsStore] Error updating widget:', error)
+      throw error
+    }
+  }
+
+  // Методы для работы с отчетами
+  const getReportData = async (params) => {
+    try {
+      console.log('[InsightsStore] Getting report data:', params)
+
+      // Симуляция данных отчета в зависимости от типа
+      let data = []
+
+      switch (params.reportId) {
+        case 'revenue_analysis':
+          data = await loadRevenueData(params.timeRange)
+          break
+        case 'roi_trends':
+          data = await loadROIKPIs()
+          break
+        case 'channel_performance':
+          data = await loadChannelData()
+          break
+        case 'geographic_performance':
+          data = await loadGeoData()
+          break
+        case 'funnel_analysis':
+          data = await loadFunnelData()
+          break
+        case 'attribution_analysis':
+          data = await performAttributionAnalysis({
+            model_type: 'multi_touch',
+            timeRange: params.timeRange
+          })
+          break
+        default:
+          // Генерируем моковые данные для других отчетов
+          data = generateMockReportData(params)
+      }
+
+      return { data }
+    } catch (error) {
+      console.error('[InsightsStore] Error getting report data:', error)
+      throw error
+    }
+  }
+
+  const getDrillDownData = async (params) => {
+    try {
+      console.log('[InsightsStore] Getting drill-down data:', params)
+
+      // Генерируем детализированные данные на основе точки клика
+      const mockDrillDown = [
+        {
+          id: 1,
+          name: `Детализация для ${params.point.label}`,
+          revenue: Math.random() * 1000000,
+          roi: Math.random() * 200,
+          trend: (Math.random() - 0.5) * 40,
+          period: params.timeRange
+        },
+        {
+          id: 2,
+          name: `Подкатегория A`,
+          revenue: Math.random() * 800000,
+          roi: Math.random() * 180,
+          trend: (Math.random() - 0.5) * 30,
+          period: params.timeRange
+        },
+        {
+          id: 3,
+          name: `Подкатегория B`,
+          revenue: Math.random() * 600000,
+          roi: Math.random() * 150,
+          trend: (Math.random() - 0.5) * 25,
+          period: params.timeRange
+        }
+      ]
+
+      return { data: mockDrillDown }
+    } catch (error) {
+      console.error('[InsightsStore] Error getting drill-down data:', error)
+      throw error
+    }
+  }
+
+  const generateMockReportData = (params) => {
+    const timeRanges = {
+      'last_7_days': 7,
+      'last_30_days': 30,
+      'last_90_days': 90,
+      'current_quarter': 90,
+      'current_year': 365
+    }
+
+    const days = timeRanges[params.timeRange] || 30
+    const data = []
+
+    for (let i = 0; i < days; i++) {
+      const date = new Date()
+      date.setDate(date.getDate() - i)
+
+      data.push({
+        date: date.toISOString().split('T')[0],
+        label: date.toLocaleDateString('ru-RU'),
+        revenue: Math.random() * 100000 + 50000,
+        roi: Math.random() * 150 + 50,
+        conversions: Math.floor(Math.random() * 500 + 100),
+        impressions: Math.floor(Math.random() * 10000 + 5000),
+        channel: ['Google Ads', 'Email', 'Social Media', 'Direct'][Math.floor(Math.random() * 4)],
+        region: ['Москва', 'Санкт-Петербург', 'Екатеринбург'][Math.floor(Math.random() * 3)]
+      })
+    }
+
+    return data.reverse() // Сортируем по возрастанию даты
+  }
+
+  // Методы интеграции с Activities и Investments
+  const loadRealInvestmentPlanningData = async (dateRange = {}) => {
+    try {
+      console.log('[InsightsStore] Loading real investment planning data...')
+
+      // Динамический импорт для избежания circular dependencies
+      const { insightsIntegration } = await import('@/services/insightsIntegration')
+      await insightsIntegration.initialize()
+
+      const data = await insightsIntegration.getInvestmentPlanningData(dateRange)
+      console.log('[InsightsStore] Real investment planning data loaded:', data)
+
+      return data
+    } catch (error) {
+      console.error('[InsightsStore] Error loading real investment planning data:', error)
+      // Fallback to mock data
+      return generateMockInvestmentPlanningData()
+    }
+  }
+
+  const loadRealROMIData = async (dateRange = {}) => {
+    try {
+      console.log('[InsightsStore] Loading real ROMI data...')
+
+      const { insightsIntegration } = await import('@/services/insightsIntegration')
+      await insightsIntegration.initialize()
+
+      const data = await insightsIntegration.getROMIData(dateRange)
+      console.log('[InsightsStore] Real ROMI data loaded:', data)
+
+      return data
+    } catch (error) {
+      console.error('[InsightsStore] Error loading real ROMI data:', error)
+      return generateMockROMIData()
+    }
+  }
+
+  const loadRealHealthCheckData = async () => {
+    try {
+      console.log('[InsightsStore] Loading real health check data...')
+
+      const { insightsIntegration } = await import('@/services/insightsIntegration')
+      await insightsIntegration.initialize()
+
+      const data = await insightsIntegration.getHealthCheckData()
+      console.log('[InsightsStore] Real health check data loaded:', data)
+
+      return data
+    } catch (error) {
+      console.error('[InsightsStore] Error loading real health check data:', error)
+      return generateMockHealthCheckData()
+    }
+  }
+
+  const loadRealPerformanceOverviewData = async (dateRange = {}) => {
+    try {
+      console.log('[InsightsStore] Loading real performance overview data...')
+
+      const { insightsIntegration } = await import('@/services/insightsIntegration')
+      await insightsIntegration.initialize()
+
+      const data = await insightsIntegration.getPerformanceOverviewData(dateRange)
+      console.log('[InsightsStore] Real performance overview data loaded:', data)
+
+      return data
+    } catch (error) {
+      console.error('[InsightsStore] Error loading real performance overview data:', error)
+      return generateMockPerformanceOverviewData()
+    }
+  }
+
+  // Mock data generators for fallback
+  const generateMockInvestmentPlanningData = () => ({
+    mainKPIs: {
+      totalBudget: { current: 25000000, target: 27500000, trend: 5.2, previous: 23750000 },
+      allocatedBudget: { current: 20000000, target: 22500000, trend: 12.3, previous: 17600000 },
+      actualSpent: { current: 8500000, target: 16000000, trend: -3.1, previous: 8763000 },
+      efficiency: { current: 80, target: 85, trend: 8.5, previous: 78.2 }
+    },
+    budgetAllocation: [
+      { type: 'Marketing', amount: 12000000, percentage: 60 },
+      { type: 'Product Development', amount: 5000000, percentage: 25 },
+      { type: 'Infrastructure', amount: 3000000, percentage: 15 }
+    ],
+    investmentHierarchy: {
+      name: 'Все инвестиции',
+      children: [
+        { name: 'Marketing', value: 12000000, children: [] },
+        { name: 'Product Development', value: 5000000, children: [] },
+        { name: 'Infrastructure', value: 3000000, children: [] }
+      ]
+    },
+    strategicAlignment: [
+      { priority: 'High', count: 8, percentage: 53, budget: 15000000 },
+      { priority: 'Medium', count: 5, percentage: 33, budget: 7000000 },
+      { priority: 'Low', count: 2, percentage: 14, budget: 3000000 }
+    ]
+  })
+
+  const generateMockROMIData = () => ({
+    overviewKPIs: {
+      averageROI: { current: 185, target: 200, trend: 8.7, previous: 165 },
+      totalRevenue: { current: 18500000, target: 20000000, trend: 15.2, previous: 12500000 },
+      costPerAcquisition: { current: 450, target: 400, trend: -5.3, previous: 475 },
+      ltv: { current: 2800, target: 3000, trend: 12.1, previous: 2200 }
+    },
+    channelROI: [
+      { channel: 'Digital', revenue: 8000000, investment: 4000000, roi: 200, conversions: 1200 },
+      { channel: 'TV', revenue: 6000000, investment: 4500000, roi: 133, conversions: 800 },
+      { channel: 'Social Media', revenue: 3000000, investment: 1500000, roi: 200, conversions: 600 },
+      { channel: 'Email', revenue: 1500000, investment: 500000, roi: 300, conversions: 400 }
+    ]
+  })
+
+  const generateMockHealthCheckData = () => ({
+    dataQuality: {
+      overallScore: 78,
+      checks: [
+        { name: 'Заполненность активностей', score: 85 },
+        { name: 'Заполненность инвестиций', score: 92 },
+        { name: 'Консистентность дат', score: 65 },
+        { name: 'Валидность бюджетов', score: 71 }
+      ]
+    },
+    unmappedData: {
+      summary: {
+        totalUnmappedActivities: 12,
+        totalUnmappedInvestments: 3,
+        mappingCoverage: 85
+      }
+    },
+    consistencyIssues: {
+      summary: {
+        totalIssues: 8,
+        highSeverity: 2,
+        mediumSeverity: 4,
+        lowSeverity: 2
+      }
+    }
+  })
+
+  const generateMockPerformanceOverviewData = () => ({
+    mainKPIs: {
+      revenue: { current: 15420000, target: 18000000, trend: 15.2, previous: 12500000 },
+      roi: { current: 165, target: 250, trend: 8.7, previous: 152 },
+      conversions: { current: 720, target: 850, trend: 12.1, previous: 620 },
+      ctr: { current: 3.7, target: 3.5, trend: -2.3, previous: 3.8 }
+    },
+    geoPerformance: [
+      { region: 'Москва', revenue: 6000000, roi: 180, activities: 8 },
+      { region: 'Санкт-Петербург', revenue: 3500000, roi: 165, activities: 5 },
+      { region: 'Екатеринбург', revenue: 2200000, roi: 145, activities: 4 }
+    ]
+  })
 
   // Инициализация
   const initialize = async () => {
@@ -644,6 +1152,12 @@ export const useInsightsStore = defineStore('insights', () => {
     availableRegions,
     performanceTimeData,
     roiKPIs,
+    dashboards,
+    reportsData,
+    currentDashboardData,
+    currentReportData,
+    projects,
+    savedViews,
 
     // Getters
     totalRevenue,
@@ -685,6 +1199,18 @@ export const useInsightsStore = defineStore('insights', () => {
     loadFunnelData,
     loadPerformanceTimeData,
     loadROIKPIs,
+    loadDashboards,
+    loadReports,
+    loadDashboardData,
+    loadReportData,
+    loadProjects,
+    loadSavedViews,
+    saveView,
+    deleteView,
+    updateWidget,
+    getReportData,
+    getDrillDownData,
+    generateMockReportData,
     initialize
   }
 })

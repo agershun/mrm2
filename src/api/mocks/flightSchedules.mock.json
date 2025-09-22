@@ -1,0 +1,257 @@
+[
+  {
+    "schedule_id": "schedule_flight_google_search_001",
+    "plan_id": "plan_tech_launch_001",
+    "flight_id": "flight_google_search_001",
+    "flight_name": "Google Search - Основные запросы",
+    "weekly_schedule": [
+      {
+        "week": 1,
+        "start_date": "2024-12-01",
+        "end_date": "2024-12-07",
+        "budget": 46000,
+        "daily_budget": 6571,
+        "targeting_adjustments": {
+          "bid_adjustments": {
+            "mobile": -10,
+            "desktop": 0,
+            "tablet": -5
+          },
+          "day_parting": {
+            "weekdays_9_18": 20,
+            "weekdays_18_22": 10,
+            "weekends": -20
+          }
+        },
+        "expected_metrics": {
+          "impressions": 19200,
+          "clicks": 576,
+          "conversions": 23
+        }
+      },
+      {
+        "week": 2,
+        "start_date": "2024-12-08",
+        "end_date": "2024-12-14",
+        "budget": 46000,
+        "daily_budget": 6571,
+        "targeting_adjustments": {
+          "keyword_bids": {
+            "project_management_software": 5,
+            "saas_project_tools": 0,
+            "team_collaboration": -10
+          }
+        },
+        "expected_metrics": {
+          "impressions": 20000,
+          "clicks": 600,
+          "conversions": 24
+        }
+      },
+      {
+        "week": 3,
+        "start_date": "2024-12-15",
+        "end_date": "2024-12-21",
+        "budget": 46000,
+        "daily_budget": 6571,
+        "seasonal_adjustments": {
+          "holiday_period": true,
+          "budget_modifier": -15,
+          "bid_modifier": -10
+        },
+        "expected_metrics": {
+          "impressions": 17000,
+          "clicks": 510,
+          "conversions": 20
+        }
+      }
+    ],
+    "monthly_pacing": {
+      "december": {
+        "target_spend": 203000,
+        "target_conversions": 81,
+        "pacing_strategy": "even"
+      },
+      "january": {
+        "target_spend": 200000,
+        "target_conversions": 80,
+        "pacing_strategy": "accelerated_start"
+      }
+    },
+    "optimization_schedule": [
+      {
+        "date": "2024-12-07",
+        "type": "weekly_review",
+        "actions": ["bid_optimization", "keyword_performance_review"]
+      },
+      {
+        "date": "2024-12-14",
+        "type": "creative_refresh",
+        "actions": ["new_ad_variants", "landing_page_test"]
+      },
+      {
+        "date": "2024-12-31",
+        "type": "monthly_deep_dive",
+        "actions": ["full_account_optimization", "strategy_adjustment"]
+      }
+    ],
+    "status": "active",
+    "last_updated": "2024-12-01T09:30:00Z"
+  },
+  {
+    "schedule_id": "schedule_flight_instagram_feed_001",
+    "plan_id": "plan_beauty_awareness_002",
+    "flight_id": "flight_instagram_feed_001",
+    "flight_name": "Instagram Feed & Stories",
+    "weekly_schedule": [
+      {
+        "week": 1,
+        "start_date": "2024-12-01",
+        "end_date": "2024-12-07",
+        "budget": 93333,
+        "daily_budget": 13333,
+        "content_calendar": {
+          "monday": {"type": "product_showcase", "format": "carousel"},
+          "tuesday": {"type": "tutorial", "format": "video"},
+          "wednesday": {"type": "ugc", "format": "stories"},
+          "thursday": {"type": "behind_scenes", "format": "video"},
+          "friday": {"type": "product_demo", "format": "single_image"},
+          "weekend": {"type": "lifestyle", "format": "stories"}
+        },
+        "targeting_focus": "broad_awareness",
+        "expected_metrics": {
+          "impressions": 666667,
+          "clicks": 40000,
+          "engagement": 53333
+        }
+      },
+      {
+        "week": 2,
+        "start_date": "2024-12-08",
+        "end_date": "2024-12-14",
+        "budget": 93333,
+        "daily_budget": 13333,
+        "content_calendar": {
+          "monday": {"type": "transformation", "format": "before_after"},
+          "tuesday": {"type": "tips_tricks", "format": "carousel"},
+          "wednesday": {"type": "product_benefits", "format": "video"},
+          "thursday": {"type": "testimonial", "format": "ugc_video"},
+          "friday": {"type": "how_to", "format": "tutorial"},
+          "weekend": {"type": "inspiration", "format": "collection"}
+        },
+        "targeting_focus": "lookalike_expansion",
+        "expected_metrics": {
+          "impressions": 700000,
+          "clicks": 42000,
+          "engagement": 56000
+        }
+      },
+      {
+        "week": 3,
+        "start_date": "2024-12-15",
+        "end_date": "2024-12-21",
+        "budget": 93333,
+        "daily_budget": 13333,
+        "content_calendar": {
+          "monday": {"type": "holiday_special", "format": "video"},
+          "tuesday": {"type": "gift_guide", "format": "carousel"},
+          "wednesday": {"type": "festive_looks", "format": "tutorial"},
+          "thursday": {"type": "year_end_sale", "format": "single_image"},
+          "friday": {"type": "party_makeup", "format": "video"},
+          "weekend": {"type": "celebration", "format": "stories"}
+        },
+        "seasonal_focus": "holiday_campaign",
+        "budget_boost": 20,
+        "expected_metrics": {
+          "impressions": 800000,
+          "clicks": 48000,
+          "engagement": 64000
+        }
+      }
+    ],
+    "creative_rotation": {
+      "refresh_frequency": "3_days",
+      "test_duration": "1_week",
+      "winning_creative_scaling": "automatic"
+    },
+    "audience_testing": [
+      {
+        "week": 1,
+        "test": "interest_based_vs_lookalike",
+        "budget_split": "50/50"
+      },
+      {
+        "week": 3,
+        "test": "age_groups_25_35_vs_35_45",
+        "budget_split": "60/40"
+      }
+    ],
+    "status": "active",
+    "last_updated": "2024-12-01T10:15:00Z"
+  },
+  {
+    "schedule_id": "schedule_flight_linkedin_sponsored_003",
+    "plan_id": "plan_tech_launch_001",
+    "flight_id": "flight_linkedin_sponsored_003",
+    "flight_name": "LinkedIn Sponsored Content",
+    "weekly_schedule": [
+      {
+        "week": 1,
+        "start_date": "2024-12-01",
+        "end_date": "2024-12-07",
+        "budget": 28684,
+        "daily_budget": 4098,
+        "content_themes": {
+          "monday": "thought_leadership",
+          "wednesday": "product_benefits",
+          "friday": "customer_success_story"
+        },
+        "targeting_rotation": "job_titles_focus",
+        "expected_metrics": {
+          "impressions": 57368,
+          "clicks": 1721,
+          "conversions": 9
+        }
+      },
+      {
+        "week": 2,
+        "start_date": "2024-12-08",
+        "end_date": "2024-12-14",
+        "budget": 28684,
+        "daily_budget": 4098,
+        "content_themes": {
+          "monday": "industry_insights",
+          "wednesday": "demo_invitation",
+          "friday": "webinar_promotion"
+        },
+        "targeting_rotation": "company_size_focus",
+        "expected_metrics": {
+          "impressions": 60000,
+          "clicks": 1800,
+          "conversions": 9
+        }
+      }
+    ],
+    "ab_testing_schedule": [
+      {
+        "test_name": "ad_format_test",
+        "variants": ["single_image", "video", "carousel"],
+        "duration_weeks": 2,
+        "budget_allocation": "equal"
+      },
+      {
+        "test_name": "cta_test",
+        "variants": ["learn_more", "download", "request_demo"],
+        "duration_weeks": 1,
+        "budget_allocation": "equal"
+      }
+    ],
+    "lead_follow_up": {
+      "immediate_email": true,
+      "sales_notification": true,
+      "nurture_sequence": "b2b_tech_7_step"
+    },
+    "status": "active",
+    "last_updated": "2024-12-01T09:30:00Z"
+  }
+]

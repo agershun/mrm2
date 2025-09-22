@@ -7,6 +7,7 @@ import apiClient from '../client.js'
 
 // Импортируем моки
 import activitiesMock from '../mocks/activities.mock.json'
+import activityInvestmentsMock from '../mocks/activityInvestments.mock.json'
 
 /**
  * Получает массив объектов Activity, соответствующих фильтрам
@@ -196,6 +197,154 @@ export const syncActivityData = async (id) => {
  */
 export const searchActivities = async (keyword) => {
   return getActivities({ search: keyword })
+}
+
+/**
+ * Получает активности для связи с инвестициями (с дополнительными данными)
+ * @param {Object} filters - Фильтры для поиска
+ * @returns {Promise<Array>} - Массив активностей с данными для связи
+ */
+export const getActivitiesForLinking = async (filters = {}) => {
+  try {
+    const activities = await getActivities(filters)
+
+    // Добавляем дополнительные данные для связи с инвестициями
+    return activities.map(activity => ({
+      ...activity,
+      id: activity.activity_id, // Добавляем поле id для совместимости
+      type: getActivityTypeForDisplay(activity.activity_type_id),
+      budget: calculateActivityBudget(activity.activity_id),
+      performance_score: calculatePerformanceScore(activity.activity_id),
+      allocated_amount: 0 // Будет заполняться при связи
+    }))
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Создает связь между активностью и инвестицией
+ * @param {string} activityId - ID активности
+ * @param {string} investmentId - ID инвестиции
+ * @param {Object} linkData - Данные связи
+ * @returns {Promise<Object>} - Созданная связь
+ */
+export const linkActivityToInvestment = async (activityId, investmentId, linkData) => {
+  try {
+    const response = await apiClient.post('/activity-investments', {
+      activity_id: activityId,
+      investment_id: investmentId,
+      ...linkData
+    })
+
+    // Создаем новую связь в моке
+    const newLink = {
+      link_id: Date.now().toString(),
+      activity_id: activityId,
+      investment_id: investmentId,
+      allocation_percentage: linkData.allocation_percentage || 0,
+      allocated_amount: linkData.allocated_amount || 0,
+      allocation_type: linkData.allocation_type || 'Manual',
+      priority: linkData.priority || 'Medium',
+      status: 'Active',
+      created_by: '1',
+      updated_by: '1',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      ...linkData
+    }
+
+    return newLink
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Удаляет связь между активностью и инвестицией
+ * @param {string} activityId - ID активности
+ * @param {string} investmentId - ID инвестиции
+ * @returns {Promise<boolean>} - Результат удаления
+ */
+export const unlinkActivityFromInvestment = async (activityId, investmentId) => {
+  try {
+    const response = await apiClient.delete(`/activity-investments/${activityId}/${investmentId}`)
+    return true
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Получает связи активностей с инвестициями
+ * @param {string} investmentId - ID инвестиции (опционально)
+ * @returns {Promise<Array>} - Массив связей
+ */
+export const getActivityInvestmentLinks = async (investmentId = null) => {
+  try {
+    const params = investmentId ? { investment_id: investmentId } : {}
+    const response = await apiClient.get('/activity-investments', params)
+
+    // Возвращаем данные из мока
+    let links = [...activityInvestmentsMock]
+
+    if (investmentId) {
+      links = links.filter(link => link.investment_id === investmentId)
+    }
+
+    return links
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Обновляет распределение средств для связи активности с инвестицией
+ * @param {string} linkId - ID связи
+ * @param {Object} allocationData - Данные распределения
+ * @returns {Promise<Object>} - Обновленная связь
+ */
+export const updateActivityAllocation = async (linkId, allocationData) => {
+  try {
+    const response = await apiClient.patch(`/activity-investments/${linkId}`, allocationData)
+
+    // TODO: Обновить в моке
+    return { linkId, ...allocationData, updated_at: new Date().toISOString() }
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+// Вспомогательные функции
+const getActivityTypeForDisplay = (activityTypeId) => {
+  const typeMap = {
+    '1': 'Campaign',
+    '2': 'Digital Campaign',
+    '3': 'Traditional Campaign',
+    '4': 'Social Media',
+    '5': 'Display Advertising',
+    '6': 'Search Marketing',
+    '7': 'Email Marketing',
+    '8': 'Content Marketing',
+    '9': 'Outdoor Advertising',
+    '10': 'Event',
+    '11': 'TV Advertising',
+    '12': 'Public Relations',
+    '13': 'Sponsorship'
+  }
+  return typeMap[activityTypeId] || 'Other'
+}
+
+const calculateActivityBudget = (activityId) => {
+  // Вычисляем бюджет на основе связей с инвестициями
+  const links = activityInvestmentsMock.filter(link => link.activity_id === activityId)
+  return links.reduce((sum, link) => sum + (link.allocated_amount || 0), 0)
+}
+
+const calculatePerformanceScore = (activityId) => {
+  // Генерируем псевдо-случайный скор производительности на основе ID
+  const seed = parseInt(activityId) || 1
+  return Math.floor(70 + (seed * 7) % 25) // Скор от 70 до 95
 }
 
 // Псевдоним для совместимости со сценариями

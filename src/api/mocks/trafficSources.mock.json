@@ -1,0 +1,155 @@
+[
+  {
+    "source_id": "brand_performance",
+    "name": "Брендформанс",
+    "category_id": "brand_performance",
+    "description": "Комплексные кампании для повышения узнаваемости бренда",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "turbotarget",
+    "name": "Turbotarget",
+    "category_id": "brand_performance",
+    "description": "Платформа для медийной рекламы",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "yandex_direct",
+    "name": "Яндекс Директ",
+    "category_id": "contextual_advertising",
+    "description": "Система контекстной рекламы Яндекса",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "google_ads",
+    "name": "Google Ads",
+    "category_id": "contextual_advertising",
+    "description": "Система контекстной рекламы Google",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "vkontakte",
+    "name": "ВКонтакте",
+    "category_id": "targeted_advertising",
+    "description": "Таргетированная реклама ВКонтакте",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "vk_ads",
+    "name": "VK Реклама",
+    "category_id": "targeted_advertising",
+    "description": "Рекламная платформа VK",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "organic_yandex",
+    "name": "Органический поиск Яндекс",
+    "category_id": "organic_search",
+    "description": "Органический трафик из поиска Яндекса",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "organic_google",
+    "name": "Органический поиск Google",
+    "category_id": "organic_search",
+    "description": "Органический трафик из поиска Google",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "other_search",
+    "name": "Другие ПС",
+    "category_id": "organic_search",
+    "description": "Органический трафик из других поисковых систем",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "referrals_direct",
+    "name": "Рефералы/Прямые заходы",
+    "category_id": "referrals_direct",
+    "description": "Прямые переходы и ссылки с других сайтов",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "yandex_market",
+    "name": "Яндекс Маркет",
+    "category_id": "marketplaces",
+    "description": "Торговая площадка Яндекс.Маркет",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "yandex_zen",
+    "name": "Я.Дзен",
+    "category_id": "yandex_zen",
+    "description": "Платформа контента Яндекс.Дзен",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "mindbox",
+    "name": "Mindbox",
+    "category_id": "crm_marketing",
+    "description": "CRM и email-маркетинг платформа",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "email",
+    "name": "Email",
+    "category_id": "email",
+    "description": "Email-рассылки",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "addigital",
+    "name": "Addigital",
+    "category_id": "addigital",
+    "description": "Рекламная сеть Addigital",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "gdeslon",
+    "name": "Gdeslon",
+    "category_id": "gdeslon",
+    "description": "Партнерская сеть Gdeslon",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "source_id": "other",
+    "name": "Другое",
+    "category_id": "other",
+    "description": "Прочие источники трафика",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+]

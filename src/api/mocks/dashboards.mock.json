@@ -1,0 +1,122 @@
+[
+  {
+    "dashboard_id": "investment_planning",
+    "name": "Investment Planning",
+    "description": "Планирование инвестиций и анализ соответствия стратегическим целям",
+    "category": "planning",
+    "icon": "mdi-chart-line",
+    "status": "active",
+    "tabs": [
+      {
+        "tab_id": "planning_summary",
+        "name": "Сводка планирования",
+        "description": "Общий обзор планирования инвестиций",
+        "order": 1
+      },
+      {
+        "tab_id": "budget_allocation",
+        "name": "Распределение бюджета",
+        "description": "Детальное распределение бюджета по направлениям",
+        "order": 2
+      },
+      {
+        "tab_id": "strategic_alignment",
+        "name": "Стратегическое соответствие",
+        "description": "Анализ соответствия инвестиций стратегическим целям",
+        "order": 3
+      }
+    ],
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "dashboard_id": "romi",
+    "name": "ROMI Analysis",
+    "description": "Анализ возврата на маркетинговые инвестиции",
+    "category": "performance",
+    "icon": "mdi-trending-up",
+    "status": "active",
+    "tabs": [
+      {
+        "tab_id": "romi_overview",
+        "name": "Обзор ROMI",
+        "description": "Общие показатели возврата инвестиций",
+        "order": 1
+      },
+      {
+        "tab_id": "channel_performance",
+        "name": "Эффективность каналов",
+        "description": "Анализ ROI по маркетинговым каналам",
+        "order": 2
+      },
+      {
+        "tab_id": "attribution_analysis",
+        "name": "Анализ атрибуции",
+        "description": "Модели атрибуции и влияние точек контакта",
+        "order": 3
+      },
+      {
+        "tab_id": "cohort_analysis",
+        "name": "Когортный анализ",
+        "description": "Анализ удержания и LTV клиентов",
+        "order": 4
+      }
+    ],
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "dashboard_id": "health_check",
+    "name": "Health Check",
+    "description": "Контроль качества и полноты данных",
+    "category": "quality",
+    "icon": "mdi-heart-pulse",
+    "status": "active",
+    "tabs": [
+      {
+        "tab_id": "data_quality",
+        "name": "Качество данных",
+        "description": "Проверка корректности и полноты данных",
+        "order": 1
+      },
+      {
+        "tab_id": "unmapped_data",
+        "name": "Несопоставленные данные",
+        "description": "Данные без привязки к активностям или целям",
+        "order": 2
+      },
+      {
+        "tab_id": "data_consistency",
+        "name": "Согласованность данных",
+        "description": "Проверка согласованности между системами",
+        "order": 3
+      }
+    ],
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  },
+  {
+    "dashboard_id": "performance_overview",
+    "name": "Performance Overview",
+    "description": "Общий обзор производительности маркетинговых активностей",
+    "category": "performance",
+    "icon": "mdi-chart-areaspline",
+    "status": "active",
+    "tabs": [
+      {
+        "tab_id": "kpi_summary",
+        "name": "Сводка KPI",
+        "description": "Ключевые показатели эффективности",
+        "order": 1
+      },
+      {
+        "tab_id": "trends_analysis",
+        "name": "Анализ трендов",
+        "description": "Тренды и прогнозы развития",
+        "order": 2
+      }
+    ],
+    "created_at": "2025-09-01T10:00:00Z",
+    "updated_at": "2025-09-22T14:30:00Z"
+  }
+]

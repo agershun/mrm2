@@ -1,0 +1,352 @@
+[
+  {
+    "campaign_id": "camp_2025_001",
+    "external_ids": {
+      "meta": "23845697890123456",
+      "google": "12345678901",
+      "yandex": "9876543210"
+    },
+    "name": "Новогодняя распродажа 2025 - Мебель",
+    "objective": "conversions",
+    "channel": "meta",
+    "status": "active",
+    "start_date": "2024-12-15T00:00:00Z",
+    "end_date": "2025-01-15T23:59:59Z",
+    "budget_type": "lifetime",
+    "budget_value": 500000,
+    "currency": "RUB",
+    "utm_params": {
+      "source": "meta",
+      "medium": "cpc",
+      "campaign": "new_year_sale_2025",
+      "term": "furniture",
+      "content": "main_promo"
+    },
+    "tracking_template": "https://hobbycenter.ru/track?campaign_id={campaign_id}&ad_group_id={ad_group_id}&ad_id={ad_id}",
+    "kpi_targets": [
+      { "type": "conversions", "target": 850 },
+      { "type": "roas", "target": 3.2 },
+      { "type": "cpa", "target": 590 }
+    ],
+    "geo_targeting": ["Москва", "Санкт-Петербург", "Екатеринбург", "Новосибирск"],
+    "language_targeting": ["ru"],
+    "frequency_cap": {
+      "period": "daily",
+      "limit": 3
+    },
+    "brand_safety_settings": {
+      "exclude_categories": ["adult", "violence", "fake_news"],
+      "viewability_threshold": 50
+    },
+    "product_line": "Мебель для дома",
+    "campaign_category": "promo",
+    "campaign_group_id": "group_ny_2025",
+    "version": "v1",
+    "responsible_manager": "anna.petrova@hobbycenter.ru",
+    "notes": "Основная новогодняя кампания с акцентом на мебель",
+    "phase": "active_launch",
+    "campaign_type": "standard",
+    "optimization_goal": "purchase",
+    "bid_strategy": "lowest_cost",
+    "audience_type": "broad",
+    "creative_format": "carousel",
+    "platform_placements": ["facebook_feed", "instagram_feed", "instagram_stories"],
+    "device_targeting": ["mobile", "desktop"],
+    "age_targeting": {
+      "min": 25,
+      "max": 55
+    },
+    "gender_targeting": ["all"],
+    "created_at": "2024-12-10T10:00:00Z",
+    "updated_at": "2024-12-15T14:30:00Z"
+  },
+  {
+    "campaign_id": "camp_2025_002",
+    "external_ids": {
+      "meta": "23845697890123457"
+    },
+    "name": "Новогодняя распродажа 2025 - Мебель - Test B",
+    "objective": "conversions",
+    "channel": "meta",
+    "status": "active",
+    "start_date": "2024-12-15T00:00:00Z",
+    "end_date": "2025-01-15T23:59:59Z",
+    "budget_type": "lifetime",
+    "budget_value": 200000,
+    "currency": "RUB",
+    "utm_params": {
+      "source": "meta",
+      "medium": "cpc",
+      "campaign": "new_year_sale_2025_test_b",
+      "term": "furniture",
+      "content": "test_creative"
+    },
+    "tracking_template": "https://hobbycenter.ru/track?campaign_id={campaign_id}&ad_group_id={ad_group_id}&ad_id={ad_id}",
+    "kpi_targets": [
+      { "type": "conversions", "target": 340 },
+      { "type": "roas", "target": 3.5 },
+      { "type": "cpa", "target": 590 }
+    ],
+    "geo_targeting": ["Москва", "Санкт-Петербург"],
+    "language_targeting": ["ru"],
+    "frequency_cap": {
+      "period": "daily",
+      "limit": 2
+    },
+    "brand_safety_settings": {
+      "exclude_categories": ["adult", "violence", "fake_news"],
+      "viewability_threshold": 50
+    },
+    "product_line": "Мебель для дома",
+    "campaign_category": "test",
+    "campaign_group_id": "group_ny_2025",
+    "version": "ab_test_b",
+    "responsible_manager": "anna.petrova@hobbycenter.ru",
+    "notes": "Сплит-тест B с альтернативными креативами",
+    "phase": "ab_testing",
+    "campaign_type": "split_test",
+    "optimization_goal": "purchase",
+    "bid_strategy": "target_cost",
+    "audience_type": "custom",
+    "creative_format": "single_image",
+    "platform_placements": ["facebook_feed", "instagram_feed"],
+    "device_targeting": ["mobile"],
+    "age_targeting": {
+      "min": 30,
+      "max": 50
+    },
+    "gender_targeting": ["female"],
+    "created_at": "2024-12-10T10:15:00Z",
+    "updated_at": "2024-12-15T14:30:00Z"
+  },
+  {
+    "campaign_id": "camp_2025_003",
+    "external_ids": {
+      "google": "12345678902"
+    },
+    "name": "Поисковая реклама - Товары для творчества",
+    "objective": "traffic",
+    "channel": "google",
+    "status": "active",
+    "start_date": "2024-12-01T00:00:00Z",
+    "end_date": null,
+    "budget_type": "daily",
+    "budget_value": 15000,
+    "currency": "RUB",
+    "utm_params": {
+      "source": "google",
+      "medium": "cpc",
+      "campaign": "craft_supplies_search",
+      "term": "craft_supplies",
+      "content": "search_ads"
+    },
+    "tracking_template": "https://hobbycenter.ru/track?campaign_id={campaign_id}&keyword={keyword}&ad_id={ad_id}",
+    "kpi_targets": [
+      { "type": "clicks", "target": 1200 },
+      { "type": "ctr", "target": 4.5 },
+      { "type": "cpc", "target": 12.5 }
+    ],
+    "geo_targeting": ["Россия"],
+    "language_targeting": ["ru"],
+    "frequency_cap": null,
+    "brand_safety_settings": {
+      "exclude_categories": ["adult"],
+      "viewability_threshold": 30
+    },
+    "product_line": "Товары для творчества",
+    "campaign_category": "always_on",
+    "campaign_group_id": "group_search_2025",
+    "version": "v3",
+    "responsible_manager": "dmitry.volkov@hobbycenter.ru",
+    "notes": "Always-on кампания для поискового трафика",
+    "phase": "active_launch",
+    "campaign_type": "search",
+    "optimization_goal": "clicks",
+    "bid_strategy": "maximize_clicks",
+    "audience_type": "keywords",
+    "creative_format": "text_ad",
+    "platform_placements": ["google_search", "search_partners"],
+    "device_targeting": ["mobile", "desktop", "tablet"],
+    "age_targeting": null,
+    "gender_targeting": ["all"],
+    "created_at": "2024-11-28T09:00:00Z",
+    "updated_at": "2024-12-20T11:20:00Z"
+  },
+  {
+    "campaign_id": "camp_2025_004",
+    "external_ids": {
+      "yandex": "9876543211"
+    },
+    "name": "Ретаргетинг - Просмотрели товары",
+    "objective": "conversions",
+    "channel": "yandex",
+    "status": "active",
+    "start_date": "2024-12-10T00:00:00Z",
+    "end_date": "2025-02-28T23:59:59Z",
+    "budget_type": "daily",
+    "budget_value": 8000,
+    "currency": "RUB",
+    "utm_params": {
+      "source": "yandex",
+      "medium": "cpc",
+      "campaign": "retargeting_product_viewers",
+      "term": "retargeting",
+      "content": "product_reminder"
+    },
+    "tracking_template": "https://hobbycenter.ru/track?campaign_id={campaign_id}&placement_id={placement_id}",
+    "kpi_targets": [
+      { "type": "conversions", "target": 120 },
+      { "type": "roas", "target": 4.8 },
+      { "type": "cpa", "target": 400 }
+    ],
+    "geo_targeting": ["Москва", "Московская область"],
+    "language_targeting": ["ru"],
+    "frequency_cap": {
+      "period": "weekly",
+      "limit": 5
+    },
+    "brand_safety_settings": {
+      "exclude_categories": ["adult", "violence"],
+      "viewability_threshold": 60
+    },
+    "product_line": "Все категории",
+    "campaign_category": "retargeting",
+    "campaign_group_id": "group_retargeting_2025",
+    "version": "v1",
+    "responsible_manager": "elena.sidorova@hobbycenter.ru",
+    "notes": "Ретаргетинг на пользователей, просмотревших товары но не купивших",
+    "phase": "active_launch",
+    "campaign_type": "retargeting",
+    "optimization_goal": "purchase",
+    "bid_strategy": "target_cpa",
+    "audience_type": "retargeting",
+    "creative_format": "banner",
+    "platform_placements": ["yandex_display", "rsya"],
+    "device_targeting": ["mobile", "desktop"],
+    "age_targeting": {
+      "min": 18,
+      "max": 65
+    },
+    "gender_targeting": ["all"],
+    "created_at": "2024-12-08T16:00:00Z",
+    "updated_at": "2024-12-18T13:45:00Z"
+  },
+  {
+    "campaign_id": "camp_2025_005",
+    "external_ids": {
+      "meta": "23845697890123458"
+    },
+    "name": "Lookalike - Похожие на покупателей",
+    "objective": "brand_awareness",
+    "channel": "meta",
+    "status": "paused",
+    "start_date": "2024-12-01T00:00:00Z",
+    "end_date": "2024-12-31T23:59:59Z",
+    "budget_type": "daily",
+    "budget_value": 12000,
+    "currency": "RUB",
+    "utm_params": {
+      "source": "meta",
+      "medium": "cpm",
+      "campaign": "lookalike_customers",
+      "term": "lookalike",
+      "content": "brand_awareness"
+    },
+    "tracking_template": "https://hobbycenter.ru/track?campaign_id={campaign_id}&ad_group_id={ad_group_id}",
+    "kpi_targets": [
+      { "type": "reach", "target": 450000 },
+      { "type": "impressions", "target": 2500000 },
+      { "type": "cpm", "target": 4.8 }
+    ],
+    "geo_targeting": ["Россия"],
+    "language_targeting": ["ru"],
+    "frequency_cap": {
+      "period": "weekly",
+      "limit": 2
+    },
+    "brand_safety_settings": {
+      "exclude_categories": ["adult", "violence", "fake_news"],
+      "viewability_threshold": 40
+    },
+    "product_line": "Все категории",
+    "campaign_category": "launch",
+    "campaign_group_id": "group_awareness_2024",
+    "version": "v2",
+    "responsible_manager": "mikhail.kozlov@hobbycenter.ru",
+    "notes": "Кампания на повышение узнаваемости бренда среди похожей на покупателей аудитории",
+    "phase": "optimization",
+    "campaign_type": "lookalike",
+    "optimization_goal": "reach",
+    "bid_strategy": "lowest_cost",
+    "audience_type": "lookalike",
+    "creative_format": "video",
+    "platform_placements": ["facebook_feed", "instagram_feed", "facebook_video_feeds", "instagram_reels"],
+    "device_targeting": ["mobile", "desktop"],
+    "age_targeting": {
+      "min": 22,
+      "max": 60
+    },
+    "gender_targeting": ["all"],
+    "created_at": "2024-11-25T12:00:00Z",
+    "updated_at": "2024-12-15T09:30:00Z"
+  },
+  {
+    "campaign_id": "camp_2025_006",
+    "external_ids": {
+      "tiktok": "tt_789456123"
+    },
+    "name": "TikTok - Креативные материалы для молодежи",
+    "objective": "app_installs",
+    "channel": "tiktok",
+    "status": "draft",
+    "start_date": "2025-01-10T00:00:00Z",
+    "end_date": "2025-02-10T23:59:59Z",
+    "budget_type": "lifetime",
+    "budget_value": 300000,
+    "currency": "RUB",
+    "utm_params": {
+      "source": "tiktok",
+      "medium": "cpc",
+      "campaign": "creative_youth_app",
+      "term": "app_install",
+      "content": "mobile_app"
+    },
+    "tracking_template": "https://hobbycenter.ru/track?campaign_id={campaign_id}&creative_id={creative_id}",
+    "kpi_targets": [
+      { "type": "app_installs", "target": 5000 },
+      { "type": "cost_per_install", "target": 60 },
+      { "type": "install_rate", "target": 12.5 }
+    ],
+    "geo_targeting": ["Москва", "Санкт-Петербург", "Казань", "Екатеринбург"],
+    "language_targeting": ["ru"],
+    "frequency_cap": {
+      "period": "daily",
+      "limit": 4
+    },
+    "brand_safety_settings": {
+      "exclude_categories": ["adult"],
+      "viewability_threshold": 50
+    },
+    "product_line": "Мобильное приложение",
+    "campaign_category": "launch",
+    "campaign_group_id": "group_app_promo_2025",
+    "version": "v1",
+    "responsible_manager": "sofia.popova@hobbycenter.ru",
+    "notes": "Запуск промо мобильного приложения среди молодой аудитории",
+    "phase": "pre_launch",
+    "campaign_type": "app_promotion",
+    "optimization_goal": "app_installs",
+    "bid_strategy": "lowest_cost",
+    "audience_type": "interest_based",
+    "creative_format": "vertical_video",
+    "platform_placements": ["tiktok_feed", "tiktok_stories"],
+    "device_targeting": ["mobile"],
+    "age_targeting": {
+      "min": 16,
+      "max": 30
+    },
+    "gender_targeting": ["all"],
+    "created_at": "2024-12-20T14:00:00Z",
+    "updated_at": "2024-12-20T14:00:00Z"
+  }
+]

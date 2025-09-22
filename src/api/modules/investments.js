@@ -10,6 +10,8 @@ import investmentsMock from '../mocks/investments.mock.json'
 import investmentValuesMock from '../mocks/investmentValues.mock.json'
 import manualAllocationsMock from '../mocks/manualAllocations.mock.json'
 import activityInvestmentsMock from '../mocks/activityInvestments.mock.json'
+import investmentPlansMock from '../mocks/investmentPlans.mock.json'
+import investmentHierarchyMock from '../mocks/investmentHierarchy.mock.json'
 
 /**
  * Получает список всех инвестиций с фильтрацией
@@ -462,6 +464,97 @@ export const getInvestmentTrends = async (params = {}) => {
     }
 
     return trends
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Получает планы инвестиций
+ * @param {Object} filters - Фильтры: {status, fiscal_year}
+ * @returns {Promise<Array>} - Список планов инвестиций
+ */
+export const getInvestmentPlans = async (filters = {}) => {
+  try {
+    const response = await apiClient.get('/investment-plans', filters)
+
+    // Возвращаем данные из мока с применением фильтров
+    let plans = [...investmentPlansMock]
+
+    if (filters.status) {
+      plans = plans.filter(plan => plan.status === filters.status)
+    }
+
+    if (filters.fiscal_year) {
+      plans = plans.filter(plan => plan.fiscal_year === filters.fiscal_year)
+    }
+
+    return plans
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Получает иерархическую структуру инвестиций
+ * @param {string} planId - ID плана инвестиций (опционально)
+ * @returns {Promise<Array>} - Иерархическая структура инвестиций
+ */
+export const getInvestmentHierarchy = async (planId = null) => {
+  try {
+    const url = planId ? `/investment-plans/${planId}/hierarchy` : '/investment-hierarchy'
+    const response = await apiClient.get(url)
+
+    // Возвращаем данные из мока
+    let hierarchy = [...investmentHierarchyMock]
+
+    if (planId) {
+      hierarchy = hierarchy.filter(item => item.investment_plan_id === planId)
+    }
+
+    return hierarchy
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Создает новый элемент иерархии инвестиций
+ * @param {Object} data - Данные элемента иерархии
+ * @returns {Promise<Object>} - Созданный элемент
+ */
+export const createInvestmentHierarchyItem = async (data) => {
+  try {
+    const response = await apiClient.post('/investment-hierarchy', data)
+
+    // TODO: Заменить на реальное создание
+    return {
+      investment_id: `inv_${data.type}_${Date.now()}`,
+      level: data.level || 0,
+      total_amount: data.total_amount || 0,
+      connected_to_activities: false,
+      kreola_id: `KRL-${data.type.toUpperCase()}-${Date.now()}`,
+      persistent_id: `persistent_${data.type}_${Date.now()}`,
+      created_by: 'current_user',
+      updated_by: 'current_user',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      ...data
+    }
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Удаляет элемент иерархии инвестиций
+ * @param {string} itemId - ID элемента иерархии
+ * @returns {Promise<boolean>} - Результат удаления
+ */
+export const deleteInvestmentHierarchyItem = async (itemId) => {
+  try {
+    const response = await apiClient.delete(`/investment-hierarchy/${itemId}`)
+    return true
   } catch (error) {
     apiClient.handleError(error)
   }

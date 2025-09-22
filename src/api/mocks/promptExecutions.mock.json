@@ -1,0 +1,222 @@
+[
+  {
+    "execution_id": "exec_1737446400001",
+    "prompt_id": "prompt_campaign_card",
+    "campaign_id": "camp_12345",
+    "input_data": {
+      "campaign_description": "Запуск нового смартфона премиум-класса. Целевая аудитория - техноэнтузиасты 25-45 лет с доходом выше среднего. Бюджет 5 млн рублей на 2 месяца. Основные каналы: YouTube, Instagram, технические блоги."
+    },
+    "output_data": {
+      "campaign_card": {
+        "name": "Запуск смартфона PremiumTech X1",
+        "goal": "Генерация лидов и продаж",
+        "type": "Тактическая",
+        "description": "Комплексная кампания запуска нового смартфона премиум-класса",
+        "target_audience": "Техноэнтузиасты, мужчины и женщины 25-45 лет, доход выше среднего",
+        "channels": ["YouTube", "Instagram", "Tech Blogs", "Google Ads"],
+        "geography": "Москва, Санкт-Петербург, крупные города",
+        "period": "01.03.2025 - 30.04.2025",
+        "budget": "5000000",
+        "key_kpis": ["Reach > 1M", "CTR > 2.5%", "CPA < 1000"],
+        "confidence_level": "высокий"
+      }
+    },
+    "parameters": {
+      "max_tokens": 2000,
+      "temperature": 0.3,
+      "model": "gpt-4"
+    },
+    "status": "completed",
+    "started_at": "2025-01-21T10:00:00Z",
+    "completed_at": "2025-01-21T10:02:15Z",
+    "tokens_used": 1245,
+    "execution_time": 2150,
+    "created_by": "user_123",
+    "notes": "Первичный анализ описания кампании"
+  },
+  {
+    "execution_id": "exec_1737446400002",
+    "prompt_id": "prompt_campaign_params",
+    "campaign_id": "camp_12345",
+    "input_data": {
+      "campaign_card": {
+        "name": "Запуск смартфона PremiumTech X1",
+        "goal": "Генерация лидов и продаж",
+        "target_audience": "Техноэнтузиасты, мужчины и женщины 25-45 лет",
+        "budget": "5000000"
+      }
+    },
+    "output_data": {
+      "parameters": [
+        {
+          "parameter": "Целевая аудитория",
+          "value": "Техноэнтузиасты 25-45 лет, доход выше среднего",
+          "source": "документ",
+          "confidence": "высокий",
+          "comment": "Четко указано в описании"
+        },
+        {
+          "parameter": "Бюджет",
+          "value": "5000000 рублей",
+          "source": "ввод",
+          "confidence": "высокий",
+          "comment": "Прямое указание"
+        },
+        {
+          "parameter": "География",
+          "value": "Москва, СПб, крупные города",
+          "source": "предполагается",
+          "confidence": "средний",
+          "comment": "Типично для премиум продуктов"
+        }
+      ]
+    },
+    "parameters": {
+      "max_tokens": 2500,
+      "temperature": 0.2,
+      "model": "gpt-4"
+    },
+    "status": "completed",
+    "started_at": "2025-01-21T10:05:00Z",
+    "completed_at": "2025-01-21T10:07:30Z",
+    "tokens_used": 1680,
+    "execution_time": 2300,
+    "created_by": "user_123",
+    "notes": "Структурирование параметров кампании"
+  },
+  {
+    "execution_id": "exec_1737446400003",
+    "prompt_id": "prompt_media_mix",
+    "campaign_id": "camp_12345",
+    "input_data": {
+      "campaign_parameters": [
+        {"parameter": "Бюджет", "value": "5000000"},
+        {"parameter": "Целевая аудитория", "value": "Техноэнтузиасты 25-45 лет"},
+        {"parameter": "Каналы", "value": "YouTube, Instagram, Tech Blogs"}
+      ]
+    },
+    "output_data": {
+      "media_mix": [
+        {
+          "channel": "YouTube",
+          "segment": "Техноэнтузиасты 25-45",
+          "format": "Видео реклама",
+          "budget": 2000000,
+          "reach": 800000,
+          "cpm": 250,
+          "kpis": ["CTR > 2.5%", "View Rate > 80%"]
+        },
+        {
+          "channel": "Instagram",
+          "segment": "Техноэнтузиасты 25-45",
+          "format": "Stories + Feed",
+          "budget": 1500000,
+          "reach": 600000,
+          "cpm": 280,
+          "kpis": ["Engagement > 5%", "CTR > 2%"]
+        },
+        {
+          "channel": "Tech Blogs",
+          "segment": "Техноэнтузиасты",
+          "format": "Нативная реклама",
+          "budget": 1000000,
+          "reach": 300000,
+          "cpm": 400,
+          "kpis": ["Quality Traffic", "Time on Site > 3min"]
+        }
+      ]
+    },
+    "parameters": {
+      "max_tokens": 3000,
+      "temperature": 0.4,
+      "model": "gpt-4"
+    },
+    "status": "completed",
+    "started_at": "2025-01-21T10:10:00Z",
+    "completed_at": "2025-01-21T10:13:45Z",
+    "tokens_used": 2234,
+    "execution_time": 3450,
+    "created_by": "user_123",
+    "notes": "Генерация медиа-микса"
+  },
+  {
+    "execution_id": "exec_1737446400004",
+    "prompt_id": "prompt_file_analysis",
+    "campaign_id": null,
+    "input_data": {
+      "file_content": "Отчет по кампании Brand Awareness Q4 2024. Общий бюджет: 2.5 млн руб. Каналы: TV (40%), Digital (35%), OOH (25%). Результаты: Reach 1.2M, Frequency 3.2, Brand Recall +15%. CPM TV: 180 руб, Digital: 220 руб, OOH: 350 руб.",
+      "file_type": "txt"
+    },
+    "output_data": {
+      "brief_description": "Отчет по брендовой кампании Q4 2024 с результатами по reach и recall",
+      "detailed_description": "Документ содержит результаты выполнения брендовой кампании за четвертый квартал 2024 года. Указаны ключевые метрики эффективности по трем основным каналам размещения.\n\nОтчет включает данные о бюджете, распределении средств по каналам, достигнутом охвате и частоте контактов, а также показателях узнаваемости бренда. Приведены конкретные значения CPM для каждого канала.",
+      "usefulness_score": 8,
+      "extracted_data": {
+        "budget": 2500000,
+        "channels": ["TV", "Digital", "OOH"],
+        "reach": 1200000,
+        "frequency": 3.2,
+        "brand_recall": 15,
+        "cpm_data": {
+          "TV": 180,
+          "Digital": 220,
+          "OOH": 350
+        }
+      }
+    },
+    "parameters": {
+      "max_tokens": 2000,
+      "temperature": 0.3,
+      "model": "gpt-4"
+    },
+    "status": "completed",
+    "started_at": "2025-01-21T11:15:00Z",
+    "completed_at": "2025-01-21T11:17:20Z",
+    "tokens_used": 892,
+    "execution_time": 2200,
+    "created_by": "user_456",
+    "notes": "Анализ загруженного файла отчета"
+  },
+  {
+    "execution_id": "exec_1737446400005",
+    "prompt_id": "prompt_optimize_mix",
+    "campaign_id": "camp_12345",
+    "input_data": {
+      "initial_media_mix": [
+        {"channel": "YouTube", "budget": 2000000, "reach": 800000, "cpm": 250},
+        {"channel": "Instagram", "budget": 1500000, "reach": 600000, "cpm": 280},
+        {"channel": "Tech Blogs", "budget": 1000000, "reach": 300000, "cpm": 400}
+      ],
+      "optimization_goals": {
+        "primary": "maximize_reach",
+        "budget_limit": 5000000,
+        "target_cpm": 270
+      }
+    },
+    "output_data": {
+      "optimized_media_mix": [
+        {"channel": "YouTube", "budget": 2200000, "reach": 880000, "cpm": 250, "changes": "Увеличен бюджет на 200К"},
+        {"channel": "Instagram", "budget": 1800000, "reach": 720000, "cpm": 280, "changes": "Увеличен бюджет на 300К"},
+        {"channel": "Tech Blogs", "budget": 800000, "reach": 250000, "cpm": 400, "changes": "Снижен бюджет на 200К"},
+        {"channel": "Google Ads", "budget": 200000, "reach": 100000, "cpm": 200, "changes": "Новый канал добавлен"}
+      ],
+      "optimization_summary": {
+        "total_reach_increase": 250000,
+        "average_cpm_improvement": -15,
+        "channels_optimized": 4
+      }
+    },
+    "parameters": {
+      "max_tokens": 3500,
+      "temperature": 0.3,
+      "model": "gpt-4"
+    },
+    "status": "completed",
+    "started_at": "2025-01-21T12:00:00Z",
+    "completed_at": "2025-01-21T12:04:30Z",
+    "tokens_used": 2145,
+    "execution_time": 4300,
+    "created_by": "user_123",
+    "notes": "Оптимизация медиа-микса для максимизации охвата"
+  }
+]

@@ -1,0 +1,281 @@
+[
+  {
+    "ad_group_id": "adg_2025_001",
+    "campaign_id": "camp_2025_001",
+    "external_ids": {
+      "meta": "adset_23845697890123456"
+    },
+    "name": "Диваны и кресла - 25-45 лет - Москва",
+    "status": "active",
+    "budget_type": "campaign_budget",
+    "budget_value": null,
+    "daily_budget": 15000,
+    "bid_strategy": "lowest_cost",
+    "optimization_goal": "purchase",
+    "audience_definition": {
+      "type": "custom",
+      "age_range": { "min": 25, "max": 45 },
+      "gender": ["all"],
+      "geo_targeting": ["Москва"],
+      "interests": ["мебель", "дизайн интерьера", "домашний декор"],
+      "behaviors": ["покупатели мебели онлайн", "высокий доход"],
+      "custom_audiences": ["website_visitors_furniture"],
+      "exclude_audiences": ["recent_purchasers"]
+    },
+    "placements": ["facebook_feed", "instagram_feed", "instagram_stories"],
+    "device_targeting": ["mobile", "desktop"],
+    "schedule": {
+      "type": "all_time",
+      "timezone": "Europe/Moscow",
+      "day_parting": null
+    },
+    "frequency_cap": {
+      "period": "daily",
+      "limit": 2
+    },
+    "attribution_window": {
+      "view": 24,
+      "click": 7
+    },
+    "dynamic_creative": true,
+    "split_test_config": null,
+    "created_at": "2024-12-10T10:30:00Z",
+    "updated_at": "2024-12-15T14:45:00Z"
+  },
+  {
+    "ad_group_id": "adg_2025_002",
+    "campaign_id": "camp_2025_001",
+    "external_ids": {
+      "meta": "adset_23845697890123457"
+    },
+    "name": "Товары для детской - Родители - СПб",
+    "status": "active",
+    "budget_type": "campaign_budget",
+    "budget_value": null,
+    "daily_budget": 10000,
+    "bid_strategy": "target_cost",
+    "optimization_goal": "purchase",
+    "audience_definition": {
+      "type": "interest_based",
+      "age_range": { "min": 28, "max": 42 },
+      "gender": ["all"],
+      "geo_targeting": ["Санкт-Петербург"],
+      "interests": ["родительство", "детские товары", "развитие детей"],
+      "behaviors": ["родители с детьми 3-12 лет", "покупки онлайн"],
+      "custom_audiences": [],
+      "exclude_audiences": ["childless_users"]
+    },
+    "placements": ["facebook_feed", "instagram_feed"],
+    "device_targeting": ["mobile"],
+    "schedule": {
+      "type": "custom",
+      "timezone": "Europe/Moscow",
+      "day_parting": {
+        "monday": [{ "start": "09:00", "end": "22:00" }],
+        "tuesday": [{ "start": "09:00", "end": "22:00" }],
+        "wednesday": [{ "start": "09:00", "end": "22:00" }],
+        "thursday": [{ "start": "09:00", "end": "22:00" }],
+        "friday": [{ "start": "09:00", "end": "23:00" }],
+        "saturday": [{ "start": "10:00", "end": "23:00" }],
+        "sunday": [{ "start": "11:00", "end": "22:00" }]
+      }
+    },
+    "frequency_cap": {
+      "period": "weekly",
+      "limit": 4
+    },
+    "attribution_window": {
+      "view": 24,
+      "click": 7
+    },
+    "dynamic_creative": false,
+    "split_test_config": null,
+    "created_at": "2024-12-10T10:45:00Z",
+    "updated_at": "2024-12-15T14:45:00Z"
+  },
+  {
+    "ad_group_id": "adg_2025_003",
+    "campaign_id": "camp_2025_002",
+    "external_ids": {
+      "meta": "adset_23845697890123458"
+    },
+    "name": "Test B - Мебель премиум - 30-50 женщины",
+    "status": "active",
+    "budget_type": "campaign_budget",
+    "budget_value": null,
+    "daily_budget": 8000,
+    "bid_strategy": "target_cost",
+    "optimization_goal": "purchase",
+    "audience_definition": {
+      "type": "custom",
+      "age_range": { "min": 30, "max": 50 },
+      "gender": ["female"],
+      "geo_targeting": ["Москва", "Санкт-Петербург"],
+      "interests": ["премиум мебель", "дизайнерская мебель", "элитные интерьеры"],
+      "behaviors": ["высокий доход", "премиум покупатели"],
+      "custom_audiences": ["high_value_customers"],
+      "exclude_audiences": ["recent_purchasers"]
+    },
+    "placements": ["facebook_feed", "instagram_feed"],
+    "device_targeting": ["mobile"],
+    "schedule": {
+      "type": "all_time",
+      "timezone": "Europe/Moscow",
+      "day_parting": null
+    },
+    "frequency_cap": {
+      "period": "daily",
+      "limit": 1
+    },
+    "attribution_window": {
+      "view": 24,
+      "click": 7
+    },
+    "dynamic_creative": false,
+    "split_test_config": {
+      "test_type": "creative",
+      "test_group": "B",
+      "control_group": "adg_2025_001"
+    },
+    "created_at": "2024-12-10T11:00:00Z",
+    "updated_at": "2024-12-15T14:45:00Z"
+  },
+  {
+    "ad_group_id": "adg_2025_004",
+    "campaign_id": "camp_2025_003",
+    "external_ids": {
+      "google": "adgroup_12345678902"
+    },
+    "name": "Поиск - Товары для рукоделия",
+    "status": "active",
+    "budget_type": "campaign_budget",
+    "budget_value": null,
+    "daily_budget": 7500,
+    "bid_strategy": "maximize_clicks",
+    "optimization_goal": "clicks",
+    "audience_definition": {
+      "type": "keywords",
+      "keywords": [
+        { "text": "товары для рукоделия", "match_type": "phrase", "bid": 15.50 },
+        { "text": "материалы для творчества", "match_type": "phrase", "bid": 12.80 },
+        { "text": "купить пряжу", "match_type": "exact", "bid": 18.20 },
+        { "text": "швейная фурнитура", "match_type": "broad", "bid": 10.30 }
+      ],
+      "negative_keywords": ["бесплатно", "даром", "free"],
+      "geo_targeting": ["Россия"],
+      "device_targeting": ["mobile", "desktop", "tablet"]
+    },
+    "placements": ["google_search", "search_partners"],
+    "device_targeting": ["mobile", "desktop", "tablet"],
+    "schedule": {
+      "type": "all_time",
+      "timezone": "Europe/Moscow",
+      "day_parting": null
+    },
+    "frequency_cap": null,
+    "attribution_window": {
+      "click": 30
+    },
+    "dynamic_creative": false,
+    "split_test_config": null,
+    "created_at": "2024-11-28T09:15:00Z",
+    "updated_at": "2024-12-20T11:30:00Z"
+  },
+  {
+    "ad_group_id": "adg_2025_005",
+    "campaign_id": "camp_2025_004",
+    "external_ids": {
+      "yandex": "adgroup_9876543211"
+    },
+    "name": "Ретаргетинг - Корзина не оформлена",
+    "status": "active",
+    "budget_type": "campaign_budget",
+    "budget_value": null,
+    "daily_budget": 4000,
+    "bid_strategy": "target_cpa",
+    "optimization_goal": "purchase",
+    "audience_definition": {
+      "type": "retargeting",
+      "retargeting_lists": [
+        {
+          "name": "cart_abandoners",
+          "description": "Добавили в корзину, но не оформили заказ",
+          "retention_days": 30
+        }
+      ],
+      "age_range": { "min": 18, "max": 65 },
+      "gender": ["all"],
+      "geo_targeting": ["Москва", "Московская область"],
+      "exclude_audiences": ["recent_purchasers", "current_customers"]
+    },
+    "placements": ["yandex_display", "rsya"],
+    "device_targeting": ["mobile", "desktop"],
+    "schedule": {
+      "type": "custom",
+      "timezone": "Europe/Moscow",
+      "day_parting": {
+        "monday": [{ "start": "10:00", "end": "23:00" }],
+        "tuesday": [{ "start": "10:00", "end": "23:00" }],
+        "wednesday": [{ "start": "10:00", "end": "23:00" }],
+        "thursday": [{ "start": "10:00", "end": "23:00" }],
+        "friday": [{ "start": "10:00", "end": "23:59" }],
+        "saturday": [{ "start": "09:00", "end": "23:59" }],
+        "sunday": [{ "start": "11:00", "end": "23:00" }]
+      }
+    },
+    "frequency_cap": {
+      "period": "weekly",
+      "limit": 5
+    },
+    "attribution_window": {
+      "view": 24,
+      "click": 14
+    },
+    "dynamic_creative": true,
+    "split_test_config": null,
+    "created_at": "2024-12-08T16:15:00Z",
+    "updated_at": "2024-12-18T13:50:00Z"
+  },
+  {
+    "ad_group_id": "adg_2025_006",
+    "campaign_id": "camp_2025_005",
+    "external_ids": {
+      "meta": "adset_23845697890123459"
+    },
+    "name": "Lookalike 1% - Покупатели мебели",
+    "status": "paused",
+    "budget_type": "campaign_budget",
+    "budget_value": null,
+    "daily_budget": 6000,
+    "bid_strategy": "lowest_cost",
+    "optimization_goal": "reach",
+    "audience_definition": {
+      "type": "lookalike",
+      "source_audience": "furniture_purchasers",
+      "similarity_percentage": 1,
+      "age_range": { "min": 22, "max": 60 },
+      "gender": ["all"],
+      "geo_targeting": ["Россия"],
+      "exclude_audiences": ["existing_customers"]
+    },
+    "placements": ["facebook_feed", "instagram_feed", "facebook_video_feeds"],
+    "device_targeting": ["mobile", "desktop"],
+    "schedule": {
+      "type": "all_time",
+      "timezone": "Europe/Moscow",
+      "day_parting": null
+    },
+    "frequency_cap": {
+      "period": "weekly",
+      "limit": 2
+    },
+    "attribution_window": {
+      "view": 24,
+      "click": 7
+    },
+    "dynamic_creative": false,
+    "split_test_config": null,
+    "created_at": "2024-11-25T12:15:00Z",
+    "updated_at": "2024-12-15T09:35:00Z"
+  }
+]

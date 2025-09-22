@@ -82,7 +82,12 @@ class ApiClient {
     const url = new URL(endpoint, this.baseURL)
     Object.keys(params).forEach(key => {
       if (params[key] !== undefined && params[key] !== null) {
-        url.searchParams.append(key, params[key])
+        // Корректная сериализация параметров
+        let value = params[key]
+        if (typeof value === 'object') {
+          value = JSON.stringify(value)
+        }
+        url.searchParams.append(key, String(value))
       }
     })
     return url.toString()

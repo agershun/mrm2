@@ -1,0 +1,168 @@
+[
+  {
+    "optimization_id": "opt_tech_launch_001",
+    "mix_id": "mix_tech_launch_001",
+    "optimization_type": "roi_maximization",
+    "constraints": {
+      "max_budget": 5000000,
+      "min_channel_allocation": 0.05,
+      "required_channels": ["google", "linkedin"],
+      "geographic_focus": "russia"
+    },
+    "original_allocation": {
+      "google": 2000000,
+      "linkedin": 1250000,
+      "events": 1000000,
+      "content": 500000,
+      "email": 250000
+    },
+    "optimized_allocation": {
+      "google": 2200000,
+      "linkedin": 1400000,
+      "events": 800000,
+      "content": 350000,
+      "email": 150000,
+      "telegram": 100000
+    },
+    "recommendations": [
+      {
+        "channel": "google",
+        "action": "increase",
+        "current_budget": 2000000,
+        "recommended_budget": 2200000,
+        "reason": "Высокий ROI 10.0x и качественные лиды",
+        "expected_impact": "+15% конверсий при том же CPA"
+      },
+      {
+        "channel": "linkedin",
+        "action": "increase",
+        "current_budget": 1250000,
+        "recommended_budget": 1400000,
+        "reason": "Лучшее качество лидов среди social каналов",
+        "expected_impact": "+12% SQL rate"
+      },
+      {
+        "channel": "events",
+        "action": "decrease",
+        "current_budget": 1000000,
+        "recommended_budget": 800000,
+        "reason": "Высокая стоимость привлечения, сезонные ограничения",
+        "expected_impact": "Перераспределение на более эффективные каналы"
+      },
+      {
+        "channel": "telegram",
+        "action": "add",
+        "current_budget": 0,
+        "recommended_budget": 100000,
+        "reason": "Высокий engagement в IT сегменте, низкий CPC",
+        "expected_impact": "+5% reach в целевой аудитории"
+      }
+    ],
+    "performance_forecast": {
+      "current_roi": 5.0,
+      "optimized_roi": 5.8,
+      "improvement_percentage": 16.0,
+      "current_leads": 1890,
+      "optimized_leads": 2180,
+      "current_cac": 2646,
+      "optimized_cac": 2294
+    },
+    "attribution_analysis": {
+      "view_through_contribution": 15.2,
+      "multi_touch_attribution": {
+        "first_touch": {"google": 45, "linkedin": 30, "content": 25},
+        "last_touch": {"google": 60, "linkedin": 25, "events": 15},
+        "linear": {"google": 52, "linkedin": 28, "events": 12, "content": 8}
+      }
+    },
+    "risk_assessment": {
+      "concentration_risk": "medium",
+      "seasonality_risk": "low",
+      "competitive_risk": "medium",
+      "platform_dependency": "high_google"
+    },
+    "confidence_level": 0.85,
+    "simulation_runs": 10000,
+    "optimization_date": "2024-12-10T15:30:00Z"
+  },
+  {
+    "optimization_id": "opt_beauty_awareness_002",
+    "mix_id": "mix_beauty_awareness_002",
+    "optimization_type": "reach_maximization",
+    "constraints": {
+      "max_budget": 8000000,
+      "min_frequency": 3.0,
+      "max_frequency": 6.0,
+      "target_demographics": "women_18_40"
+    },
+    "original_allocation": {
+      "instagram": 2800000,
+      "tiktok": 2000000,
+      "youtube": 1600000,
+      "influencers": 1200000,
+      "google": 400000
+    },
+    "optimized_allocation": {
+      "instagram": 2600000,
+      "tiktok": 2400000,
+      "youtube": 1400000,
+      "influencers": 1000000,
+      "google": 400000,
+      "vk": 200000
+    },
+    "recommendations": [
+      {
+        "channel": "tiktok",
+        "action": "increase",
+        "current_budget": 2000000,
+        "recommended_budget": 2400000,
+        "reason": "Высокий organic reach и viral potential",
+        "expected_impact": "+20% reach среди 18-25 аудитории"
+      },
+      {
+        "channel": "instagram",
+        "action": "slight_decrease",
+        "current_budget": 2800000,
+        "recommended_budget": 2600000,
+        "reason": "Оптимизация frequency capping",
+        "expected_impact": "Снижение ad fatigue, +5% CTR"
+      },
+      {
+        "channel": "vk",
+        "action": "add",
+        "current_budget": 0,
+        "recommended_budget": 200000,
+        "reason": "Дополнительный reach в России, низкий CPM",
+        "expected_impact": "+3% incremental reach"
+      }
+    ],
+    "performance_forecast": {
+      "current_reach": 1800000,
+      "optimized_reach": 2070000,
+      "improvement_percentage": 15.0,
+      "current_frequency": 4.2,
+      "optimized_frequency": 3.8,
+      "brand_awareness_lift": 28.5,
+      "engagement_rate_improvement": 8.3
+    },
+    "creative_optimization": {
+      "video_content": 70,
+      "image_content": 20,
+      "carousel_content": 10,
+      "ugc_recommendation": 45,
+      "influencer_content": 30
+    },
+    "audience_insights": {
+      "high_value_segments": [
+        {"segment": "Beauty Enthusiasts 25-35", "allocation_increase": "+15%"},
+        {"segment": "Skincare Focus 30-40", "allocation_increase": "+10%"}
+      ],
+      "emerging_segments": [
+        {"segment": "Gen Z Eco-conscious", "potential_reach": 250000}
+      ]
+    },
+    "confidence_level": 0.78,
+    "simulation_runs": 8500,
+    "optimization_date": "2024-12-05T11:45:00Z"
+  }
+]

@@ -1,0 +1,236 @@
+[
+  {
+    "performance_id": "perf_google_q4_2024",
+    "channel": "google",
+    "platform": "Google Ads",
+    "period": "2024-Q4",
+    "campaign_type": "search",
+    "metrics": {
+      "impressions": 2450000,
+      "clicks": 73500,
+      "conversions": 2205,
+      "spend": 4410000,
+      "revenue": 44100000,
+      "ctr": 3.0,
+      "cpc": 60.0,
+      "cpa": 2000,
+      "roas": 10.0,
+      "quality_score": 8.5,
+      "impression_share": 75.3
+    },
+    "audience_segments": [
+      {
+        "segment": "IT Executives",
+        "performance_score": 9.2,
+        "conversion_rate": 4.5,
+        "avg_order_value": 25000
+      },
+      {
+        "segment": "Tech Startups",
+        "performance_score": 7.8,
+        "conversion_rate": 3.2,
+        "avg_order_value": 15000
+      }
+    ],
+    "device_breakdown": {
+      "desktop": {"impressions": 1470000, "ctr": 3.5, "conversion_rate": 3.8},
+      "mobile": {"impressions": 735000, "ctr": 2.2, "conversion_rate": 2.1},
+      "tablet": {"impressions": 245000, "ctr": 2.8, "conversion_rate": 2.9}
+    },
+    "geographic_performance": {
+      "moscow": {"spend": 1764000, "roas": 12.5, "cpa": 1800},
+      "spb": {"spend": 882000, "roas": 9.8, "cpa": 2100},
+      "other": {"spend": 1764000, "roas": 8.2, "cpa": 2200}
+    },
+    "trends": {
+      "ctr_trend": "+0.3",
+      "cpa_trend": "-5.2",
+      "roas_trend": "+1.8"
+    },
+    "recommendations": [
+      "Увеличить ставки на IT Executives сегмент",
+      "Расширить кампании в Москве",
+      "Улучшить мобильную оптимизацию"
+    ],
+    "data_source": "Google Ads API",
+    "last_updated": "2024-12-31T23:59:59Z"
+  },
+  {
+    "performance_id": "perf_facebook_q4_2024",
+    "channel": "facebook",
+    "platform": "Meta Ads Manager",
+    "period": "2024-Q4",
+    "campaign_type": "brand_awareness",
+    "metrics": {
+      "impressions": 18500000,
+      "clicks": 925000,
+      "conversions": 37000,
+      "spend": 3200000,
+      "revenue": 11100000,
+      "ctr": 5.0,
+      "cpc": 3.46,
+      "cpa": 86.49,
+      "roas": 3.47,
+      "frequency": 4.2,
+      "reach": 4400000
+    },
+    "audience_segments": [
+      {
+        "segment": "Beauty Enthusiasts 25-35",
+        "performance_score": 8.9,
+        "conversion_rate": 4.8,
+        "engagement_rate": 7.2
+      },
+      {
+        "segment": "Fashion Forward 18-25",
+        "performance_score": 7.5,
+        "conversion_rate": 3.1,
+        "engagement_rate": 9.1
+      }
+    ],
+    "placement_breakdown": {
+      "feed": {"impressions": 9250000, "ctr": 6.2, "cpa": 75.0},
+      "stories": {"impressions": 5550000, "ctr": 4.8, "cpa": 85.0},
+      "reels": {"impressions": 2775000, "ctr": 3.5, "cpa": 110.0},
+      "audience_network": {"impressions": 925000, "ctr": 2.1, "cpa": 125.0}
+    },
+    "creative_performance": {
+      "video": {"ctr": 6.8, "engagement_rate": 8.5, "conversion_rate": 4.2},
+      "image": {"ctr": 4.2, "engagement_rate": 5.1, "conversion_rate": 3.8},
+      "carousel": {"ctr": 5.5, "engagement_rate": 6.9, "conversion_rate": 4.0}
+    },
+    "trends": {
+      "ctr_trend": "+0.8",
+      "cpa_trend": "-3.1",
+      "engagement_trend": "+12.5"
+    },
+    "recommendations": [
+      "Увеличить долю video контента",
+      "Расширить Stories placement",
+      "Снизить frequency до 3.5"
+    ],
+    "data_source": "Facebook Marketing API",
+    "last_updated": "2024-12-31T23:59:59Z"
+  },
+  {
+    "performance_id": "perf_instagram_q4_2024",
+    "channel": "instagram",
+    "platform": "Meta Business",
+    "period": "2024-Q4",
+    "campaign_type": "engagement",
+    "metrics": {
+      "impressions": 12800000,
+      "clicks": 640000,
+      "conversions": 32000,
+      "spend": 2400000,
+      "revenue": 9600000,
+      "ctr": 5.0,
+      "cpc": 3.75,
+      "cpa": 75.0,
+      "roas": 4.0,
+      "engagement_rate": 8.2,
+      "reach": 3200000
+    },
+    "content_types": {
+      "reels": {
+        "impressions": 5120000,
+        "engagement_rate": 12.5,
+        "ctr": 6.8,
+        "conversion_rate": 4.1
+      },
+      "stories": {
+        "impressions": 3840000,
+        "engagement_rate": 7.9,
+        "ctr": 4.2,
+        "conversion_rate": 3.8
+      },
+      "feed_posts": {
+        "impressions": 2560000,
+        "engagement_rate": 5.4,
+        "ctr": 3.5,
+        "conversion_rate": 3.2
+      },
+      "igtv": {
+        "impressions": 1280000,
+        "engagement_rate": 4.1,
+        "ctr": 2.8,
+        "conversion_rate": 2.9
+      }
+    },
+    "hashtag_performance": [
+      {"hashtag": "#beautytrends", "reach": 450000, "engagement": 15.2},
+      {"hashtag": "#skincare", "reach": 380000, "engagement": 12.8},
+      {"hashtag": "#makeup", "reach": 320000, "engagement": 10.5}
+    ],
+    "influencer_partnerships": {
+      "micro_influencers": {"reach": 850000, "engagement": 9.8, "cpa": 65.0},
+      "macro_influencers": {"reach": 1200000, "engagement": 6.2, "cpa": 95.0}
+    },
+    "trends": {
+      "reels_growth": "+25.3",
+      "stories_engagement": "+8.7",
+      "ugc_increase": "+18.9"
+    },
+    "recommendations": [
+      "Увеличить инвестиции в Reels контент",
+      "Развивать UGC кампании",
+      "Партнерства с micro-influencers"
+    ],
+    "data_source": "Instagram Insights API",
+    "last_updated": "2024-12-31T23:59:59Z"
+  },
+  {
+    "performance_id": "perf_tiktok_q4_2024",
+    "channel": "tiktok",
+    "platform": "TikTok Ads Manager",
+    "period": "2024-Q4",
+    "campaign_type": "video_views",
+    "metrics": {
+      "impressions": 28500000,
+      "clicks": 1425000,
+      "conversions": 42750,
+      "spend": 1900000,
+      "revenue": 8550000,
+      "ctr": 5.0,
+      "cpc": 1.33,
+      "cpa": 44.44,
+      "roas": 4.5,
+      "video_completion_rate": 78.5,
+      "average_watch_time": 8.2
+    },
+    "age_demographics": {
+      "18-24": {"impressions": 11400000, "engagement_rate": 12.8, "conversion_rate": 2.8},
+      "25-34": {"impressions": 10260000, "engagement_rate": 8.9, "conversion_rate": 3.5},
+      "35-44": {"impressions": 4560000, "engagement_rate": 5.1, "conversion_rate": 4.2},
+      "45+": {"impressions": 2280000, "engagement_rate": 3.2, "conversion_rate": 3.8}
+    },
+    "trending_effects": [
+      {"effect": "Beauty Filter", "usage": 2.3M, "engagement_boost": "+45%"},
+      {"effect": "Transformation", "usage": 1.8M, "engagement_boost": "+38%"},
+      {"effect": "Color Palette", "usage": 1.2M, "engagement_boost": "+29%"}
+    ],
+    "viral_metrics": {
+      "shares_per_view": 0.08,
+      "comments_per_view": 0.12,
+      "likes_per_view": 0.45,
+      "hashtag_challenges": 3
+    },
+    "content_performance": {
+      "tutorials": {"ctr": 6.8, "completion_rate": 85.2, "conversion_rate": 4.1},
+      "challenges": {"ctr": 7.2, "completion_rate": 72.1, "conversion_rate": 2.8},
+      "behind_scenes": {"ctr": 4.9, "completion_rate": 81.5, "conversion_rate": 3.5}
+    },
+    "trends": {
+      "view_time_increase": "+15.4",
+      "engagement_growth": "+22.1",
+      "conversion_improvement": "+8.9"
+    },
+    "recommendations": [
+      "Создать больше tutorial контента",
+      "Запустить brand hashtag challenge",
+      "Использовать trending sounds и effects"
+    ],
+    "data_source": "TikTok Marketing API",
+    "last_updated": "2024-12-31T23:59:59Z"
+  }
+]

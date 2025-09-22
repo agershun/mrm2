@@ -1,0 +1,262 @@
+[
+  {
+    "mix_id": "mix_tech_launch_001",
+    "campaign_id": "camp_tech_launch_2024",
+    "mix_name": "Запуск технологического продукта - медиа-микс",
+    "mix_description": "Оптимальное распределение бюджета по каналам для запуска B2B SaaS продукта",
+    "total_budget": 5000000,
+    "currency": "RUB",
+    "campaign_period": {
+      "start_date": "2024-12-01",
+      "end_date": "2025-05-31"
+    },
+    "target_audience": {
+      "primary": "CTO, IT-директора, руководители разработки",
+      "secondary": "Project managers, технические консультанты",
+      "geography": "Россия, крупные города",
+      "age_range": "28-50",
+      "size": 150000
+    },
+    "channels": [
+      {
+        "channel_name": "google",
+        "channel_type": "search",
+        "budget_allocation": 2000000,
+        "budget_percentage": 40.0,
+        "expected_impressions": 800000,
+        "expected_clicks": 24000,
+        "expected_conversions": 960,
+        "expected_revenue": 9600000,
+        "target_ctr": 3.0,
+        "target_cpc": 83.33,
+        "target_cpa": 2083,
+        "formats": ["search_ads", "display", "youtube"],
+        "targeting": "Поисковые запросы: управление проектами, project management software",
+        "creative_strategy": "Акцент на ROI и автоматизации процессов"
+      },
+      {
+        "channel_name": "linkedin",
+        "channel_type": "social",
+        "budget_allocation": 1250000,
+        "budget_percentage": 25.0,
+        "expected_impressions": 2500000,
+        "expected_clicks": 75000,
+        "expected_conversions": 375,
+        "expected_revenue": 5625000,
+        "target_ctr": 3.0,
+        "target_cpc": 16.67,
+        "target_cpa": 3333,
+        "formats": ["sponsored_content", "message_ads", "video_ads"],
+        "targeting": "Job titles: CTO, IT Director, по отраслям и размеру компании",
+        "creative_strategy": "B2B кейсы, экспертный контент, демо продукта"
+      },
+      {
+        "channel_name": "events",
+        "channel_type": "offline",
+        "budget_allocation": 1000000,
+        "budget_percentage": 20.0,
+        "expected_impressions": 25000,
+        "expected_clicks": 5000,
+        "expected_conversions": 250,
+        "expected_revenue": 5000000,
+        "target_ctr": 20.0,
+        "target_cpc": 200.0,
+        "target_cpa": 4000,
+        "formats": ["conference_booth", "speaking", "networking"],
+        "targeting": "IT конференции: HighLoad++, DevOps Days, PMCon",
+        "creative_strategy": "Демо-зона, живые кейсы, нетворкинг"
+      },
+      {
+        "channel_name": "content",
+        "channel_type": "owned",
+        "budget_allocation": 500000,
+        "budget_percentage": 10.0,
+        "expected_impressions": 300000,
+        "expected_clicks": 18000,
+        "expected_conversions": 180,
+        "expected_revenue": 1800000,
+        "target_ctr": 6.0,
+        "target_cpc": 27.78,
+        "target_cpa": 2778,
+        "formats": ["blog_posts", "webinars", "case_studies"],
+        "targeting": "SEO оптимизация, email подписчики, партнерские каналы",
+        "creative_strategy": "Образовательный контент, успешные кейсы"
+      },
+      {
+        "channel_name": "email",
+        "channel_type": "owned",
+        "budget_allocation": 250000,
+        "budget_percentage": 5.0,
+        "expected_impressions": 500000,
+        "expected_clicks": 25000,
+        "expected_conversions": 125,
+        "expected_revenue": 1250000,
+        "target_ctr": 5.0,
+        "target_cpc": 10.0,
+        "target_cpa": 2000,
+        "formats": ["newsletters", "nurture_sequences", "event_invites"],
+        "targeting": "Existing leads, webinar attendees, content downloaders",
+        "creative_strategy": "Персонализированные сценарии, полезный контент"
+      }
+    ],
+    "kpis": {
+      "target_roi": 5.0,
+      "target_roas": 4.0,
+      "target_leads": 1890,
+      "target_sql": 567,
+      "target_customers": 189,
+      "target_ltv": 200000,
+      "target_cac": 13228
+    },
+    "attribution_model": "multi_touch",
+    "frequency_caps": {
+      "google": {"daily": 3, "weekly": 15},
+      "linkedin": {"daily": 2, "weekly": 10},
+      "events": {"monthly": 1},
+      "content": {"weekly": 5},
+      "email": {"weekly": 2}
+    },
+    "seasonality": {
+      "q1": 30,
+      "q2": 35,
+      "q3": 20,
+      "q4": 15
+    },
+    "status": "active",
+    "optimization_level": "advanced",
+    "created_by": "strategy_team",
+    "approved_by": "marketing_director",
+    "created_at": "2024-11-15T10:00:00Z",
+    "updated_at": "2024-12-10T14:30:00Z"
+  },
+  {
+    "mix_id": "mix_beauty_awareness_002",
+    "campaign_id": "camp_beauty_brand_2024",
+    "mix_name": "Beauty бренд - повышение узнаваемости",
+    "mix_description": "Медиа-микс для увеличения brand awareness косметического бренда среди целевой аудитории",
+    "total_budget": 8000000,
+    "currency": "RUB",
+    "campaign_period": {
+      "start_date": "2024-12-01",
+      "end_date": "2025-03-31"
+    },
+    "target_audience": {
+      "primary": "Женщины 25-40, интересующиеся красотой и уходом",
+      "secondary": "Женщины 18-25, начинающие пользователи косметики",
+      "geography": "Россия, города 500K+",
+      "age_range": "18-40",
+      "size": 2500000
+    },
+    "channels": [
+      {
+        "channel_name": "instagram",
+        "channel_type": "social",
+        "budget_allocation": 2800000,
+        "budget_percentage": 35.0,
+        "expected_impressions": 15000000,
+        "expected_clicks": 900000,
+        "expected_conversions": 45000,
+        "expected_revenue": 13500000,
+        "target_ctr": 6.0,
+        "target_cpc": 3.11,
+        "target_cpa": 62.22,
+        "formats": ["stories", "reels", "igtv", "shopping"],
+        "targeting": "Интересы: косметика, уход за кожей, beauty блогеры",
+        "creative_strategy": "UGC контент, beauty tutorials, before/after"
+      },
+      {
+        "channel_name": "tiktok",
+        "channel_type": "social",
+        "budget_allocation": 2000000,
+        "budget_percentage": 25.0,
+        "expected_impressions": 25000000,
+        "expected_clicks": 1250000,
+        "expected_conversions": 37500,
+        "expected_revenue": 11250000,
+        "target_ctr": 5.0,
+        "target_cpc": 1.6,
+        "target_cpa": 53.33,
+        "formats": ["in_feed_video", "spark_ads", "branded_effects"],
+        "targeting": "Возраст 18-35, интересы beauty, skincare trends",
+        "creative_strategy": "Viral challenges, трансформации, beauty hacks"
+      },
+      {
+        "channel_name": "youtube",
+        "channel_type": "video",
+        "budget_allocation": 1600000,
+        "budget_percentage": 20.0,
+        "expected_impressions": 8000000,
+        "expected_clicks": 320000,
+        "expected_conversions": 16000,
+        "expected_revenue": 8000000,
+        "target_ctr": 4.0,
+        "target_cpc": 5.0,
+        "target_cpa": 100.0,
+        "formats": ["pre_roll", "mid_roll", "bumper", "discovery"],
+        "targeting": "Beauty каналы, makeup tutorials, skincare routines",
+        "creative_strategy": "Обучающие видео, отзывы экспертов, демо продуктов"
+      },
+      {
+        "channel_name": "influencers",
+        "channel_type": "paid_social",
+        "budget_allocation": 1200000,
+        "budget_percentage": 15.0,
+        "expected_impressions": 5000000,
+        "expected_clicks": 250000,
+        "expected_conversions": 12500,
+        "expected_revenue": 6250000,
+        "target_ctr": 5.0,
+        "target_cpc": 4.8,
+        "target_cpa": 96.0,
+        "formats": ["sponsored_posts", "stories", "reels", "unboxing"],
+        "targeting": "Micro/macro influencers 50K-1M подписчиков",
+        "creative_strategy": "Аутентичные обзоры, интеграции в контент"
+      },
+      {
+        "channel_name": "google",
+        "channel_type": "search",
+        "budget_allocation": 400000,
+        "budget_percentage": 5.0,
+        "expected_impressions": 1000000,
+        "expected_clicks": 40000,
+        "expected_conversions": 2000,
+        "expected_revenue": 2000000,
+        "target_ctr": 4.0,
+        "target_cpc": 10.0,
+        "target_cpa": 200.0,
+        "formats": ["search_ads", "shopping", "display"],
+        "targeting": "Брендовые запросы, названия продуктов, конкуренты",
+        "creative_strategy": "Защита бренда, продуктовые кампании"
+      }
+    ],
+    "kpis": {
+      "target_roi": 2.5,
+      "target_roas": 2.8,
+      "brand_awareness_lift": 25,
+      "target_reach": 1800000,
+      "target_frequency": 4.2,
+      "video_completion_rate": 75,
+      "engagement_rate": 6.5
+    },
+    "attribution_model": "view_through",
+    "frequency_caps": {
+      "instagram": {"daily": 4, "weekly": 20},
+      "tiktok": {"daily": 5, "weekly": 25},
+      "youtube": {"daily": 2, "weekly": 10},
+      "influencers": {"monthly": 3},
+      "google": {"daily": 3, "weekly": 15}
+    },
+    "seasonality": {
+      "december": 35,
+      "january": 25,
+      "february": 20,
+      "march": 20
+    },
+    "status": "active",
+    "optimization_level": "standard",
+    "created_by": "beauty_team",
+    "approved_by": "brand_manager",
+    "created_at": "2024-11-20T14:00:00Z",
+    "updated_at": "2024-12-05T16:20:00Z"
+  }
+]
