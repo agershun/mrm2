@@ -906,6 +906,13 @@ const formatDateRange = (startDate, endDate) => {
 watch(() => props.modelValue, (newValue) => {
   if (newValue) {
     resetForm()
+
+    // Если есть выбранный родитель для создания, устанавливаем его
+    if (activitiesStore.selectedParentForCreation) {
+      formData.value.parent_activity_id = activitiesStore.selectedParentForCreation
+      // Очищаем выбранного родителя после установки
+      activitiesStore.clearSelectedParentForCreation()
+    }
   }
 })
 </script>

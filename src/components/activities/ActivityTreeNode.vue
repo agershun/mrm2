@@ -4,10 +4,13 @@
       class="node-content"
       :class="{
         'selected': isSelected,
-        'has-children': hasChildren
+        'has-children': hasChildren,
+        'highlighted': isHighlighted
       }"
       :style="{ paddingLeft: `${(level * 24) + 16}px` }"
       @click="handleSelect"
+      @mouseenter="isHovered = true"
+      @mouseleave="isHovered = false"
     >
       <!-- Кнопка раскрытия/сворачивания -->
       <v-btn
@@ -55,8 +58,10 @@
           icon
           size="x-small"
           variant="text"
+          color="primary"
           @click.stop="handleAddChild"
           title="Добавить дочернюю активность"
+          class="add-child-btn"
         >
           <v-icon size="14">mdi-plus</v-icon>
         </v-btn>
@@ -159,6 +164,10 @@ const hasChildren = computed(() => {
 
 const isExpanded = computed(() => {
   return activitiesStore.hierarchyExpanded[props.node.activity_id] || false
+})
+
+const isHighlighted = computed(() => {
+  return activitiesStore.isActivityHighlighted(props.node.activity_id)
 })
 
 const activityTypeIcon = computed(() => {
@@ -295,6 +304,26 @@ const getStatusText = (status) => {
   border-left-color: var(--v-theme-primary);
 }
 
+.node-content.highlighted {
+  background-color: rgba(255, 235, 59, 0.15);
+  border-left-color: #ffeb3b;
+  animation: search-highlight 2s ease-in-out;
+}
+
+.node-content.highlighted.selected {
+  background-color: rgba(25, 118, 210, 0.12);
+  border-left-color: var(--v-theme-primary);
+}
+
+@keyframes search-highlight {
+  0% {
+    background-color: rgba(255, 235, 59, 0.3);
+  }
+  100% {
+    background-color: rgba(255, 235, 59, 0.15);
+  }
+}
+
 .expand-btn {
   margin-right: 4px;
   margin-top: 2px;
@@ -335,6 +364,12 @@ const getStatusText = (status) => {
   gap: 2px;
   margin-left: 8px;
   padding-top: 2px;
+}
+
+.add-child-btn:hover {
+  background-color: rgba(25, 118, 210, 0.08);
+  transform: scale(1.1);
+  transition: all 0.2s ease;
 }
 
 /* Отступ для детей */

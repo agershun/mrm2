@@ -80,6 +80,9 @@ import ActivityTreeNode from './ActivityTreeNode.vue'
 
 const activitiesStore = useActivitiesStore()
 
+// Emits
+const emit = defineEmits(['create-child-activity', 'create-activity'])
+
 // Computed
 const activitiesTree = computed(() => activitiesStore.activitiesTree)
 
@@ -101,13 +104,16 @@ const collapseAll = () => {
 }
 
 const createActivity = () => {
-  // TODO: Открыть мастер создания активности
-  console.log('Create new activity')
+  // Очищаем выбранного родителя и эмитируем событие создания
+  activitiesStore.clearSelectedParentForCreation()
+  emit('create-activity')
 }
 
 const addChildActivity = (parentId) => {
-  // TODO: Открыть мастер создания дочерней активности
-  console.log('Add child activity to:', parentId)
+  // Устанавливаем выбранную активность как родительскую
+  activitiesStore.setSelectedParentForCreation(parentId)
+  // Эмитируем событие для родительского компонента
+  emit('create-child-activity', parentId)
 }
 
 const editActivity = (activityId) => {

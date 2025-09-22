@@ -16,6 +16,9 @@ export const useActivitiesStore = defineStore('activities', () => {
   const filters = ref({})
   const groupBy = ref(null)
   const hierarchyExpanded = ref({}) // ID активностей, которые развернуты в дереве
+  const searchHighlighted = ref(new Set()) // ID активностей, выделенных в результате поиска
+  const searchResultIds = ref(new Set()) // ID активностей из результатов поиска
+  const selectedParentForCreation = ref(null) // ID родительской активности для создания новой
 
   // Getters
   const activitiesTree = computed(() => {
@@ -39,7 +42,7 @@ export const useActivitiesStore = defineStore('activities', () => {
   const filteredActivities = computed(() => {
     let filtered = activities.value
 
-    // Применяем фильтры
+    // Применяем базовые фильтры (быстрые фильтры)
     if (filters.value.search) {
       const search = filters.value.search.toLowerCase()
       filtered = filtered.filter(activity =>
@@ -53,14 +56,112 @@ export const useActivitiesStore = defineStore('activities', () => {
       )
     }
 
-    if (filters.value.type) {
+    if (filters.value.activity_type_id) {
       filtered = filtered.filter(activity =>
-        activity.activity_type_id === filters.value.type
+        activity.activity_type_id === filters.value.activity_type_id
       )
+    }
+
+    if (filters.value.created_by) {
+      filtered = filtered.filter(activity =>
+        activity.created_by === filters.value.created_by
+      )
+    }
+
+    if (filters.value.currency_code) {
+      filtered = filtered.filter(activity =>
+        activity.currency_code === filters.value.currency_code
+      )
+    }
+
+    if (filters.value.start_date) {
+      const startDate = new Date(filters.value.start_date)
+      filtered = filtered.filter(activity =>
+        activity.in_market_start_date && new Date(activity.in_market_start_date) >= startDate
+      )
+    }
+
+    if (filters.value.end_date) {
+      const endDate = new Date(filters.value.end_date)
+      filtered = filtered.filter(activity =>
+        activity.in_market_start_date && new Date(activity.in_market_start_date) <= endDate
+      )
+    }
+
+    // Применяем расширенные условия фильтрации
+    if (filters.value.conditions && Array.isArray(filters.value.conditions)) {
+      for (const condition of filters.value.conditions) {
+        filtered = applyFilterCondition(filtered, condition)
+      }
+    }
+
+    // Если включена опция "показать полную иерархию", добавляем родительские элементы
+    if (filters.value.show_full_hierarchy && filtered.length < activities.value.length) {
+      const filteredIds = new Set(filtered.map(a => a.activity_id))
+      const additionalActivities = []
+
+      // Для каждой отфильтрованной активности добавляем всех родителей
+      for (const activity of filtered) {
+        let currentParentId = activity.parent_activity_id
+        while (currentParentId) {
+          if (!filteredIds.has(currentParentId)) {
+            const parent = activities.value.find(a => a.activity_id === currentParentId)
+            if (parent) {
+              additionalActivities.push(parent)
+              filteredIds.add(currentParentId)
+              currentParentId = parent.parent_activity_id
+            } else {
+              break
+            }
+          } else {
+            break
+          }
+        }
+      }
+
+      filtered = [...filtered, ...additionalActivities]
     }
 
     return filtered
   })
+
+  // Применение отдельного условия фильтрации
+  const applyFilterCondition = (activities, condition) => {
+    const { field, operator, value } = condition
+
+    return activities.filter(activity => {
+      const fieldValue = activity[field]
+
+      switch (operator) {
+        case 'contains':
+          return fieldValue && fieldValue.toString().toLowerCase().includes(value.toLowerCase())
+        case 'not_contains':
+          return !fieldValue || !fieldValue.toString().toLowerCase().includes(value.toLowerCase())
+        case 'equals':
+          return fieldValue === value
+        case 'not_equals':
+          return fieldValue !== value
+        case 'starts_with':
+          return fieldValue && fieldValue.toString().toLowerCase().startsWith(value.toLowerCase())
+        case 'ends_with':
+          return fieldValue && fieldValue.toString().toLowerCase().endsWith(value.toLowerCase())
+        case 'greater_than':
+          return fieldValue && parseFloat(fieldValue) > parseFloat(value)
+        case 'less_than':
+          return fieldValue && parseFloat(fieldValue) < parseFloat(value)
+        case 'greater_or_equal':
+          return fieldValue && parseFloat(fieldValue) >= parseFloat(value)
+        case 'less_or_equal':
+          return fieldValue && parseFloat(fieldValue) <= parseFloat(value)
+        case 'in':
+          return value.includes(fieldValue)
+        case 'not_in':
+          return !value.includes(fieldValue)
+        default:
+          return true
+      }
+    })
+  }
 
   const groupedActivities = computed(() => {
     if (!groupBy.value) return null
@@ -240,6 +341,7 @@ export const useActivitiesStore = defineStore('activities', () => {
   const searchActivities = async (keyword) => {
     if (!keyword.trim()) {
       await fetchActivities()
+      clearSearchHighlight()
       return
     }
 
@@ -247,11 +349,72 @@ export const useActivitiesStore = defineStore('activities', () => {
       isLoading.value = true
       const results = await api.activities.searchActivities(keyword)
       activities.value = results || []
+
+      // Подсвечиваем найденные результаты
+      const foundIds = results.map(r => r.activity_id)
+      searchResultIds.value = new Set(foundIds)
+      highlightSearchResults(foundIds)
     } catch (error) {
       appStore.showError('Ошибка поиска: ' + error.message)
     } finally {
       isLoading.value = false
     }
+  }
+
+  const clearSearch = async () => {
+    await fetchActivities()
+    clearSearchHighlight()
+    searchResultIds.value = new Set()
+  }
+
+  const highlightSearchResult = (activityId) => {
+    searchHighlighted.value.add(activityId)
+  }
+
+  const highlightSearchResults = (activityIds) => {
+    searchHighlighted.value = new Set(activityIds)
+  }
+
+  const clearSearchHighlight = () => {
+    searchHighlighted.value = new Set()
+  }
+
+  const setSearchResults = (results) => {
+    const ids = results.map(r => r.activity_id)
+    searchResultIds.value = new Set(ids)
+    highlightSearchResults(ids)
+  }
+
+  const expandSearchResults = () => {
+    // Разворачиваем все узлы, которые содержат результаты поиска
+    for (const activityId of searchResultIds.value) {
+      expandToActivity(activityId)
+    }
+  }
+
+  const expandToActivity = (activityId) => {
+    // Находим путь от корня до активности и разворачиваем все узлы на пути
+    const activity = activities.value.find(a => a.activity_id === activityId)
+    if (!activity) return
+
+    let currentId = activity.parent_activity_id
+    while (currentId) {
+      hierarchyExpanded.value[currentId] = true
+      const parent = activities.value.find(a => a.activity_id === currentId)
+      currentId = parent ? parent.parent_activity_id : null
+    }
+  }
+
+  const isActivityHighlighted = (activityId) => {
+    return searchHighlighted.value.has(activityId)
+  }
+
+  const setSelectedParentForCreation = (parentId) => {
+    selectedParentForCreation.value = parentId
+  }
+
+  const clearSelectedParentForCreation = () => {
+    selectedParentForCreation.value = null
   }
 
   // Инициализация
@@ -281,6 +444,9 @@ export const useActivitiesStore = defineStore('activities', () => {
     filters,
     groupBy,
     hierarchyExpanded,
+    searchHighlighted,
+    searchResultIds,
+    selectedParentForCreation,
 
     // Getters
     activitiesTree,
@@ -305,6 +471,16 @@ export const useActivitiesStore = defineStore('activities', () => {
     expandAllNodes,
     collapseAllNodes,
     searchActivities,
+    clearSearch,
+    highlightSearchResult,
+    highlightSearchResults,
+    clearSearchHighlight,
+    setSearchResults,
+    expandSearchResults,
+    expandToActivity,
+    isActivityHighlighted,
+    setSelectedParentForCreation,
+    clearSelectedParentForCreation,
     initialize
   }
 })

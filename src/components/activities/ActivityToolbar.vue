@@ -71,7 +71,95 @@
             style="width: 300px"
             @input="handleSearch"
             @click:clear="clearSearch"
-          />
+            @keydown.enter="performSearch"
+          >
+            <template v-slot:append-inner>
+              <v-chip
+                v-if="searchResults.length > 0 && searchQuery"
+                size="x-small"
+                color="primary"
+                variant="outlined"
+              >
+                {{ searchResults.length }}
+              </v-chip>
+            </template>
+          </v-text-field>
+
+          <!-- Результаты поиска -->
+          <v-menu
+            v-model="showSearchResults"
+            :activator="searchInputRef"
+            location="bottom"
+            offset="4"
+            max-width="400"
+            :close-on-content-click="false"
+          >
+            <v-card v-if="searchQuery && searchResults.length > 0" max-height="300">
+              <v-card-title class="pa-3 text-subtitle-2">
+                Найдено результатов: {{ searchResults.length }}
+              </v-card-title>
+              <v-divider />
+              <v-list density="compact" max-height="200" class="overflow-y-auto">
+                <v-list-item
+                  v-for="result in searchResults.slice(0, 10)"
+                  :key="result.activity_id"
+                  @click="selectSearchResult(result)"
+                  class="search-result-item"
+                >
+                  <template v-slot:prepend>
+                    <v-icon
+                      :icon="getActivityIcon(result.activity_type_id)"
+                      :color="getActivityColor(result.activity_type_id)"
+                      size="16"
+                    />
+                  </template>
+                  <v-list-item-title>
+                    <span v-html="highlightMatch(result.name, searchQuery)"></span>
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ getActivityTypeName(result.activity_type_id) }}
+                    <span v-if="result.parent_name" class="text-grey-darken-1">
+                      • в {{ result.parent_name }}
+                    </span>
+                  </v-list-item-subtitle>
+                </v-list-item>
+                <v-list-item v-if="searchResults.length > 10" disabled>
+                  <v-list-item-title class="text-caption text-grey-darken-1">
+                    ... и еще {{ searchResults.length - 10 }} результатов
+                  </v-list-item-title>
+                </v-list-item>
+              </v-list>
+              <v-divider />
+              <v-card-actions class="pa-2">
+                <v-btn
+                  variant="text"
+                  size="small"
+                  @click="expandSearchResults"
+                >
+                  Показать все в иерархии
+                </v-btn>
+                <v-spacer />
+                <v-btn
+                  variant="text"
+                  size="small"
+                  @click="closeSearchResults"
+                >
+                  Закрыть
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+
+            <v-card v-else-if="searchQuery && searchResults.length === 0">
+              <v-card-text class="pa-4 text-center">
+                <v-icon size="32" color="grey-lighten-1" class="mb-2">
+                  mdi-magnify-remove-outline
+                </v-icon>
+                <div class="text-body-2 text-grey-darken-1">
+                  Ничего не найдено по запросу "{{ searchQuery }}"
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-menu>
         </div>
 
         <!-- Правая группа -->
@@ -185,6 +273,9 @@ const showFullHierarchy = ref(true)
 const filterDialog = ref(false)
 const groupByDialog = ref(false)
 const createActivityDialog = ref(false)
+const showSearchResults = ref(false)
+const searchResults = ref([])
+const searchInputRef = ref(null)
 
 // Computed
 const hasActiveFilters = computed(() => {
@@ -208,6 +299,8 @@ const organizationViews = ref([
 
 // Methods
 const createActivity = () => {
+  // Очищаем выбранного родителя перед созданием новой активности
+  activitiesStore.clearSelectedParentForCreation()
   createActivityDialog.value = true
 }
 
@@ -223,17 +316,123 @@ const openGroupByDialog = () => {
   groupByDialog.value = true
 }
 
-const handleSearch = () => {
+const handleSearch = async () => {
   // Debounce search
   clearTimeout(handleSearch.timeout)
-  handleSearch.timeout = setTimeout(() => {
-    activitiesStore.searchActivities(searchQuery.value)
-  }, 500)
+  handleSearch.timeout = setTimeout(async () => {
+    if (searchQuery.value.trim()) {
+      searchResults.value = await performSearchInternal(searchQuery.value)
+      showSearchResults.value = true
+    } else {
+      searchResults.value = []
+      showSearchResults.value = false
+      activitiesStore.clearSearchHighlight()
+    }
+  }, 300)
+}
+
+const performSearchInternal = async (query) => {
+  const allActivities = activitiesStore.activities
+  const results = []
+  const searchTerm = query.toLowerCase()
+
+  for (const activity of allActivities) {
+    // Поиск по названию
+    if (activity.name.toLowerCase().includes(searchTerm)) {
+      // Находим родительскую активность для контекста
+      const parent = allActivities.find(a => a.activity_id === activity.parent_activity_id)
+      results.push({
+        ...activity,
+        parent_name: parent ? parent.name : null
+      })
+    }
+    // Дополнительный поиск по ID
+    else if (activity.activity_id.toString().includes(searchTerm)) {
+      const parent = allActivities.find(a => a.activity_id === activity.parent_activity_id)
+      results.push({
+        ...activity,
+        parent_name: parent ? parent.name : null
+      })
+    }
+  }
+
+  return results
+}
+
+const performSearch = async () => {
+  if (searchQuery.value.trim()) {
+    await activitiesStore.searchActivities(searchQuery.value)
+    showSearchResults.value = false
+  }
 }
 
 const clearSearch = () => {
   searchQuery.value = ''
-  activitiesStore.fetchActivities()
+  searchResults.value = []
+  showSearchResults.value = false
+  activitiesStore.clearSearch()
+  activitiesStore.clearSearchHighlight()
+}
+
+const selectSearchResult = (result) => {
+  activitiesStore.selectActivity(result.activity_id)
+  activitiesStore.highlightSearchResult(result.activity_id)
+  activitiesStore.expandToActivity(result.activity_id)
+  showSearchResults.value = false
+}
+
+const expandSearchResults = () => {
+  activitiesStore.setSearchResults(searchResults.value)
+  activitiesStore.expandSearchResults()
+  showSearchResults.value = false
+}
+
+const closeSearchResults = () => {
+  showSearchResults.value = false
+}
+
+const highlightMatch = (text, query) => {
+  if (!query) return text
+
+  const regex = new RegExp(`(${query})`, 'gi')
+  return text.replace(regex, '<mark class="search-highlight">$1</mark>')
+}
+
+const getActivityIcon = (typeId) => {
+  const icons = {
+    '1': 'mdi-file-document-outline',
+    '2': 'mdi-calendar-check',
+    '3': 'mdi-bullhorn',
+    '4': 'mdi-folder-multiple',
+    '5': 'mdi-video',
+    '6': 'mdi-email',
+    '7': 'mdi-presentation',
+    '8': 'mdi-google-ads',
+    '9': 'mdi-search-web',
+    '10': 'mdi-share-variant'
+  }
+  return icons[typeId] || 'mdi-circle'
+}
+
+const getActivityColor = (typeId) => {
+  const colors = {
+    '1': 'blue-darken-2',
+    '2': 'blue',
+    '3': 'purple',
+    '4': 'indigo',
+    '5': 'green',
+    '6': 'orange',
+    '7': 'red',
+    '8': 'teal',
+    '9': 'brown',
+    '10': 'pink'
+  }
+  return colors[typeId] || 'grey'
+}
+
+const getActivityTypeName = (typeId) => {
+  const type = activitiesStore.activityTypes.find(t => t.activity_type_id === typeId)
+  return type ? type.name : 'Неизвестный тип'
 }
 
 const applyFilters = (filters) => {
@@ -298,6 +497,22 @@ const exportData = () => {
 
 .v-switch {
   flex-shrink: 0;
+}
+
+.search-result-item {
+  cursor: pointer;
+}
+
+.search-result-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+:deep(.search-highlight) {
+  background-color: #ffeb3b;
+  color: #333;
+  padding: 1px 2px;
+  border-radius: 2px;
+  font-weight: 500;
 }
 
 /* Responsive adjustments */

@@ -58,14 +58,14 @@
 
       <!-- Сводная таблица -->
       <div v-if="currentView === 'summary'" class="summary-container">
-        <ActivitySummary />
+        <ActivitySummary ref="summaryComponent" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useActivitiesStore } from '@/stores/activitiesStore'
 import { useAppStore } from '@/stores/appStore'
 import ActivityTimeline from './ActivityTimeline.vue'
@@ -73,6 +73,7 @@ import ActivitySummary from './ActivitySummary.vue'
 
 const activitiesStore = useActivitiesStore()
 const appStore = useAppStore()
+const summaryComponent = ref(null)
 
 // Computed
 const currentView = computed({
@@ -88,8 +89,10 @@ const handleViewChange = (newView) => {
 }
 
 const openColumnEditor = () => {
-  // TODO: Открыть редактор столбцов
-  appStore.showInfo('Редактор столбцов будет реализован в следующих версиях')
+  // Делегируем управление редактором столбцов компоненту ActivitySummary
+  if (summaryComponent.value) {
+    summaryComponent.value.openColumnEditor()
+  }
 }
 
 const changeTimelineZoom = (zoomLevel) => {

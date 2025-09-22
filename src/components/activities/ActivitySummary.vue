@@ -41,26 +41,54 @@
       >
         <!-- Название активности с иконкой -->
         <template v-slot:item.name="{ item }">
-          <div class="activity-name-cell">
+          <div class="activity-name-cell" @dblclick="startInlineEdit(item, 'name')">
             <v-icon
               :icon="getActivityIcon(item.activity_type_id)"
               :color="getActivityColor(item.activity_type_id)"
               size="16"
               class="me-2"
             />
-            <span>{{ item.name }}</span>
+            <div v-if="isEditing(item, 'name')" class="inline-edit-container">
+              <v-text-field
+                v-model="editingValue"
+                variant="outlined"
+                density="compact"
+                hide-details
+                autofocus
+                @keydown.enter="saveInlineEdit(item, 'name')"
+                @keydown.esc="cancelInlineEdit"
+                @blur="saveInlineEdit(item, 'name')"
+              />
+            </div>
+            <span v-else class="editable-field">{{ item.name }}</span>
           </div>
         </template>
 
         <!-- Статус с цветным чипом -->
         <template v-slot:item.status="{ item }">
-          <v-chip
-            :color="getStatusColor(item.status)"
-            size="small"
-            variant="outlined"
-          >
-            {{ getStatusText(item.status) }}
-          </v-chip>
+          <div @dblclick="startInlineEdit(item, 'status')">
+            <div v-if="isEditing(item, 'status')" class="inline-edit-container">
+              <v-select
+                v-model="editingValue"
+                :items="statusOptions"
+                variant="outlined"
+                density="compact"
+                hide-details
+                autofocus
+                @update:model-value="saveInlineEdit(item, 'status')"
+                @keydown.esc="cancelInlineEdit"
+              />
+            </div>
+            <v-chip
+              v-else
+              :color="getStatusColor(item.status)"
+              size="small"
+              variant="outlined"
+              class="editable-field"
+            >
+              {{ getStatusText(item.status) }}
+            </v-chip>
+          </div>
         </template>
 
         <!-- Диапазон дат -->
@@ -84,9 +112,24 @@
 
         <!-- Планируемые затраты (mock данные) -->
         <template v-slot:item.planned_costs="{ item }">
-          <span class="text-right font-weight-medium">
-            {{ formatCurrency(getMockPlannedCosts(item.activity_id), item.currency_code) }}
-          </span>
+          <div class="text-right" @dblclick="startInlineEdit(item, 'planned_costs')">
+            <div v-if="isEditing(item, 'planned_costs')" class="inline-edit-container">
+              <v-text-field
+                v-model="editingValue"
+                type="number"
+                variant="outlined"
+                density="compact"
+                hide-details
+                autofocus
+                @keydown.enter="saveInlineEdit(item, 'planned_costs')"
+                @keydown.esc="cancelInlineEdit"
+                @blur="saveInlineEdit(item, 'planned_costs')"
+              />
+            </div>
+            <span v-else class="font-weight-medium editable-field">
+              {{ formatCurrency(getMockPlannedCosts(item.activity_id), item.currency_code) }}
+            </span>
+          </div>
         </template>
 
         <!-- ROI (mock данные) -->
@@ -118,13 +161,42 @@
 
         <!-- Ответственный -->
         <template v-slot:item.responsible="{ item }">
-          <div class="responsible-cell">
-            <v-avatar size="24" color="primary" class="me-2">
-              <span class="text-caption text-white">
-                {{ getResponsibleInitials(item.activity_id) }}
-              </span>
-            </v-avatar>
-            <span class="text-body-2">{{ getResponsibleName(item.activity_id) }}</span>
+          <div class="responsible-cell" @dblclick="startInlineEdit(item, 'responsible')">
+            <div v-if="isEditing(item, 'responsible')" class="inline-edit-container">
+              <v-select
+                v-model="editingValue"
+                :items="responsibleOptions"
+                item-title="name"
+                item-value="id"
+                variant="outlined"
+                density="compact"
+                hide-details
+                autofocus
+                @update:model-value="saveInlineEdit(item, 'responsible')"
+                @keydown.esc="cancelInlineEdit"
+              >
+                <template v-slot:item="{ props, item: option }">
+                  <v-list-item v-bind="props">
+                    <template v-slot:prepend>
+                      <v-avatar size="24" color="primary" class="me-2">
+                        <span class="text-caption text-white">
+                          {{ option.raw.initials }}
+                        </span>
+                      </v-avatar>
+                    </template>
+                    <v-list-item-title>{{ option.raw.name }}</v-list-item-title>
+                  </v-list-item>
+                </template>
+              </v-select>
+            </div>
+            <div v-else class="d-flex align-center editable-field">
+              <v-avatar size="24" color="primary" class="me-2">
+                <span class="text-caption text-white">
+                  {{ getResponsibleInitials(item.activity_id) }}
+                </span>
+              </v-avatar>
+              <span class="text-body-2">{{ getResponsibleName(item.activity_id) }}</span>
+            </div>
           </div>
         </template>
 
@@ -170,19 +242,31 @@
         </v-container>
       </div>
     </div>
+
+    <!-- Диалог редактора столбцов -->
+    <ColumnEditor
+      v-model="columnEditorDialog"
+      :columns="availableColumns"
+      @apply="applyColumnConfiguration"
+    />
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useActivitiesStore } from '@/stores/activitiesStore'
 import { useAppStore } from '@/stores/appStore'
+import ColumnEditor from './ColumnEditor.vue'
 
 const activitiesStore = useActivitiesStore()
 const appStore = useAppStore()
 
 // State
 const tableHeight = ref(400)
+const columnEditorDialog = ref(false)
+const editingCell = ref(null) // { itemId, field, value }
+const editingValue = ref('')
+const inlineEditMode = ref(false)
 
 // Computed
 const tableData = computed(() => activitiesStore.filteredActivities)
@@ -204,8 +288,8 @@ const averageROI = computed(() => {
   return Math.round(total / tableData.value.length)
 })
 
-// Заголовки таблицы
-const visibleHeaders = ref([
+// Доступные столбцы для редактора (полный список)
+const availableColumns = ref([
   {
     title: 'Название',
     key: 'name',
@@ -263,6 +347,24 @@ const visibleHeaders = ref([
     width: '90px'
   }
 ])
+
+// Видимые заголовки таблицы (настраиваются пользователем)
+const visibleHeaders = ref([...availableColumns.value])
+
+// Данные для inline редактирования
+const statusOptions = [
+  { title: 'Планирование', value: 'Planning' },
+  { title: 'Активна', value: 'Active' },
+  { title: 'Завершена', value: 'Completed' },
+  { title: 'Отменена', value: 'Cancelled' },
+  { title: 'Приостановлена', value: 'On Hold' }
+]
+
+const responsibleOptions = [
+  { id: 'petrov', name: 'Александр Петров', initials: 'АП' },
+  { id: 'ivanova', name: 'Елена Иванова', initials: 'ЕИ' },
+  { id: 'sidorov', name: 'Дмитрий Сидоров', initials: 'ДС' }
+]
 
 // Methods
 const selectActivity = (event, { item }) => {
@@ -449,11 +551,176 @@ const getResponsibleInitials = (activityId) => {
 }
 
 const openColumnEditor = () => {
-  appStore.showInfo('Редактор столбцов будет реализован в следующих версиях')
+  columnEditorDialog.value = true
 }
+
+const applyColumnConfiguration = (newColumns) => {
+  visibleHeaders.value = newColumns
+  // Сохраняем конфигурацию в localStorage
+  saveColumnConfiguration(newColumns)
+  appStore.showSuccess('Конфигурация столбцов обновлена')
+}
+
+const saveColumnConfiguration = (columns) => {
+  try {
+    localStorage.setItem('activities-table-columns', JSON.stringify(columns))
+  } catch (error) {
+    console.error('Error saving column configuration:', error)
+  }
+}
+
+const loadColumnConfiguration = () => {
+  try {
+    const saved = localStorage.getItem('activities-table-columns')
+    if (saved) {
+      const savedColumns = JSON.parse(saved)
+      // Валидируем сохраненные столбцы
+      const validColumns = savedColumns.filter(savedCol =>
+        availableColumns.value.some(availableCol => availableCol.key === savedCol.key)
+      )
+      if (validColumns.length > 0) {
+        visibleHeaders.value = validColumns
+      }
+    }
+  } catch (error) {
+    console.error('Error loading column configuration:', error)
+  }
+}
+
+// Экспортируем методы для внешнего доступа
+defineExpose({
+  openColumnEditor
+})
+
+// Lifecycle
+onMounted(() => {
+  loadColumnConfiguration()
+})
 
 const exportToExcel = () => {
   appStore.showInfo('Экспорт в Excel будет реализован в следующих версиях')
+}
+
+// Методы для inline редактирования
+const startInlineEdit = (item, field) => {
+  if (!inlineEditMode.value) {
+    editingCell.value = { itemId: item.activity_id, field: field }
+
+    // Устанавливаем текущее значение для редактирования
+    switch (field) {
+      case 'name':
+        editingValue.value = item.name
+        break
+      case 'status':
+        editingValue.value = item.status
+        break
+      case 'planned_costs':
+        editingValue.value = getMockPlannedCosts(item.activity_id).toString()
+        break
+      case 'responsible':
+        // Находим ID ответственного по имени
+        const currentResponsible = responsibleOptions.find(opt => opt.name === getResponsibleName(item.activity_id))
+        editingValue.value = currentResponsible ? currentResponsible.id : 'petrov'
+        break
+      default:
+        editingValue.value = ''
+    }
+
+    inlineEditMode.value = true
+  }
+}
+
+const isEditing = (item, field) => {
+  return editingCell.value &&
+    editingCell.value.itemId === item.activity_id &&
+    editingCell.value.field === field &&
+    inlineEditMode.value
+}
+
+const saveInlineEdit = async (item, field) => {
+  if (!isEditing(item, field)) return
+
+  try {
+    let newValue = editingValue.value
+
+    // Валидация и обработка значений по типу поля
+    switch (field) {
+      case 'name':
+        if (!newValue.trim()) {
+          appStore.showError('Название активности не может быть пустым')
+          return
+        }
+        break
+      case 'planned_costs':
+        const numValue = parseFloat(newValue)
+        if (isNaN(numValue) || numValue < 0) {
+          appStore.showError('Планируемые затраты должны быть положительным числом')
+          return
+        }
+        newValue = numValue
+        break
+      case 'responsible':
+        const selectedResponsible = responsibleOptions.find(opt => opt.id === newValue)
+        if (!selectedResponsible) {
+          appStore.showError('Выберите ответственного сотрудника')
+          return
+        }
+        break
+    }
+
+    // Имитируем обновление данных (в реальном приложении здесь будет API вызов)
+    await updateActivityField(item.activity_id, field, newValue)
+
+    cancelInlineEdit()
+    appStore.showSuccess(`${getFieldDisplayName(field)} обновлено`)
+  } catch (error) {
+    appStore.showError(`Ошибка обновления: ${error.message}`)
+  }
+}
+
+const cancelInlineEdit = () => {
+  editingCell.value = null
+  editingValue.value = ''
+  inlineEditMode.value = false
+}
+
+const updateActivityField = async (activityId, field, value) => {
+  // Имитируем API вызов с задержкой
+  await new Promise(resolve => setTimeout(resolve, 300))
+
+  // В реальном приложении здесь будет:
+  // await activitiesStore.updateActivityField(activityId, field, value)
+
+  console.log(`Updating activity ${activityId}: ${field} = ${value}`)
+
+  // Для демонстрации обновляем локальные данные
+  const activity = tableData.value.find(a => a.activity_id === activityId)
+  if (activity) {
+    switch (field) {
+      case 'name':
+        activity.name = value
+        break
+      case 'status':
+        activity.status = value
+        break
+      case 'planned_costs':
+        // Mock обновление planned_costs (в реальности через store)
+        break
+      case 'responsible':
+        // Mock обновление responsible (в реальности через store)
+        break
+    }
+  }
+}
+
+const getFieldDisplayName = (field) => {
+  const fieldNames = {
+    'name': 'Название',
+    'status': 'Статус',
+    'planned_costs': 'Планируемые затраты',
+    'responsible': 'Ответственный'
+  }
+  return fieldNames[field] || 'Поле'
 }
 </script>
 
@@ -548,6 +815,71 @@ const exportToExcel = () => {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
+/* Стили для inline редактирования */
+.editable-field {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 4px;
+  transition: background-color 0.2s ease;
+}
+
+.editable-field:hover {
+  background-color: rgba(25, 118, 210, 0.08);
+  outline: 1px solid rgba(25, 118, 210, 0.3);
+}
+
+.inline-edit-container {
+  min-width: 150px;
+}
+
+.inline-edit-container .v-text-field,
+.inline-edit-container .v-select {
+  min-height: auto;
+}
+
+.inline-edit-container :deep(.v-field) {
+  min-height: 32px;
+}
+
+.inline-edit-container :deep(.v-field__input) {
+  min-height: 32px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.activity-name-cell .inline-edit-container {
+  min-width: 200px;
+}
+
+.responsible-cell .inline-edit-container {
+  min-width: 180px;
+}
+
+/* Подсказка для пользователей */
+:deep(.v-data-table__wrapper) {
+  position: relative;
+}
+
+:deep(.v-data-table__wrapper)::before {
+  content: 'Двойной клик для редактирования';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+:deep(.v-data-table__wrapper):hover::before {
+  opacity: 1;
+}
+
 /* Responsive adjustments */
 @media (max-width: 960px) {
   .summary-controls {
@@ -559,6 +891,22 @@ const exportToExcel = () => {
   .totals-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .inline-edit-container {
+    min-width: 120px;
+  }
+
+  .activity-name-cell .inline-edit-container {
+    min-width: 150px;
+  }
+
+  .responsible-cell .inline-edit-container {
+    min-width: 140px;
+  }
+
+  :deep(.v-data-table__wrapper)::before {
+    display: none;
   }
 }
 </style>
