@@ -145,7 +145,7 @@ const isLoading = ref(false)
 
 // Вычисляемые свойства
 const currentOrganization = computed(() => organizationsStore.getCurrentOrganization)
-const organizations = computed(() => organizationsStore.getOrganizations)
+const organizations = computed(() => organizationsStore.allOrganizations)
 
 const filteredOrganizations = computed(() => {
   if (!organizations.value) {

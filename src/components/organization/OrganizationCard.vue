@@ -82,6 +82,15 @@
           </v-list-item>
 
           <v-list-item
+            @click="$emit('settings', organization)"
+          >
+            <template v-slot:prepend>
+              <v-icon>mdi-cog</v-icon>
+            </template>
+            <v-list-item-title>Настройки</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
             @click="$emit('edit', organization)"
           >
             <template v-slot:prepend>
@@ -223,7 +232,7 @@ const props = defineProps({
   }
 })
 
-defineEmits(['select', 'edit', 'delete', 'set-current'])
+defineEmits(['select', 'edit', 'delete', 'set-current', 'settings'])
 
 // Вычисляемые свойства
 const cardClasses = computed(() => {

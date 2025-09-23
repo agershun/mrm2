@@ -234,10 +234,10 @@ export const getOrganizationStats = async (organizationId) => {
  */
 export const getOrganizationDocuments = async (organizationId) => {
   try {
-    // Моковые документы
+    // Моковые документы с уникальными ID для каждой организации
     const documents = [
       {
-        document_id: 'doc_1',
+        document_id: `doc_${organizationId}_1`,
         organization_id: organizationId,
         name: 'Брендбук компании',
         file_url: '#',
@@ -248,7 +248,7 @@ export const getOrganizationDocuments = async (organizationId) => {
         created_at: '2024-01-15T10:00:00Z'
       },
       {
-        document_id: 'doc_2',
+        document_id: `doc_${organizationId}_2`,
         organization_id: organizationId,
         name: 'Маркетинговая стратегия 2024',
         file_url: '#',

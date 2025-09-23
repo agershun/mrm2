@@ -117,6 +117,17 @@
             class="ml-2"
           />
         </v-tab>
+
+        <v-tab value="approval">
+          <v-icon start>mdi-check-circle</v-icon>
+          Утверждение
+          <v-badge
+            v-if="campaign?.status === 'approved'"
+            content="✓"
+            color="success"
+            class="ml-2"
+          />
+        </v-tab>
       </v-tabs>
 
       <!-- Контент шагов -->
@@ -951,6 +962,164 @@
               </v-card>
             </div>
           </v-tabs-window-item>
+
+          <!-- Шаг 6: Утверждение -->
+          <v-tabs-window-item value="approval">
+            <div class="pa-6">
+              <div class="d-flex align-center mb-6">
+                <h3 class="text-h6">Утверждение рекламной кампании</h3>
+                <v-spacer />
+                <v-chip
+                  :color="getStatusColor(campaign?.status)"
+                  size="large"
+                  variant="flat"
+                >
+                  {{ getStatusText(campaign?.status) }}
+                </v-chip>
+              </div>
+
+              <!-- Резюме кампании -->
+              <v-card variant="outlined" class="mb-6">
+                <v-card-title>
+                  <v-icon class="me-2">mdi-clipboard-text</v-icon>
+                  Резюме кампании
+                </v-card-title>
+                <v-card-text>
+                  <v-row>
+                    <v-col cols="12" md="6">
+                      <v-list density="compact">
+                        <v-list-item>
+                          <v-list-item-title>Название кампании</v-list-item-title>
+                          <v-list-item-subtitle>{{ campaign?.name }}</v-list-item-subtitle>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-list-item-title>Описание</v-list-item-title>
+                          <v-list-item-subtitle>{{ campaign?.description }}</v-list-item-subtitle>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-list-item-title>Период проведения</v-list-item-title>
+                          <v-list-item-subtitle>
+                            {{ formatDate(campaign?.start_date) }} - {{ formatDate(campaign?.end_date) }}
+                          </v-list-item-subtitle>
+                        </v-list-item>
+                      </v-list>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                      <v-list density="compact">
+                        <v-list-item>
+                          <v-list-item-title>Общий бюджет</v-list-item-title>
+                          <v-list-item-subtitle>{{ formatCurrency(campaign?.budget_value) }}</v-list-item-subtitle>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-list-item-title>Целевая аудитория</v-list-item-title>
+                          <v-list-item-subtitle>{{ campaign?.target_audience }}</v-list-item-subtitle>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-list-item-title>Каналы</v-list-item-title>
+                          <v-list-item-subtitle>{{ campaign?.channels?.join(', ') || 'Не указаны' }}</v-list-item-subtitle>
+                        </v-list-item>
+                      </v-list>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+
+              <!-- Проверки готовности -->
+              <v-card variant="outlined" class="mb-6">
+                <v-card-title>
+                  <v-icon class="me-2">mdi-checkbox-marked-circle</v-icon>
+                  Проверки готовности
+                </v-card-title>
+                <v-card-text>
+                  <v-list>
+                    <v-list-item>
+                      <template v-slot:prepend>
+                        <v-icon :color="documentsCount > 0 ? 'success' : 'warning'">
+                          {{ documentsCount > 0 ? 'mdi-check-circle' : 'mdi-alert-circle' }}
+                        </v-icon>
+                      </template>
+                      <v-list-item-title>Документы кампании загружены</v-list-item-title>
+                      <v-list-item-subtitle>{{ documentsCount }} документов</v-list-item-subtitle>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <template v-slot:prepend>
+                        <v-icon :color="checklistCompletionRate === 100 ? 'success' : 'warning'">
+                          {{ checklistCompletionRate === 100 ? 'mdi-check-circle' : 'mdi-alert-circle' }}
+                        </v-icon>
+                      </template>
+                      <v-list-item-title>Чек-лист выполнен</v-list-item-title>
+                      <v-list-item-subtitle>{{ checklistCompletionRate }}% выполнено</v-list-item-subtitle>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <template v-slot:prepend>
+                        <v-icon :color="mediaMixVariantsCount > 0 ? 'success' : 'warning'">
+                          {{ mediaMixVariantsCount > 0 ? 'mdi-check-circle' : 'mdi-alert-circle' }}
+                        </v-icon>
+                      </template>
+                      <v-list-item-title>Медиамикс настроен</v-list-item-title>
+                      <v-list-item-subtitle>{{ mediaMixVariantsCount }} вариантов</v-list-item-subtitle>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <template v-slot:prepend>
+                        <v-icon :color="mediaPlanVariantsCount > 0 ? 'success' : 'warning'">
+                          {{ mediaPlanVariantsCount > 0 ? 'mdi-check-circle' : 'mdi-alert-circle' }}
+                        </v-icon>
+                      </template>
+                      <v-list-item-title>Медиаплан создан</v-list-item-title>
+                      <v-list-item-subtitle>{{ mediaPlanVariantsCount }} планов</v-list-item-subtitle>
+                    </v-list-item>
+                  </v-list>
+                </v-card-text>
+              </v-card>
+
+              <!-- Действия утверждения -->
+              <v-card variant="outlined">
+                <v-card-title>
+                  <v-icon class="me-2">mdi-gavel</v-icon>
+                  Действия утверждения
+                </v-card-title>
+                <v-card-text>
+                  <div v-if="campaign?.status !== 'approved'" class="text-center">
+                    <p class="text-body-1 mb-4">
+                      Убедитесь, что все проверки пройдены, затем утвердите кампанию для переноса в Activities.
+                    </p>
+                    <v-btn
+                      color="success"
+                      size="large"
+                      prepend-icon="mdi-check-bold"
+                      :disabled="!isReadyForApproval"
+                      @click="approveCampaign"
+                      :loading="isApproving"
+                    >
+                      Утвердить кампанию
+                    </v-btn>
+                    <p v-if="!isReadyForApproval" class="text-caption text-warning mt-2">
+                      Завершите все проверки для активации кнопки утверждения
+                    </p>
+                  </div>
+
+                  <div v-else class="text-center">
+                    <v-alert type="success" class="mb-4">
+                      <v-alert-title>Кампания утверждена!</v-alert-title>
+                      Кампания готова к переносу в систему Activities для запуска.
+                    </v-alert>
+                    <v-btn
+                      color="primary"
+                      size="large"
+                      prepend-icon="mdi-transfer-right"
+                      @click="promoteToActivity"
+                      :loading="isPromoting"
+                    >
+                      Перенести в Activities
+                    </v-btn>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </div>
+          </v-tabs-window-item>
         </v-tabs-window>
       </v-card-text>
     </v-card>
@@ -986,12 +1155,16 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/appStore'
+import { useMediaMixStore } from '@/stores/mediaMixStore'
+import { useMediaPlanStore } from '@/stores/mediaPlanStore'
 import MediaMixTable from '@/components/mediamix/MediaMixTable.vue'
 import MediaPlanTable from '@/components/mediamix/MediaPlanTable.vue'
 
 const route = useRoute()
 const router = useRouter()
 const appStore = useAppStore()
+const mediaMixStore = useMediaMixStore()
+const mediaPlanStore = useMediaPlanStore()
 
 const campaignId = route.params.id
 
@@ -1007,6 +1180,8 @@ const isOptimizing = ref(false)
 const showOptimizationDialog = ref(false)
 const optimizationGoal = ref('roi')
 const selectedMediaMixVariant = ref(null)
+const isApproving = ref(false)
+const isPromoting = ref(false)
 
 // Mock data
 const campaignDocuments = ref([])
@@ -1044,11 +1219,12 @@ const checklistItems = ref([
   }
 ])
 
-const mediaMixVariants = ref([])
-const currentMediaMixItems = ref([])
-const mediaPlanVariants = ref([])
-const currentMediaPlan = ref(null)
-const currentMediaPlanItems = ref([])
+// Use stores for media mix and media plan data
+const mediaMixVariants = computed(() => mediaMixStore.getMediaMixVariants)
+const currentMediaMixItems = computed(() => mediaMixStore.getMediaMixItems)
+const mediaPlanVariants = computed(() => mediaPlanStore.getMediaPlanVariants)
+const currentMediaPlan = computed(() => mediaPlanStore.getCurrentMediaPlan)
+const currentMediaPlanItems = computed(() => mediaPlanStore.getMediaPlanItems)
 
 const campaignCard = ref({
   name: '',
@@ -1185,6 +1361,13 @@ const checklistCompletionRate = computed(() => {
 const mediaMixVariantsCount = computed(() => mediaMixVariants.value.length)
 const mediaPlanVariantsCount = computed(() => mediaPlanVariants.value.length)
 const totalVariantsCount = computed(() => mediaMixVariants.value.length + mediaPlanVariants.value.length)
+
+const isReadyForApproval = computed(() => {
+  return documentsCount.value > 0 &&
+         checklistCompletionRate.value === 100 &&
+         mediaMixVariantsCount.value > 0 &&
+         mediaPlanVariantsCount.value > 0
+})
 
 const mediaMixVariantOptions = computed(() =>
   mediaMixVariants.value.map(variant => ({
@@ -1544,27 +1727,27 @@ const optimizeMediaMix = async () => {
 }
 
 const updateMediaMixItems = (items) => {
-  currentMediaMixItems.value = items
+  mediaMixStore.updateMediaMixItems(items)
 }
 
 const handleMediaMixItemUpdated = (items) => {
-  currentMediaMixItems.value = items
+  mediaMixStore.updateMediaMixItems(items)
   // Здесь можно добавить логику автосохранения или валидации
   console.log('Media mix items updated:', items)
 }
 
 const handleMediaMixOptimized = (optimizedItems) => {
-  currentMediaMixItems.value = optimizedItems
+  mediaMixStore.updateMediaMixItems(optimizedItems)
   // Можно добавить уведомление об оптимизации
   appStore.showNotification('Медиа-микс оптимизирован', 'success')
 }
 
 const updateMediaPlanItems = (items) => {
-  currentMediaPlanItems.value = items
+  mediaPlanStore.updateMediaPlanItems(items)
 }
 
 const handleMediaPlanItemUpdated = (items) => {
-  currentMediaPlanItems.value = items
+  mediaPlanStore.updateMediaPlanItems(items)
   // Здесь можно добавить логику автосохранения или валидации
   console.log('Media plan items updated:', items)
 }
@@ -1664,14 +1847,50 @@ const exportCampaign = async () => {
   }
 }
 
-const promoteToActivity = async () => {
+const approveCampaign = async () => {
+  if (!isReadyForApproval.value) {
+    appStore.showError('Завершите все проверки перед утверждением')
+    return
+  }
+
+  isApproving.value = true
   try {
-    // TODO: API call promoteToActivity
+    // TODO: API call approveCampaign(campaignId)
+    await new Promise(resolve => setTimeout(resolve, 1500)) // Имитация API запроса
+
     campaign.value.status = 'approved'
-    appStore.showSuccess('Кампания перенесена в Activities')
+    appStore.showSuccess('Кампания успешно утверждена!')
+
+    // Автоматически переключаемся на вкладку утверждения после утверждения
+    activeStep.value = 'approval'
+  } catch (error) {
+    console.error('Error approving campaign:', error)
+    appStore.showError('Ошибка при утверждении кампании')
+  } finally {
+    isApproving.value = false
+  }
+}
+
+const promoteToActivity = async () => {
+  if (campaign.value?.status !== 'approved') {
+    appStore.showError('Кампания должна быть утверждена перед переносом в Activities')
+    return
+  }
+
+  isPromoting.value = true
+  try {
+    // TODO: API call promoteToActivity(campaignId)
+    await new Promise(resolve => setTimeout(resolve, 2000)) // Имитация API запроса
+
+    appStore.showSuccess('Кампания успешно перенесена в Activities!')
+
+    // Переход к списку Activities или к самой Activity
+    router.push('/activities')
   } catch (error) {
     console.error('Error promoting to activity:', error)
     appStore.showError('Ошибка переноса в Activities')
+  } finally {
+    isPromoting.value = false
   }
 }
 
@@ -1794,6 +2013,11 @@ const formatCurrency = (value) => {
   }).format(value)
 }
 
+const formatDate = (dateString) => {
+  if (!dateString) return '—'
+  return new Date(dateString).toLocaleDateString('ru-RU')
+}
+
 const createNewVariant = () => {
   // TODO: Открыть диалог создания нового варианта
   console.log('Creating new variant')
@@ -1867,6 +2091,10 @@ watch(campaign, (newCampaign) => {
 
 onMounted(() => {
   loadCampaign()
+
+  // Initialize stores with demo data
+  mediaMixStore.initializeWithDemoData()
+  mediaPlanStore.initializeWithDemoData()
 })
 </script>
 

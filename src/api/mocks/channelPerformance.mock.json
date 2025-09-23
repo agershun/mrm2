@@ -205,9 +205,9 @@
       "45+": {"impressions": 2280000, "engagement_rate": 3.2, "conversion_rate": 3.8}
     },
     "trending_effects": [
-      {"effect": "Beauty Filter", "usage": 2.3M, "engagement_boost": "+45%"},
-      {"effect": "Transformation", "usage": 1.8M, "engagement_boost": "+38%"},
-      {"effect": "Color Palette", "usage": 1.2M, "engagement_boost": "+29%"}
+      {"effect": "Beauty Filter", "usage": 2300000, "engagement_boost": "+45%"},
+      {"effect": "Transformation", "usage": 1800000, "engagement_boost": "+38%"},
+      {"effect": "Color Palette", "usage": 1200000, "engagement_boost": "+29%"}
     ],
     "viral_metrics": {
       "shares_per_view": 0.08,

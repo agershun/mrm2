@@ -108,8 +108,9 @@
                 <v-list-item
                   v-for="document in strategyDocuments"
                   :key="document.document_id"
-                  :href="document.file_url"
+                  :href="document.file_url === '#' ? undefined : document.file_url"
                   target="_blank"
+                  @click="document.file_url === '#' ? handlePlaceholderClick(document) : undefined"
                 >
                   <template v-slot:prepend>
                     <v-icon>{{ getDocumentIcon(document.file_type) }}</v-icon>
@@ -255,6 +256,10 @@ const addConstraint = (constraint) => {
   if (!strategyData.value.marketing_constraints.includes(constraint)) {
     strategyData.value.marketing_constraints.push(constraint)
   }
+}
+
+const handlePlaceholderClick = (document) => {
+  appStore.showInfo(`Документ "${document.name}" недоступен (placeholder)`)
 }
 
 const saveStrategy = async () => {

@@ -213,3 +213,120 @@ export const compareMediaMixes = async (mixIds) => {
 
   return comparison
 }
+
+// New methods for MediaMixTable component
+export const getMediaMix = async (mixId) => {
+  return await getMediaMixById(mixId)
+}
+
+export const getMediaMixItems = async (mixId) => {
+  await delay(300)
+
+  // Demo data for media mix items
+  return [
+    {
+      channel: 'Instagram',
+      budget_allocation: 3000000,
+      budget_share: 37.5,
+      expected_cpa: 1200,
+      expected_conversions: 2500,
+      expected_roi: 350
+    },
+    {
+      channel: 'VKontakte',
+      budget_allocation: 2000000,
+      budget_share: 25.0,
+      expected_cpa: 800,
+      expected_conversions: 2500,
+      expected_roi: 400
+    },
+    {
+      channel: 'YouTube',
+      budget_allocation: 2000000,
+      budget_share: 25.0,
+      expected_cpa: 1000,
+      expected_conversions: 2000,
+      expected_roi: 300
+    },
+    {
+      channel: 'Google Ads',
+      budget_allocation: 1000000,
+      budget_share: 12.5,
+      expected_cpa: 1500,
+      expected_conversions: 667,
+      expected_roi: 250
+    }
+  ]
+}
+
+export const generateMediaMix = async (campaignData) => {
+  await delay(1500)
+
+  return {
+    mix_id: `mix_${Date.now()}`,
+    name: 'Медиамикс Q1 2025',
+    status: 'active',
+    total_budget: campaignData.budget_value || 8000000,
+    total_reach: 8667,
+    source: 'generated_llm',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  }
+}
+
+export const generateMediaMixItems = async (mixId, campaignData) => {
+  await delay(1000)
+
+  return [
+    {
+      channel: 'Instagram',
+      budget_allocation: 3000000,
+      budget_share: 37.5,
+      expected_cpa: 1200,
+      expected_conversions: 2500,
+      expected_roi: 350
+    },
+    {
+      channel: 'VKontakte',
+      budget_allocation: 2000000,
+      budget_share: 25.0,
+      expected_cpa: 800,
+      expected_conversions: 2500,
+      expected_roi: 400
+    },
+    {
+      channel: 'YouTube',
+      budget_allocation: 2000000,
+      budget_share: 25.0,
+      expected_cpa: 1000,
+      expected_conversions: 2000,
+      expected_roi: 300
+    },
+    {
+      channel: 'Google Ads',
+      budget_allocation: 1000000,
+      budget_share: 12.5,
+      expected_cpa: 1500,
+      expected_conversions: 667,
+      expected_roi: 250
+    }
+  ]
+}
+
+export const updateMediaMixItem = async (mixId, itemData) => {
+  await delay(200)
+  return itemData
+}
+
+export const duplicateMediaMix = async (mixId) => {
+  await delay(800)
+
+  const originalMix = await getMediaMixById(mixId)
+  return {
+    ...originalMix,
+    mix_id: `mix_${Date.now()}`,
+    name: `${originalMix.name} - Копия`,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  }
+}

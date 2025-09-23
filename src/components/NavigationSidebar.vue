@@ -104,7 +104,7 @@ const navigationItems = computed(() => [
   {
     name: 'Organizations',
     path: '/organizations',
-    title: 'Организации',
+    title: 'Бизнес-заказчик',
     icon: 'mdi-office-building-marker'
   },
   {

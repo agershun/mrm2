@@ -1,7 +1,3 @@
-/**
- * Pinia store для управления медиа-миксом
- */
-
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import * as mediaMixAPI from '@/api/modules/mediaMix'
@@ -9,337 +5,309 @@ import * as mediaMixAPI from '@/api/modules/mediaMix'
 export const useMediaMixStore = defineStore('mediaMix', () => {
   // State
   const mediaMixes = ref([])
-  const mediaMixTemplates = ref([])
-  const channelPerformance = ref([])
-  const optimizationResults = ref([])
-  const currentOptimization = ref(null)
-
-  const loading = ref(false)
-  const error = ref(null)
+  const currentMediaMix = ref(null)
+  const mediaMixItems = ref([])
+  const mediaMixVariants = ref([])
+  const selectedVariant = ref(null)
+  const isLoading = ref(false)
+  const isGenerating = ref(false)
+  const isOptimizing = ref(false)
+  const lastError = ref(null)
 
   // Getters
-  const mediaMixesByCampaign = computed(() => {
-    const grouped = {}
-    mediaMixes.value.forEach(mix => {
-      const campaignId = mix.campaign_id
-      if (!grouped[campaignId]) {
-        grouped[campaignId] = []
-      }
-      grouped[campaignId].push(mix)
-    })
-    return grouped
+  const getAllMediaMixes = computed(() => mediaMixes.value)
+
+  const getCurrentMediaMix = computed(() => currentMediaMix.value)
+
+  const getMediaMixItems = computed(() => mediaMixItems.value)
+
+  const getMediaMixVariants = computed(() => mediaMixVariants.value)
+
+  const getSelectedVariant = computed(() => selectedVariant.value)
+
+  const getTotalBudget = computed(() => {
+    return mediaMixItems.value.reduce((sum, item) => sum + (item.budget_allocation || 0), 0)
   })
 
-  const mediaMixesByStatus = computed(() => {
-    const grouped = {}
-    mediaMixes.value.forEach(mix => {
-      const status = mix.status
-      if (!grouped[status]) {
-        grouped[status] = []
-      }
-      grouped[status].push(mix)
-    })
-    return grouped
+  const getTotalConversions = computed(() => {
+    return mediaMixItems.value.reduce((sum, item) => sum + (item.expected_conversions || 0), 0)
   })
 
-  const activeMixes = computed(() => {
-    return mediaMixes.value.filter(mix => mix.status === 'active')
+  const getAverageRoi = computed(() => {
+    if (mediaMixItems.value.length === 0) return 0
+    const totalRoi = mediaMixItems.value.reduce((sum, item) => sum + (item.expected_roi || 0), 0)
+    return Math.round(totalRoi / mediaMixItems.value.length)
   })
 
-  const templatesByIndustry = computed(() => {
-    const grouped = {}
-    mediaMixTemplates.value.forEach(template => {
-      const industry = template.industry
-      if (!grouped[industry]) {
-        grouped[industry] = []
-      }
-      grouped[industry].push(template)
-    })
-    return grouped
-  })
-
-  const channelPerformanceByChannel = computed(() => {
-    const grouped = {}
-    channelPerformance.value.forEach(perf => {
-      const channel = perf.channel
-      if (!grouped[channel]) {
-        grouped[channel] = []
-      }
-      grouped[channel].push(perf)
-    })
-    return grouped
-  })
-
-  const topPerformingChannels = computed(() => {
-    return channelPerformance.value
-      .sort((a, b) => (b.metrics.roas || 0) - (a.metrics.roas || 0))
-      .slice(0, 5)
-  })
-
-  const totalBudgetsByChannel = computed(() => {
-    const totals = {}
-    mediaMixes.value.forEach(mix => {
-      mix.channels.forEach(channel => {
-        if (!totals[channel.channel_name]) {
-          totals[channel.channel_name] = 0
-        }
-        totals[channel.channel_name] += channel.budget_allocation
-      })
-    })
-    return totals
-  })
-
-  // Actions - Media Mixes
-  const loadMediaMixes = async (filters = {}) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const response = await mediaMixAPI.getMediaMixes(filters)
-      mediaMixes.value = response.data
-      return response
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
+  // Actions
+  const setLoading = (loading) => {
+    isLoading.value = loading
   }
 
-  const loadMediaMixById = async (id) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const mix = await mediaMixAPI.getMediaMixById(id)
-
-      const index = mediaMixes.value.findIndex(m => m.mix_id === id)
-      if (index !== -1) {
-        mediaMixes.value[index] = mix
-      } else {
-        mediaMixes.value.push(mix)
-      }
-
-      return mix
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
+  const setGenerating = (generating) => {
+    isGenerating.value = generating
   }
 
-  const createMediaMix = async (mixData) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const newMix = await mediaMixAPI.createMediaMix(mixData)
-      mediaMixes.value.push(newMix)
-      return newMix
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
+  const setOptimizing = (optimizing) => {
+    isOptimizing.value = optimizing
   }
 
-  const updateMediaMix = async (id, updates) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const updatedMix = await mediaMixAPI.updateMediaMix(id, updates)
-
-      const index = mediaMixes.value.findIndex(m => m.mix_id === id)
-      if (index !== -1) {
-        mediaMixes.value[index] = updatedMix
-      }
-
-      return updatedMix
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  const deleteMediaMix = async (id) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      await mediaMixAPI.deleteMediaMix(id)
-      const index = mediaMixes.value.findIndex(m => m.mix_id === id)
-      if (index !== -1) {
-        mediaMixes.value.splice(index, 1)
-      }
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  // Actions - Templates
-  const loadMediaMixTemplates = async (filters = {}) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const response = await mediaMixAPI.getMediaMixTemplates(filters)
-      mediaMixTemplates.value = response.data
-      return response
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  // Actions - Channel Performance
-  const loadChannelPerformance = async (filters = {}) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const response = await mediaMixAPI.getChannelPerformance(filters)
-      channelPerformance.value = response.data
-      return response
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  // Actions - Optimization
-  const optimizeMediaMix = async (mixId, optimizationParams) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const result = await mediaMixAPI.optimizeMediaMix(mixId, optimizationParams)
-      currentOptimization.value = result
-      optimizationResults.value.push(result)
-      return result
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  const calculateROI = async (mixData) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const calculation = await mediaMixAPI.calculateMediaMixROI(mixData)
-      return calculation
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  const compareMediaMixes = async (mixIds) => {
-    loading.value = true
-    error.value = null
-
-    try {
-      const comparison = await mediaMixAPI.compareMediaMixes(mixIds)
-      return comparison
-    } catch (err) {
-      error.value = err.message
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  // Utility functions
-  const getMediaMixesByCampaign = (campaignId) => {
-    return mediaMixes.value.filter(mix => mix.campaign_id === campaignId)
-  }
-
-  const getChannelAllocation = (mixId, channelName) => {
-    const mix = mediaMixes.value.find(m => m.mix_id === mixId)
-    if (!mix) return null
-
-    const channel = mix.channels.find(ch => ch.channel_name === channelName)
-    return channel || null
-  }
-
-  const getTotalBudgetByMix = (mixId) => {
-    const mix = mediaMixes.value.find(m => m.mix_id === mixId)
-    return mix ? mix.total_budget : 0
-  }
-
-  const getChannelPerformanceData = (channel, period) => {
-    return channelPerformance.value.find(perf =>
-      perf.channel === channel && perf.period === period
-    )
-  }
-
-  const getOptimizationHistory = (mixId) => {
-    return optimizationResults.value.filter(opt => opt.mix_id === mixId)
+  const setError = (error) => {
+    lastError.value = error
   }
 
   const clearError = () => {
-    error.value = null
+    lastError.value = null
   }
 
-  const clearOptimization = () => {
-    currentOptimization.value = null
+  // Load all media mixes
+  const loadMediaMixes = async () => {
+    try {
+      setLoading(true)
+      clearError()
+      const data = await mediaMixAPI.getMediaMixes()
+      mediaMixes.value = data
+      return data
+    } catch (error) {
+      console.error('Error loading media mixes:', error)
+      setError(error)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Load specific media mix
+  const loadMediaMix = async (mixId) => {
+    try {
+      setLoading(true)
+      clearError()
+      const mix = await mediaMixAPI.getMediaMix(mixId)
+      currentMediaMix.value = mix
+
+      // Load associated items
+      const items = await mediaMixAPI.getMediaMixItems(mixId)
+      mediaMixItems.value = items
+
+      return mix
+    } catch (error) {
+      console.error('Error loading media mix:', error)
+      setError(error)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Generate new media mix
+  const generateMediaMix = async (campaignData) => {
+    try {
+      setGenerating(true)
+      clearError()
+
+      const newMix = await mediaMixAPI.generateMediaMix(campaignData)
+      currentMediaMix.value = newMix
+
+      // Generate initial media mix items
+      const items = await mediaMixAPI.generateMediaMixItems(newMix.mix_id, campaignData)
+      mediaMixItems.value = items
+
+      // Add to variants
+      const variant = {
+        variant_id: `variant_${Date.now()}`,
+        name: 'Основной медиа-микс',
+        status: 'active',
+        total_budget: getTotalBudget.value,
+        total_reach: items.reduce((sum, item) => sum + (item.expected_conversions || 0), 0),
+        source: 'generated_llm'
+      }
+
+      mediaMixVariants.value.push(variant)
+      selectedVariant.value = variant
+
+      return newMix
+    } catch (error) {
+      console.error('Error generating media mix:', error)
+      setError(error)
+      throw error
+    } finally {
+      setGenerating(false)
+    }
+  }
+
+  // Optimize media mix
+  const optimizeMediaMix = async (optimizationParams) => {
+    try {
+      setOptimizing(true)
+      clearError()
+
+      const optimizedItems = await mediaMixAPI.optimizeMediaMix(currentMediaMix.value.mix_id, optimizationParams)
+      mediaMixItems.value = optimizedItems
+
+      // Create optimized variant
+      const variant = {
+        variant_id: `variant_${Date.now()}`,
+        name: 'Оптимизированный медиа-микс',
+        status: 'active',
+        total_budget: getTotalBudget.value,
+        total_reach: optimizedItems.reduce((sum, item) => sum + (item.expected_conversions || 0), 0),
+        source: 'optimized_llm'
+      }
+
+      mediaMixVariants.value.push(variant)
+      selectedVariant.value = variant
+
+      return optimizedItems
+    } catch (error) {
+      console.error('Error optimizing media mix:', error)
+      setError(error)
+      throw error
+    } finally {
+      setOptimizing(false)
+    }
+  }
+
+  // Update media mix items
+  const updateMediaMixItems = (items) => {
+    mediaMixItems.value = items
+  }
+
+  // Create new variant
+  const createVariant = async (name, items) => {
+    try {
+      const variant = {
+        variant_id: `variant_${Date.now()}`,
+        name: name,
+        status: 'active',
+        total_budget: items.reduce((sum, item) => sum + (item.budget_allocation || 0), 0),
+        total_reach: items.reduce((sum, item) => sum + (item.expected_conversions || 0), 0),
+        source: 'manual'
+      }
+
+      mediaMixVariants.value.push(variant)
+      return variant
+    } catch (error) {
+      console.error('Error creating variant:', error)
+      setError(error)
+      throw error
+    }
+  }
+
+  // Select variant
+  const selectVariant = (variant) => {
+    selectedVariant.value = variant
+  }
+
+  // Delete variant
+  const deleteVariant = (variantId) => {
+    const index = mediaMixVariants.value.findIndex(v => v.variant_id === variantId)
+    if (index > -1) {
+      mediaMixVariants.value.splice(index, 1)
+
+      // If deleted variant was selected, select first available
+      if (selectedVariant.value?.variant_id === variantId) {
+        selectedVariant.value = mediaMixVariants.value[0] || null
+      }
+    }
+  }
+
+  // Clear current data
+  const clearCurrentData = () => {
+    currentMediaMix.value = null
+    mediaMixItems.value = []
+    mediaMixVariants.value = []
+    selectedVariant.value = null
+    clearError()
+  }
+
+  // Initialize with demo data for development
+  const initializeWithDemoData = () => {
+    mediaMixVariants.value = [
+      {
+        variant_id: 'demo_variant_1',
+        name: 'Основной медиа-микс',
+        status: 'active',
+        total_budget: 8000000,
+        total_reach: 8667,
+        source: 'generated_llm'
+      }
+    ]
+
+    selectedVariant.value = mediaMixVariants.value[0]
+
+    mediaMixItems.value = [
+      {
+        channel: 'Instagram',
+        budget_allocation: 3000000,
+        budget_share: 37.5,
+        expected_cpa: 1200,
+        expected_conversions: 2500,
+        expected_roi: 350
+      },
+      {
+        channel: 'VKontakte',
+        budget_allocation: 2000000,
+        budget_share: 25.0,
+        expected_cpa: 800,
+        expected_conversions: 2500,
+        expected_roi: 400
+      },
+      {
+        channel: 'YouTube',
+        budget_allocation: 2000000,
+        budget_share: 25.0,
+        expected_cpa: 1000,
+        expected_conversions: 2000,
+        expected_roi: 300
+      },
+      {
+        channel: 'Google Ads',
+        budget_allocation: 1000000,
+        budget_share: 12.5,
+        expected_cpa: 1500,
+        expected_conversions: 667,
+        expected_roi: 250
+      }
+    ]
   }
 
   return {
     // State
     mediaMixes,
-    mediaMixTemplates,
-    channelPerformance,
-    optimizationResults,
-    currentOptimization,
-    loading,
-    error,
+    currentMediaMix,
+    mediaMixItems,
+    mediaMixVariants,
+    selectedVariant,
+    isLoading,
+    isGenerating,
+    isOptimizing,
+    lastError,
 
     // Getters
-    mediaMixesByCampaign,
-    mediaMixesByStatus,
-    activeMixes,
-    templatesByIndustry,
-    channelPerformanceByChannel,
-    topPerformingChannels,
-    totalBudgetsByChannel,
+    getAllMediaMixes,
+    getCurrentMediaMix,
+    getMediaMixItems,
+    getMediaMixVariants,
+    getSelectedVariant,
+    getTotalBudget,
+    getTotalConversions,
+    getAverageRoi,
 
     // Actions
-    loadMediaMixes,
-    loadMediaMixById,
-    createMediaMix,
-    updateMediaMix,
-    deleteMediaMix,
-    loadMediaMixTemplates,
-    loadChannelPerformance,
-    optimizeMediaMix,
-    calculateROI,
-    compareMediaMixes,
-
-    // Utilities
-    getMediaMixesByCampaign,
-    getChannelAllocation,
-    getTotalBudgetByMix,
-    getChannelPerformanceData,
-    getOptimizationHistory,
+    setLoading,
+    setGenerating,
+    setOptimizing,
+    setError,
     clearError,
-    clearOptimization
+    loadMediaMixes,
+    loadMediaMix,
+    generateMediaMix,
+    optimizeMediaMix,
+    updateMediaMixItems,
+    createVariant,
+    selectVariant,
+    deleteVariant,
+    clearCurrentData,
+    initializeWithDemoData
   }
 })

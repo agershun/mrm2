@@ -3,7 +3,7 @@
     <!-- Заголовок с действиями -->
     <div class="d-flex align-center justify-space-between mb-6">
       <div>
-        <h2 class="text-h5 font-weight-bold mb-1">Управление организациями</h2>
+        <h2 class="text-h5 font-weight-bold mb-1">Управление бизнес-заказчиками</h2>
         <p class="text-body-2 text-medium-emphasis">
           {{ organizationsCount }} {{ getOrganizationsText() }}
         </p>
@@ -92,6 +92,7 @@
           @edit="editOrganization"
           @delete="deleteOrganization"
           @set-current="setCurrentOrganization"
+          @settings="goToOrganizationSettings"
         />
       </v-col>
     </v-row>
@@ -144,12 +145,14 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useOrganizationsStore } from '@/stores/organizationsStore'
 import { useAppStore } from '@/stores/appStore'
 import OrganizationCard from './OrganizationCard.vue'
 import OrganizationCreateDialog from './OrganizationCreateDialog.vue'
 import OrganizationEditDialog from './OrganizationEditDialog.vue'
 
+const router = useRouter()
 const organizationsStore = useOrganizationsStore()
 const appStore = useAppStore()
 
@@ -246,13 +249,17 @@ const isCurrentOrganization = (organizationId) => {
 
 const selectOrganization = (organization) => {
   // Переход к детальной странице организации
-  // В данном случае остаёмся на этой странице, но можно добавить роутинг
-  console.log('Selected organization:', organization)
+  router.push(`/organizations/${organization.organization_id}`)
 }
 
 const editOrganization = (organization) => {
   selectedOrganization.value = organization
   editOrganizationDialog.value = true
+}
+
+const goToOrganizationSettings = (organization) => {
+  // Переход к настройкам организации
+  router.push(`/organizations/${organization.organization_id}`)
 }
 
 const deleteOrganization = (organization) => {

@@ -65,7 +65,7 @@ const routes = [
         name: 'Organizations',
         component: Organization,
         meta: {
-          title: 'Организации',
+          title: 'Бизнес-заказчик',
           icon: 'mdi-office-building-marker'
         }
       },

@@ -208,5 +208,89 @@
     "is_active": true,
     "created_at": "2024-05-20T14:00:00Z",
     "updated_at": "2024-09-10T09:45:00Z"
+  },
+  {
+    "organization_id": "dept_digital_products",
+    "name": "Департамент цифровых продуктов",
+    "legal_name": "Внутренний департамент",
+    "industry": "internal_department",
+    "description": "Внутренний продуктовый департамент, отвечающий за разработку и развитие цифровых продуктов компании. Включает команды по мобильным приложениям, веб-платформам и digital-сервисам.",
+    "logo_url": null,
+    "website": null,
+    "email": "digital-products@company.internal",
+    "phone": "ext. 2101",
+    "address": {
+      "street": "Внутренний департамент, 15 этаж",
+      "city": "Москва",
+      "region": "Московская область",
+      "postal_code": "125009",
+      "country": "russia"
+    },
+    "social_media": {
+      "linkedin": "",
+      "facebook": "",
+      "twitter": "",
+      "instagram": ""
+    },
+    "legal_info": {
+      "tax_id": "",
+      "registration_number": "",
+      "kpp": "",
+      "okpo": ""
+    },
+    "strategy_description": "Создание инновационных цифровых решений для улучшения пользовательского опыта и увеличения вовлеченности клиентов. Фокус на mobile-first подходе и персонализации сервисов.",
+    "target_audience": "Внутренние пользователи, B2B и B2C клиенты компании, технологически продвинутые пользователи 18-55 лет",
+    "marketing_constraints": [
+      "Соблюдение корпоративных стандартов брендинга",
+      "Согласование всех внешних коммуникаций с корпоративным центром",
+      "Обязательное тестирование UX/UI перед запуском кампаний",
+      "Приоритет внутренних ресурсов при выборе подрядчиков"
+    ],
+    "brand_guidelines_url": "/internal/brand-guidelines-digital",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-09-23T07:30:00Z"
+  },
+  {
+    "organization_id": "dept_customer_experience",
+    "name": "Департамент клиентского опыта",
+    "legal_name": "Внутренний департамент",
+    "industry": "internal_department",
+    "description": "Внутренний продуктовый департамент, специализирующийся на улучшении клиентского опыта и взаимодействия. Отвечает за CRM-системы, программы лояльности и сервисы поддержки клиентов.",
+    "logo_url": null,
+    "website": null,
+    "email": "customer-experience@company.internal",
+    "phone": "ext. 2205",
+    "address": {
+      "street": "Внутренний департамент, 12 этаж",
+      "city": "Москва",
+      "region": "Московская область",
+      "postal_code": "125009",
+      "country": "russia"
+    },
+    "social_media": {
+      "linkedin": "",
+      "facebook": "",
+      "twitter": "",
+      "instagram": ""
+    },
+    "legal_info": {
+      "tax_id": "",
+      "registration_number": "",
+      "kpp": "",
+      "okpo": ""
+    },
+    "strategy_description": "Повышение удовлетворенности клиентов через персонализированный подход и омниканальное взаимодействие. Фокус на Customer Journey Mapping и автоматизации клиентского сервиса.",
+    "target_audience": "Существующие и потенциальные клиенты компании всех возрастных групп, с акцентом на высокую ценность жизненного цикла клиента",
+    "marketing_constraints": [
+      "Строгое соблюдение политики конфиденциальности данных",
+      "Обязательная сегментация аудитории по LTV",
+      "Персонализация сообщений на основе истории взаимодействий",
+      "Мониторинг NPS и CSAT для каждой кампании"
+    ],
+    "brand_guidelines_url": "/internal/brand-guidelines-cx",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-09-23T07:30:00Z"
   }
 ]
