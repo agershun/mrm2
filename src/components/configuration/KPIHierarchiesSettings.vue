@@ -287,12 +287,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useKpiHierarchiesStore } from '@/stores/kpiHierarchiesStore'
-import { useKPIsStore } from '@/stores/kpisStore'
+import { usePerformanceStore } from '@/stores/performanceStore'
 import { useSnackbar } from '@/composables/useSnackbar'
 
 // Stores
 const kpiHierarchiesStore = useKpiHierarchiesStore()
-const kpisStore = useKPIsStore()
+const performanceStore = usePerformanceStore()
 const { showSnackbar } = useSnackbar()
 
 // Reactive data
@@ -322,7 +322,7 @@ const formData = ref({
 const loading = computed(() => kpiHierarchiesStore.loading)
 const hierarchies = computed(() => kpiHierarchiesStore.hierarchies)
 const hierarchyTree = computed(() => kpiHierarchiesStore.hierarchyTree)
-const availableKPIs = computed(() => kpisStore.kpis)
+const availableKPIs = computed(() => performanceStore.kpis)
 
 const filteredHierarchies = computed(() => {
   let filtered = hierarchies.value
@@ -512,7 +512,7 @@ const getChildCategory = (childId) => {
 onMounted(async () => {
   await Promise.all([
     kpiHierarchiesStore.fetchHierarchies(),
-    kpisStore.fetchKPIs()
+    performanceStore.fetchKPIs()
   ])
 })
 </script>
