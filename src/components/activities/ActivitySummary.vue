@@ -37,7 +37,10 @@
         class="activities-table"
         fixed-header
         :height="tableHeight"
+        show-select
+        v-model="selectedRows"
         @click:row="selectActivity"
+        :row-props="getRowProps"
       >
         <!-- Название активности с иконкой -->
         <template v-slot:item.name="{ item }">
@@ -267,6 +270,7 @@ const columnEditorDialog = ref(false)
 const editingCell = ref(null) // { itemId, field, value }
 const editingValue = ref('')
 const inlineEditMode = ref(false)
+const selectedRows = ref([]) // Выбранные строки в таблице
 
 // Computed
 const tableData = computed(() => activitiesStore.filteredActivities)
@@ -369,6 +373,13 @@ const responsibleOptions = [
 // Methods
 const selectActivity = (event, { item }) => {
   activitiesStore.selectActivity(item.activity_id)
+}
+
+const getRowProps = (item) => {
+  const isSelected = selectedRows.value.some(row => row.activity_id === item.item.activity_id)
+  return {
+    class: isSelected ? 'selected-row' : ''
+  }
 }
 
 const getActivityIcon = (typeId) => {
@@ -878,6 +889,15 @@ const getFieldDisplayName = (field) => {
 
 :deep(.v-data-table__wrapper):hover::before {
   opacity: 1;
+}
+
+/* Выделение выбранных строк */
+:deep(.selected-row) {
+  background-color: rgba(25, 118, 210, 0.08) !important;
+}
+
+:deep(.selected-row:hover) {
+  background-color: rgba(25, 118, 210, 0.12) !important;
 }
 
 /* Responsive adjustments */

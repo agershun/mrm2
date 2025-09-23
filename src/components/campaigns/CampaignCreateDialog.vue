@@ -23,6 +23,15 @@
                 variant="outlined"
               />
 
+              <v-textarea
+                v-model="form.objective"
+                label="Цель кампании"
+                :rules="[rules.required]"
+                variant="outlined"
+                rows="2"
+                placeholder="Опишите основную цель кампании..."
+              />
+
               <v-select
                 v-model="form.channel"
                 :items="channelOptions"
@@ -40,14 +49,47 @@
 
               <v-row>
                 <v-col cols="12" md="6">
+                  <v-select
+                    v-model="form.budget_type"
+                    :items="budgetTypeOptions"
+                    label="Тип бюджета"
+                    :rules="[rules.required]"
+                    variant="outlined"
+                  />
+                </v-col>
+                <v-col cols="12" md="6">
                   <v-text-field
-                    v-model.number="form.budget"
-                    label="Бюджет"
+                    v-model.number="form.budget_value"
+                    label="Размер бюджета"
                     type="number"
+                    :rules="[rules.required, rules.positiveNumber]"
                     variant="outlined"
                     suffix="₽"
                   />
                 </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col cols="12" md="6">
+                  <v-text-field
+                    v-model="form.start_date"
+                    label="Дата начала"
+                    type="date"
+                    :rules="[rules.required]"
+                    variant="outlined"
+                  />
+                </v-col>
+                <v-col cols="12" md="6">
+                  <v-text-field
+                    v-model="form.end_date"
+                    label="Дата окончания"
+                    type="date"
+                    variant="outlined"
+                  />
+                </v-col>
+              </v-row>
+
+              <v-row>
                 <v-col cols="12" md="6">
                   <v-select
                     v-model="form.status"
@@ -301,9 +343,13 @@ const generatedCampaign = ref(null)
 
 const form = ref({
   name: '',
+  objective: '',
   channel: null,
   description: '',
-  budget: 0,
+  budget_type: 'total',
+  budget_value: 0,
+  start_date: '',
+  end_date: '',
   status: 'draft'
 })
 
@@ -316,7 +362,8 @@ const aiForm = ref({
 })
 
 const rules = {
-  required: v => !!v || 'Поле обязательно для заполнения'
+  required: v => !!v || 'Поле обязательно для заполнения',
+  positiveNumber: v => (v > 0) || 'Значение должно быть больше 0'
 }
 
 const channelOptions = [
@@ -335,6 +382,13 @@ const statusOptions = [
   { title: 'Активная', value: 'active' },
   { title: 'Приостановлена', value: 'paused' },
   { title: 'Завершена', value: 'completed' }
+]
+
+const budgetTypeOptions = [
+  { title: 'Общий бюджет', value: 'total' },
+  { title: 'Месячный бюджет', value: 'monthly' },
+  { title: 'Недельный бюджет', value: 'weekly' },
+  { title: 'Дневной бюджет', value: 'daily' }
 ]
 
 const aiEnabled = computed(() => {
@@ -439,8 +493,13 @@ const generateCampaign = async () => {
     // Парсим результат (в реальном приложении это будет JSON из ИИ)
     generatedCampaign.value = {
       name: `AI-сгенерированная кампания ${new Date().toLocaleDateString()}`,
+      objective: pipelineResult.campaign_objective || 'Повышение узнаваемости бренда и привлечение новых клиентов',
       description: pipelineResult.campaign_description || 'Описание сгенерировано ИИ',
-      budget: pipelineResult.recommended_budget || 500000,
+      channel: pipelineResult.primary_channel || 'Google Ads',
+      budget_type: 'total',
+      budget_value: pipelineResult.recommended_budget || 500000,
+      start_date: new Date().toISOString().split('T')[0],
+      end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // +30 дней
       channels: pipelineResult.recommended_channels || ['Google Ads', 'Facebook', 'Instagram'],
       status: 'draft',
       ai_generated: true,
@@ -470,9 +529,13 @@ const resetDialog = () => {
   activeTab.value = 'manual'
   form.value = {
     name: '',
+    objective: '',
     channel: null,
     description: '',
-    budget: 0,
+    budget_type: 'total',
+    budget_value: 0,
+    start_date: '',
+    end_date: '',
     status: 'draft'
   }
   aiForm.value = {

@@ -2,15 +2,22 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import api from '@/api'
 import { useAppStore } from './appStore'
+import { handleApiError } from '@/utils/errorHandler'
+import { useLoading } from '@/composables/useLoading'
 
 export const useBudgetsStore = defineStore('budgets', () => {
   const appStore = useAppStore()
+  const {
+    isLoading,
+    withLoading,
+    withOperationLoading,
+    isOperationLoading
+  } = useLoading()
 
   // State
   const budgets = ref([])
   const budgetRequests = ref([])
   const selectedBudget = ref(null)
-  const isLoading = ref(false)
   const currentView = ref('hierarchy') // 'hierarchy', 'rollup', 'requests'
   const filters = ref({})
   const expandedNodes = ref({})
@@ -77,19 +84,20 @@ export const useBudgetsStore = defineStore('budgets', () => {
 
   // Actions
   const fetchBudgets = async (filterParams = {}) => {
-    try {
-      isLoading.value = true
+    return await withOperationLoading('fetchBudgets', async () => {
       console.log('[BudgetsStore] Fetching budgets...')
       const data = await api.budgets.getBudgetHierarchy(filterParams)
       console.log('[BudgetsStore] Received budgets:', data)
       budgets.value = data || []
       console.log('[BudgetsStore] Budgets loaded:', budgets.value.length)
-    } catch (error) {
-      console.error('[BudgetsStore] Error fetching budgets:', error)
-      appStore.showError('Ошибка загрузки бюджетов: ' + error.message)
-    } finally {
-      isLoading.value = false
-    }
+      return data
+    }, {
+      message: 'Загрузка бюджетов...',
+      errorHandler: (error) => {
+        handleApiError(error, 'fetching budgets')
+        appStore.showError('Ошибка загрузки бюджетов: ' + error.message)
+      }
+    })
   }
 
   const fetchBudgetRequests = async () => {
@@ -99,7 +107,7 @@ export const useBudgetsStore = defineStore('budgets', () => {
       console.log('[BudgetsStore] Received budget requests:', data)
       budgetRequests.value = data || []
     } catch (error) {
-      console.error('[BudgetsStore] Error fetching budget requests:', error)
+      handleApiError(error, 'fetching budget requests')
       appStore.showError('Ошибка загрузки запросов бюджета: ' + error.message)
     }
   }
@@ -109,20 +117,19 @@ export const useBudgetsStore = defineStore('budgets', () => {
   }
 
   const createBudgetFolder = async (folderData) => {
-    try {
-      isLoading.value = true
+    return await withOperationLoading('createBudgetFolder', async () => {
       console.log('[BudgetsStore] Creating budget folder:', folderData)
       const newFolder = await api.budgets.createBudgetFolder(folderData)
       budgets.value.push(newFolder)
-      appStore.showSuccess('Папка бюджета создана успешно')
       return newFolder
-    } catch (error) {
-      console.error('[BudgetsStore] Error creating budget folder:', error)
-      appStore.showError('Ошибка создания папки бюджета: ' + error.message)
-      throw error
-    } finally {
-      isLoading.value = false
-    }
+    }, {
+      message: 'Создание папки бюджета...',
+      successMessage: 'Папка бюджета создана успешно',
+      errorHandler: (error) => {
+        handleApiError(error, 'creating budget folder')
+        appStore.showError('Ошибка создания папки бюджета: ' + error.message)
+      }
+    })
   }
 
   const createInvestmentPlan = async (planData) => {
@@ -134,7 +141,7 @@ export const useBudgetsStore = defineStore('budgets', () => {
       appStore.showSuccess('План инвестиций создан успешно')
       return newPlan
     } catch (error) {
-      console.error('[BudgetsStore] Error creating investment plan:', error)
+      handleApiError(error, 'creating investment plan')
       appStore.showError('Ошибка создания плана инвестиций: ' + error.message)
       throw error
     } finally {
@@ -155,7 +162,7 @@ export const useBudgetsStore = defineStore('budgets', () => {
       appStore.showSuccess('Бюджет обновлен успешно')
       return updatedBudget
     } catch (error) {
-      console.error('[BudgetsStore] Error updating budget:', error)
+      handleApiError(error, 'updating budget')
       appStore.showError('Ошибка обновления бюджета: ' + error.message)
       throw error
     } finally {
@@ -326,6 +333,9 @@ export const useBudgetsStore = defineStore('budgets', () => {
     allocatedAmount,
     remainingAmount,
     pendingRequests,
+
+    // Loading helpers
+    isOperationLoading,
 
     // Actions
     fetchBudgets,

@@ -79,6 +79,10 @@ export const useAppStore = defineStore('app', () => {
     })
   }
 
+  const showNotification = (notification) => {
+    return addNotification(notification)
+  }
+
   const toggleSidebar = () => {
     sidebarCollapsed.value = !sidebarCollapsed.value
   }
@@ -125,14 +129,20 @@ export const useAppStore = defineStore('app', () => {
           setCurrentOrganization(organizationsStore.getCurrentOrganization)
         }
       } catch (orgError) {
-        console.warn('Failed to initialize organizations:', orgError)
+        // Используем простое логирование, так как errorHandler еще не инициализирован
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('Failed to initialize organizations:', orgError)
+        }
       }
 
       isInitialized.value = true
       showSuccess('Система инициализирована успешно')
     } catch (error) {
       showError('Ошибка инициализации системы')
-      console.error('App initialization error:', error)
+      // Используем простое логирование, так как errorHandler еще не инициализирован
+      if (process.env.NODE_ENV === 'development') {
+        console.error('App initialization error:', error)
+      }
     } finally {
       setLoading(false)
     }
@@ -170,6 +180,7 @@ export const useAppStore = defineStore('app', () => {
     showError,
     showWarning,
     showInfo,
+    showNotification,
     toggleSidebar,
     setSidebarCollapsed,
     setCurrentUser,
