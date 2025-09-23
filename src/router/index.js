@@ -61,6 +61,24 @@ const routes = [
         }
       },
       {
+        path: '/organizations',
+        name: 'Organizations',
+        component: Organization,
+        meta: {
+          title: 'Организации',
+          icon: 'mdi-office-building-marker'
+        }
+      },
+      {
+        path: '/organizations/:id',
+        name: 'OrganizationDetails',
+        component: Organization,
+        meta: {
+          title: 'Детали организации',
+          icon: 'mdi-office-building-marker'
+        }
+      },
+      {
         path: '/strategy',
         name: 'Strategy',
         component: Strategy,
@@ -143,12 +161,7 @@ const routes = [
       },
       {
         path: '/organization',
-        name: 'Organization',
-        component: Organization,
-        meta: {
-          title: 'Организация',
-          icon: 'mdi-domain'
-        }
+        redirect: '/organizations'
       }
     ]
   }

@@ -102,6 +102,12 @@ const sidebarCollapsed = computed(() => appStore.sidebarCollapsed)
 // Пункты навигационного меню
 const navigationItems = computed(() => [
   {
+    name: 'Organizations',
+    path: '/organizations',
+    title: 'Организации',
+    icon: 'mdi-office-building-marker'
+  },
+  {
     name: 'Strategy',
     path: '/strategy',
     title: 'Стратегия',

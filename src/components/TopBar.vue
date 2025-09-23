@@ -13,6 +13,9 @@
       <v-icon>mdi-menu</v-icon>
     </v-app-bar-nav-icon>
 
+    <!-- Селектор организации -->
+    <OrganizationSelector class="me-4" />
+
     <!-- Заголовок текущего экрана -->
     <v-app-bar-title class="text-h6 font-weight-medium">
       {{ currentPageTitle }}
@@ -87,6 +90,7 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/appStore'
 import UserMenu from '@/components/UserMenu.vue'
+import OrganizationSelector from '@/components/organization/OrganizationSelector.vue'
 
 const route = useRoute()
 const router = useRouter()

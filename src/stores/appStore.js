@@ -7,6 +7,7 @@ export const useAppStore = defineStore('app', () => {
   const notifications = ref([])
   const sidebarCollapsed = ref(false)
   const currentUser = ref(null)
+  const currentOrganization = ref(null)
   const isInitialized = ref(false)
 
   // Getters
@@ -16,6 +17,11 @@ export const useAppStore = defineStore('app', () => {
     if (!currentUser.value) return 'Пользователь'
     return `${currentUser.value.firstName} ${currentUser.value.lastName}`
   })
+  const organizationDisplayName = computed(() => {
+    if (!currentOrganization.value) return 'Не выбрана'
+    return currentOrganization.value.name
+  })
+  const hasCurrentOrganization = computed(() => !!currentOrganization.value)
 
   // Actions
   const setLoading = (loading) => {
@@ -85,6 +91,10 @@ export const useAppStore = defineStore('app', () => {
     currentUser.value = user
   }
 
+  const setCurrentOrganization = (organization) => {
+    currentOrganization.value = organization
+  }
+
   const initialize = async () => {
     if (isInitialized.value) return
 
@@ -103,6 +113,21 @@ export const useAppStore = defineStore('app', () => {
         role: 'Administrator'
       })
 
+      // Инициализируем организации
+      const { useOrganizationsStore } = await import('./organizationsStore')
+      const organizationsStore = useOrganizationsStore()
+
+      try {
+        await organizationsStore.initialize()
+
+        // Синхронизируем текущую организацию
+        if (organizationsStore.getCurrentOrganization) {
+          setCurrentOrganization(organizationsStore.getCurrentOrganization)
+        }
+      } catch (orgError) {
+        console.warn('Failed to initialize organizations:', orgError)
+      }
+
       isInitialized.value = true
       showSuccess('Система инициализирована успешно')
     } catch (error) {
@@ -115,6 +140,7 @@ export const useAppStore = defineStore('app', () => {
 
   const logout = () => {
     currentUser.value = null
+    currentOrganization.value = null
     isInitialized.value = false
     notifications.value = []
     // В реальном приложении здесь будет очистка токенов и редирект
@@ -126,12 +152,15 @@ export const useAppStore = defineStore('app', () => {
     notifications,
     sidebarCollapsed,
     currentUser,
+    currentOrganization,
     isInitialized,
 
     // Getters
     loadingState,
     hasNotifications,
     userDisplayName,
+    organizationDisplayName,
+    hasCurrentOrganization,
 
     // Actions
     setLoading,
@@ -144,6 +173,7 @@ export const useAppStore = defineStore('app', () => {
     toggleSidebar,
     setSidebarCollapsed,
     setCurrentUser,
+    setCurrentOrganization,
     initialize,
     logout
   }
