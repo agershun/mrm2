@@ -29,7 +29,7 @@ const routes = [
         name: 'Campaigns',
         component: Campaigns,
         meta: {
-          title: 'Кампании',
+          title: 'Кампании I',
           icon: 'mdi-robot'
         }
       },
@@ -38,7 +38,7 @@ const routes = [
         name: 'CampaignsView',
         component: CampaignsView,
         meta: {
-          title: 'Управление кампаниями',
+          title: 'Кампании II',
           icon: 'mdi-eye'
         }
       },
@@ -56,7 +56,7 @@ const routes = [
         name: 'KnowledgeBase',
         component: KnowledgeBase,
         meta: {
-          title: 'База знаний ИИ',
+          title: 'База знаний',
           icon: 'mdi-brain'
         }
       },

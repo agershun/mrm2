@@ -3,7 +3,7 @@
     <!-- Заголовок -->
     <div class="d-flex align-center mb-6">
       <div>
-        <h1 class="text-h4 font-weight-bold mb-1">База знаний ИИ</h1>
+        <h1 class="text-h4 font-weight-bold mb-1">База знаний</h1>
         <p class="text-body-1 text-medium-emphasis">
           Управление историческими данными и промптами для искусственного интеллекта
         </p>

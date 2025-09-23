@@ -6,6 +6,7 @@
           <v-card-title>{{ campaign.name }}</v-card-title>
           <v-card-subtitle>{{ campaign.channel }}</v-card-subtitle>
           <v-card-actions>
+            <v-btn variant="text" @click="$emit('open-workspace', campaign)">Открыть</v-btn>
             <v-btn variant="text" @click="$emit('view-details', campaign)">Подробнее</v-btn>
             <v-btn variant="text" @click="$emit('edit', campaign)">Редактировать</v-btn>
           </v-card-actions>
@@ -22,5 +23,5 @@ defineProps({
   groupBy: { type: String, default: null }
 })
 
-defineEmits(['select', 'edit', 'duplicate', 'delete', 'view-details'])
+defineEmits(['select', 'edit', 'duplicate', 'delete', 'view-details', 'open-workspace'])
 </script>

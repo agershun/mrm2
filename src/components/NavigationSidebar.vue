@@ -116,13 +116,13 @@ const navigationItems = computed(() => [
   {
     name: 'Campaigns',
     path: '/campaigns',
-    title: 'Кампании',
+    title: 'Кампании I',
     icon: 'mdi-robot'
   },
   {
     name: 'CampaignsView',
     path: '/campaigns-view',
-    title: 'Управление кампаниями',
+    title: 'Кампании II',
     icon: 'mdi-eye'
   },
   {

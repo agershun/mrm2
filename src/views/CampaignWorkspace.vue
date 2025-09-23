@@ -106,6 +106,17 @@
             class="ml-2"
           />
         </v-tab>
+
+        <v-tab value="versions">
+          <v-icon start>mdi-source-branch</v-icon>
+          Версии и варианты
+          <v-badge
+            v-if="totalVariantsCount > 0"
+            :content="totalVariantsCount"
+            color="purple"
+            class="ml-2"
+          />
+        </v-tab>
       </v-tabs>
 
       <!-- Контент шагов -->
@@ -188,10 +199,11 @@
                   <v-tabs-window v-model="parametersView">
                     <!-- Карточка кампании -->
                     <v-tabs-window-item value="card">
-                      <v-card variant="outlined" class="mt-4">
+                      <v-card variant="outlined" class="mt-4" style="max-height: calc(100vh - 350px); overflow-y: auto;">
                         <v-card-title>Карточка рекламной кампании</v-card-title>
                         <v-card-text>
                           <v-row>
+                            <!-- Основная информация -->
                             <v-col cols="12" md="6">
                               <v-text-field
                                 v-model="campaignCard.name"
@@ -201,37 +213,286 @@
                               />
                             </v-col>
                             <v-col cols="12" md="6">
-                              <v-text-field
-                                v-model="campaignCard.category"
-                                label="Категория"
-                                variant="outlined"
-                                readonly
-                              />
-                            </v-col>
-                            <v-col cols="12">
-                              <v-textarea
+                              <v-select
                                 v-model="campaignCard.objective"
                                 label="Цель кампании"
                                 variant="outlined"
-                                rows="2"
-                                readonly
+                                :items="objectiveOptions"
+                                item-title="text"
+                                item-value="value"
+                              />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                              <v-select
+                                v-model="campaignCard.channel"
+                                label="Канал"
+                                variant="outlined"
+                                :items="channelOptions"
+                                item-title="text"
+                                item-value="value"
+                              />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                              <v-select
+                                v-model="campaignCard.status"
+                                label="Статус"
+                                variant="outlined"
+                                :items="statusOptions"
+                                item-title="text"
+                                item-value="value"
+                              />
+                            </v-col>
+
+                            <!-- Бюджет и даты -->
+                            <v-col cols="12" md="4">
+                              <v-select
+                                v-model="campaignCard.budget_type"
+                                label="Тип бюджета"
+                                variant="outlined"
+                                :items="budgetTypeOptions"
+                                item-title="text"
+                                item-value="value"
+                              />
+                            </v-col>
+                            <v-col cols="12" md="4">
+                              <v-text-field
+                                v-model="campaignCard.budget_value"
+                                label="Бюджет"
+                                variant="outlined"
+                                type="number"
+                                suffix="₽"
+                              />
+                            </v-col>
+                            <v-col cols="12" md="4">
+                              <v-select
+                                v-model="campaignCard.currency"
+                                label="Валюта"
+                                variant="outlined"
+                                :items="currencyOptions"
+                                item-title="text"
+                                item-value="value"
+                              />
+                            </v-col>
+
+                            <!-- Период кампании -->
+                            <v-col cols="12" md="6">
+                              <v-text-field
+                                v-model="campaignCard.start_date"
+                                label="Дата начала"
+                                variant="outlined"
+                                type="date"
                               />
                             </v-col>
                             <v-col cols="12" md="6">
                               <v-text-field
-                                v-model="campaignCard.target_audience"
-                                label="Целевая аудитория"
+                                v-model="campaignCard.end_date"
+                                label="Дата окончания"
                                 variant="outlined"
-                                readonly
+                                type="date"
+                              />
+                            </v-col>
+
+                            <!-- Категоризация -->
+                            <v-col cols="12" md="6">
+                              <v-select
+                                v-model="campaignCard.campaign_category"
+                                label="Категория кампании"
+                                variant="outlined"
+                                :items="campaignCategoryOptions"
+                                item-title="text"
+                                item-value="value"
                               />
                             </v-col>
                             <v-col cols="12" md="6">
                               <v-text-field
-                                v-model="campaignCard.budget_total"
-                                label="Общий бюджет"
+                                v-model="campaignCard.product_line"
+                                label="Продуктовая линейка"
                                 variant="outlined"
-                                readonly
                               />
+                            </v-col>
+
+                            <!-- Таргетинг -->
+                            <v-col cols="12" md="6">
+                              <v-combobox
+                                v-model="campaignCard.geo_targeting"
+                                label="Географический таргетинг"
+                                variant="outlined"
+                                multiple
+                                chips
+                                :items="geoOptions"
+                              />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                              <v-combobox
+                                v-model="campaignCard.language_targeting"
+                                label="Языковой таргетинг"
+                                variant="outlined"
+                                multiple
+                                chips
+                                :items="languageOptions"
+                                item-title="text"
+                                item-value="value"
+                              />
+                            </v-col>
+
+                            <!-- UTM и трекинг -->
+                            <v-col cols="12">
+                              <v-expansion-panels>
+                                <v-expansion-panel>
+                                  <v-expansion-panel-title>
+                                    <v-icon start>mdi-link-variant</v-icon>
+                                    UTM параметры и трекинг
+                                  </v-expansion-panel-title>
+                                  <v-expansion-panel-text>
+                                    <v-row>
+                                      <v-col cols="12" md="4">
+                                        <v-text-field
+                                          v-model="campaignCard.utm_source"
+                                          label="UTM Source"
+                                          variant="outlined"
+                                        />
+                                      </v-col>
+                                      <v-col cols="12" md="4">
+                                        <v-text-field
+                                          v-model="campaignCard.utm_medium"
+                                          label="UTM Medium"
+                                          variant="outlined"
+                                        />
+                                      </v-col>
+                                      <v-col cols="12" md="4">
+                                        <v-text-field
+                                          v-model="campaignCard.utm_campaign"
+                                          label="UTM Campaign"
+                                          variant="outlined"
+                                        />
+                                      </v-col>
+                                      <v-col cols="12">
+                                        <v-text-field
+                                          v-model="campaignCard.tracking_template"
+                                          label="Шаблон трекинга"
+                                          variant="outlined"
+                                        />
+                                      </v-col>
+                                    </v-row>
+                                  </v-expansion-panel-text>
+                                </v-expansion-panel>
+                              </v-expansion-panels>
+                            </v-col>
+
+                            <!-- KPI цели -->
+                            <v-col cols="12">
+                              <v-expansion-panels>
+                                <v-expansion-panel>
+                                  <v-expansion-panel-title>
+                                    <v-icon start>mdi-target</v-icon>
+                                    KPI цели
+                                  </v-expansion-panel-title>
+                                  <v-expansion-panel-text>
+                                    <div v-for="(kpi, index) in campaignCard.kpi_targets" :key="index" class="mb-3">
+                                      <v-row>
+                                        <v-col cols="12" md="4">
+                                          <v-select
+                                            v-model="kpi.type"
+                                            label="Тип KPI"
+                                            variant="outlined"
+                                            :items="kpiTypeOptions"
+                                            item-title="text"
+                                            item-value="value"
+                                          />
+                                        </v-col>
+                                        <v-col cols="12" md="4">
+                                          <v-text-field
+                                            v-model="kpi.target"
+                                            label="Целевое значение"
+                                            variant="outlined"
+                                            type="number"
+                                          />
+                                        </v-col>
+                                        <v-col cols="12" md="4" class="d-flex align-center">
+                                          <v-btn
+                                            icon="mdi-delete"
+                                            variant="text"
+                                            color="error"
+                                            size="small"
+                                            @click="removeKPI(index)"
+                                          />
+                                        </v-col>
+                                      </v-row>
+                                      <v-divider v-if="index < campaignCard.kpi_targets.length - 1" class="my-3" />
+                                    </div>
+                                    <v-btn
+                                      variant="outlined"
+                                      prepend-icon="mdi-plus"
+                                      @click="addKPI"
+                                    >
+                                      Добавить KPI
+                                    </v-btn>
+                                  </v-expansion-panel-text>
+                                </v-expansion-panel>
+                              </v-expansion-panels>
+                            </v-col>
+
+                            <!-- Версионность и группировка -->
+                            <v-col cols="12" md="6">
+                              <v-text-field
+                                v-model="campaignCard.campaign_group_id"
+                                label="ID группы кампаний"
+                                variant="outlined"
+                              />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                              <v-text-field
+                                v-model="campaignCard.version"
+                                label="Версия"
+                                variant="outlined"
+                              />
+                            </v-col>
+
+                            <!-- Ответственные -->
+                            <v-col cols="12" md="6">
+                              <v-text-field
+                                v-model="campaignCard.responsible_manager"
+                                label="Ответственный менеджер"
+                                variant="outlined"
+                              />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                              <v-text-field
+                                v-model="campaignCard.frequency_cap_limit"
+                                label="Ограничение частоты показов"
+                                variant="outlined"
+                                type="number"
+                              />
+                            </v-col>
+
+                            <!-- Комментарии -->
+                            <v-col cols="12">
+                              <v-textarea
+                                v-model="campaignCard.notes"
+                                label="Комментарии и заметки"
+                                variant="outlined"
+                                rows="3"
+                              />
+                            </v-col>
+
+                            <!-- Кнопки действий -->
+                            <v-col cols="12" class="d-flex gap-3">
+                              <v-btn
+                                color="primary"
+                                variant="flat"
+                                prepend-icon="mdi-content-save"
+                                @click="saveCampaignCard"
+                                :loading="isSaving"
+                              >
+                                Сохранить изменения
+                              </v-btn>
+                              <v-btn
+                                variant="outlined"
+                                prepend-icon="mdi-refresh"
+                                @click="resetCampaignCard"
+                              >
+                                Сбросить
+                              </v-btn>
                             </v-col>
                           </v-row>
                         </v-card-text>
@@ -365,7 +626,6 @@
                   prepend-icon="mdi-robot"
                   @click="generateMediaMix"
                   :loading="isGeneratingMediaMix"
-                  :disabled="checklistCompletionRate < 100"
                 >
                   Сгенерировать медиамикс
                 </v-btn>
@@ -373,11 +633,11 @@
 
               <v-alert
                 v-if="checklistCompletionRate < 100"
-                type="warning"
+                type="info"
                 variant="tonal"
                 class="mb-4"
               >
-                Завершите чек-лист перед генерацией медиамикса
+                Рекомендуется завершить чек-лист для более точной генерации медиамикса
               </v-alert>
 
               <!-- Варианты медиамикса -->
@@ -406,7 +666,11 @@
                   <v-card-text>
                     <MediaMixTable
                       :items="currentMediaMixItems"
-                      @update:item="updateMediaMixItem"
+                      :loading="isGeneratingMediaMix"
+                      :totalBudgetLimit="campaignCard.budget_value"
+                      @update:items="updateMediaMixItems"
+                      @item-updated="handleMediaMixItemUpdated"
+                      @mix-optimized="handleMediaMixOptimized"
                     />
                   </v-card-text>
                 </v-card>
@@ -451,8 +715,238 @@
                 <v-card-text>
                   <MediaPlanTable
                     :items="currentMediaPlanItems"
-                    @update:item="updateMediaPlanItem"
+                    :loading="isGeneratingMediaPlan"
+                    @update:items="updateMediaPlanItems"
+                    @item-updated="handleMediaPlanItemUpdated"
                   />
+                </v-card-text>
+              </v-card>
+            </div>
+          </v-tabs-window-item>
+
+          <!-- Шаг 5: Версии и варианты -->
+          <v-tabs-window-item value="versions">
+            <div class="pa-6">
+              <div class="d-flex align-center mb-4">
+                <h3 class="text-h6">Управление версиями медиамиксов и медиапланов</h3>
+                <v-spacer />
+                <v-btn
+                  color="primary"
+                  variant="outlined"
+                  prepend-icon="mdi-plus"
+                  @click="createNewVariant"
+                >
+                  Создать новый вариант
+                </v-btn>
+              </div>
+
+              <v-row>
+                <!-- Медиамиксы -->
+                <v-col cols="12" lg="6">
+                  <v-card variant="outlined" class="h-100">
+                    <v-card-title class="d-flex align-center">
+                      <v-icon class="me-2">mdi-chart-donut</v-icon>
+                      Варианты медиамиксов
+                    </v-card-title>
+                    <v-card-text>
+                      <div v-if="mediaMixVariants.length === 0" class="text-center py-8">
+                        <v-icon size="64" color="grey-lighten-2" class="mb-4">
+                          mdi-chart-donut-variant
+                        </v-icon>
+                        <p class="text-body-2 text-grey-darken-1">
+                          Нет созданных вариантов медиамикса
+                        </p>
+                      </div>
+
+                      <v-list v-else density="compact">
+                        <v-list-item
+                          v-for="variant in mediaMixVariants"
+                          :key="variant.mix_variant_id"
+                          :active="selectedMediaMixVariant?.mix_variant_id === variant.mix_variant_id"
+                          @click="selectMediaMixVariant(variant)"
+                        >
+                          <v-list-item-title>{{ variant.name }}</v-list-item-title>
+                          <v-list-item-subtitle>{{ variant.description }}</v-list-item-subtitle>
+
+                          <template #prepend>
+                            <v-avatar size="32" :color="getVariantStatusColor(variant.status)">
+                              <v-icon size="16">{{ getVariantStatusIcon(variant.status) }}</v-icon>
+                            </v-avatar>
+                          </template>
+
+                          <template #append>
+                            <div class="d-flex align-center ga-1">
+                              <v-chip size="x-small" variant="outlined">
+                                {{ formatCurrency(variant.total_budget) }}
+                              </v-chip>
+                              <v-menu>
+                                <template #activator="{ props }">
+                                  <v-btn
+                                    icon="mdi-dots-vertical"
+                                    variant="text"
+                                    size="small"
+                                    v-bind="props"
+                                  />
+                                </template>
+                                <v-list>
+                                  <v-list-item @click="duplicateVariant('mediamix', variant)">
+                                    <v-list-item-title>Дублировать</v-list-item-title>
+                                  </v-list-item>
+                                  <v-list-item @click="renameVariant('mediamix', variant)">
+                                    <v-list-item-title>Переименовать</v-list-item-title>
+                                  </v-list-item>
+                                  <v-divider />
+                                  <v-list-item @click="deleteVariant('mediamix', variant)" class="text-error">
+                                    <v-list-item-title>Удалить</v-list-item-title>
+                                  </v-list-item>
+                                </v-list>
+                              </v-menu>
+                            </div>
+                          </template>
+                        </v-list-item>
+                      </v-list>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+
+                <!-- Медиапланы -->
+                <v-col cols="12" lg="6">
+                  <v-card variant="outlined" class="h-100">
+                    <v-card-title class="d-flex align-center">
+                      <v-icon class="me-2">mdi-calendar-clock</v-icon>
+                      Варианты медиапланов
+                    </v-card-title>
+                    <v-card-text>
+                      <div v-if="mediaPlanVariants.length === 0" class="text-center py-8">
+                        <v-icon size="64" color="grey-lighten-2" class="mb-4">
+                          mdi-calendar-outline
+                        </v-icon>
+                        <p class="text-body-2 text-grey-darken-1">
+                          Нет созданных вариантов медиаплана
+                        </p>
+                      </div>
+
+                      <v-list v-else density="compact">
+                        <v-list-item
+                          v-for="variant in mediaPlanVariants"
+                          :key="variant.plan_variant_id"
+                          :active="currentMediaPlan?.plan_variant_id === variant.plan_variant_id"
+                          @click="selectMediaPlanVariant(variant)"
+                        >
+                          <v-list-item-title>{{ variant.name }}</v-list-item-title>
+                          <v-list-item-subtitle>{{ variant.description }}</v-list-item-subtitle>
+
+                          <template #prepend>
+                            <v-avatar size="32" :color="getVariantStatusColor(variant.status)">
+                              <v-icon size="16">{{ getVariantStatusIcon(variant.status) }}</v-icon>
+                            </v-avatar>
+                          </template>
+
+                          <template #append>
+                            <div class="d-flex align-center ga-1">
+                              <v-chip size="x-small" variant="outlined">
+                                {{ variant.period_weeks }}нед
+                              </v-chip>
+                              <v-menu>
+                                <template #activator="{ props }">
+                                  <v-btn
+                                    icon="mdi-dots-vertical"
+                                    variant="text"
+                                    size="small"
+                                    v-bind="props"
+                                  />
+                                </template>
+                                <v-list>
+                                  <v-list-item @click="duplicateVariant('mediaplan', variant)">
+                                    <v-list-item-title>Дублировать</v-list-item-title>
+                                  </v-list-item>
+                                  <v-list-item @click="renameVariant('mediaplan', variant)">
+                                    <v-list-item-title>Переименовать</v-list-item-title>
+                                  </v-list-item>
+                                  <v-divider />
+                                  <v-list-item @click="deleteVariant('mediaplan', variant)" class="text-error">
+                                    <v-list-item-title>Удалить</v-list-item-title>
+                                  </v-list-item>
+                                </v-list>
+                              </v-menu>
+                            </div>
+                          </template>
+                        </v-list-item>
+                      </v-list>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+
+              <!-- Сравнение вариантов -->
+              <v-card variant="outlined" class="mt-6" v-if="selectedMediaMixVariant || currentMediaPlan">
+                <v-card-title>Сравнение вариантов</v-card-title>
+                <v-card-text>
+                  <v-row>
+                    <v-col cols="12" md="6" v-if="selectedMediaMixVariant">
+                      <h4 class="text-subtitle-1 mb-3">Активный медиамикс</h4>
+                      <v-table density="compact">
+                        <tbody>
+                          <tr>
+                            <td><strong>Название:</strong></td>
+                            <td>{{ selectedMediaMixVariant.name }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Бюджет:</strong></td>
+                            <td>{{ formatCurrency(selectedMediaMixVariant.total_budget) }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Охват:</strong></td>
+                            <td>{{ formatNumber(selectedMediaMixVariant.total_reach) }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Статус:</strong></td>
+                            <td>
+                              <v-chip
+                                :color="getVariantStatusColor(selectedMediaMixVariant.status)"
+                                size="small"
+                                variant="flat"
+                              >
+                                {{ getVariantStatusText(selectedMediaMixVariant.status) }}
+                              </v-chip>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </v-table>
+                    </v-col>
+
+                    <v-col cols="12" md="6" v-if="currentMediaPlan">
+                      <h4 class="text-subtitle-1 mb-3">Активный медиаплан</h4>
+                      <v-table density="compact">
+                        <tbody>
+                          <tr>
+                            <td><strong>Название:</strong></td>
+                            <td>{{ currentMediaPlan.name }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Период:</strong></td>
+                            <td>{{ currentMediaPlan.period_weeks }} недель</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Каналов:</strong></td>
+                            <td>{{ currentMediaPlanItems.length }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Статус:</strong></td>
+                            <td>
+                              <v-chip
+                                :color="getVariantStatusColor(currentMediaPlan.status)"
+                                size="small"
+                                variant="flat"
+                              >
+                                {{ getVariantStatusText(currentMediaPlan.status) }}
+                              </v-chip>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </v-table>
+                    </v-col>
+                  </v-row>
                 </v-card-text>
               </v-card>
             </div>
@@ -492,82 +986,8 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/appStore'
-
-// Создам заглушки для компонентов, которые создам позже
-const MediaMixTable = {
-  props: ['items'],
-  emits: ['update:item'],
-  template: `
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th>Канал</th>
-            <th>Бюджет</th>
-            <th>Охват</th>
-            <th>CPM</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.mix_item_id">
-            <td>{{ item.channel_name }}</td>
-            <td>{{ formatCurrency(item.budget) }}</td>
-            <td>{{ item.reach?.toLocaleString() }}</td>
-            <td>{{ formatCurrency(item.cpm) }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-  `,
-  methods: {
-    formatCurrency(amount) {
-      return new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency: 'RUB',
-        minimumFractionDigits: 0
-      }).format(amount || 0)
-    }
-  }
-}
-
-const MediaPlanTable = {
-  props: ['items'],
-  emits: ['update:item'],
-  template: `
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th>Название</th>
-            <th>Канал</th>
-            <th>Период</th>
-            <th>Стоимость</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.plan_item_id">
-            <td>{{ item.name }}</td>
-            <td>{{ item.channel_name }}</td>
-            <td>{{ formatDate(item.start_date) }} - {{ formatDate(item.end_date) }}</td>
-            <td>{{ formatCurrency(item.cost) }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-  `,
-  methods: {
-    formatCurrency(amount) {
-      return new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency: 'RUB',
-        minimumFractionDigits: 0
-      }).format(amount || 0)
-    },
-    formatDate(dateString) {
-      return new Date(dateString).toLocaleDateString('ru-RU')
-    }
-  }
-}
+import MediaMixTable from '@/components/mediamix/MediaMixTable.vue'
+import MediaPlanTable from '@/components/mediamix/MediaPlanTable.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -632,11 +1052,120 @@ const currentMediaPlanItems = ref([])
 
 const campaignCard = ref({
   name: '',
-  category: '',
   objective: '',
-  target_audience: '',
-  budget_total: ''
+  channel: '',
+  status: 'draft',
+  budget_type: 'lifetime',
+  budget_value: 0,
+  currency: 'RUB',
+  start_date: '',
+  end_date: '',
+  campaign_category: '',
+  product_line: '',
+  geo_targeting: [],
+  language_targeting: [],
+  utm_source: '',
+  utm_medium: '',
+  utm_campaign: '',
+  tracking_template: '',
+  kpi_targets: [],
+  campaign_group_id: '',
+  version: 'v1',
+  responsible_manager: '',
+  frequency_cap_limit: null,
+  notes: ''
 })
+
+// Флаги состояния
+const isSaving = ref(false)
+
+// Опции для селектов
+const objectiveOptions = [
+  { text: 'Конверсии', value: 'conversions' },
+  { text: 'Охват', value: 'reach' },
+  { text: 'Узнаваемость бренда', value: 'awareness' },
+  { text: 'Трафик', value: 'traffic' },
+  { text: 'Вовлечение', value: 'engagement' },
+  { text: 'Установки приложения', value: 'app_installs' },
+  { text: 'Лидогенерация', value: 'leads' }
+]
+
+const channelOptions = [
+  { text: 'Meta (Facebook/Instagram)', value: 'meta' },
+  { text: 'Google Ads', value: 'google' },
+  { text: 'Яндекс Директ', value: 'yandex' },
+  { text: 'ВКонтакте', value: 'vkontakte' },
+  { text: 'Telegram', value: 'telegram' },
+  { text: 'Программатик', value: 'programmatic' },
+  { text: 'Другое', value: 'other' }
+]
+
+const statusOptions = [
+  { text: 'Черновик', value: 'draft' },
+  { text: 'Активна', value: 'active' },
+  { text: 'Приостановлена', value: 'paused' },
+  { text: 'Завершена', value: 'completed' },
+  { text: 'Отменена', value: 'cancelled' },
+  { text: 'В архиве', value: 'archived' }
+]
+
+const budgetTypeOptions = [
+  { text: 'На весь период', value: 'lifetime' },
+  { text: 'Ежедневно', value: 'daily' },
+  { text: 'Неограниченно', value: 'unlimited' }
+]
+
+const currencyOptions = [
+  { text: 'Российский рубль (₽)', value: 'RUB' },
+  { text: 'Доллар США ($)', value: 'USD' },
+  { text: 'Евро (€)', value: 'EUR' }
+]
+
+const campaignCategoryOptions = [
+  { text: 'Промо-акция', value: 'promo' },
+  { text: 'Запуск продукта', value: 'launch' },
+  { text: 'Ретаргетинг', value: 'retargeting' },
+  { text: 'Тестовая кампания', value: 'test' },
+  { text: 'Постоянная кампания', value: 'always_on' },
+  { text: 'Другое', value: 'other' }
+]
+
+const geoOptions = [
+  'Россия',
+  'Москва',
+  'Санкт-Петербург',
+  'Екатеринбург',
+  'Новосибирск',
+  'Нижний Новгород',
+  'Казань',
+  'Челябинск',
+  'Омск',
+  'Самара',
+  'Уфа',
+  'Красноярск',
+  'Пермь',
+  'Волгоград'
+]
+
+const languageOptions = [
+  { text: 'Русский', value: 'ru' },
+  { text: 'Английский', value: 'en' },
+  { text: 'Татарский', value: 'tt' },
+  { text: 'Украинский', value: 'uk' },
+  { text: 'Белорусский', value: 'be' }
+]
+
+const kpiTypeOptions = [
+  { text: 'Конверсии', value: 'conversions' },
+  { text: 'ROI/ROAS', value: 'roi' },
+  { text: 'CPA (Стоимость привлечения)', value: 'cpa' },
+  { text: 'CPC (Стоимость клика)', value: 'cpc' },
+  { text: 'CTR (Кликабельность)', value: 'ctr' },
+  { text: 'Охват', value: 'reach' },
+  { text: 'Частота показов', value: 'frequency' },
+  { text: 'Лиды', value: 'leads' },
+  { text: 'Установки приложения', value: 'app_installs' }
+]
 
 const parameterHeaders = [
   { title: 'Параметр', key: 'param_name', sortable: true },
@@ -655,6 +1184,7 @@ const checklistCompletionRate = computed(() => {
 })
 const mediaMixVariantsCount = computed(() => mediaMixVariants.value.length)
 const mediaPlanVariantsCount = computed(() => mediaPlanVariants.value.length)
+const totalVariantsCount = computed(() => mediaMixVariants.value.length + mediaPlanVariants.value.length)
 
 const mediaMixVariantOptions = computed(() =>
   mediaMixVariants.value.map(variant => ({
@@ -913,32 +1443,36 @@ const generateMediaMix = async () => {
     // Генерируем строки медиамикса
     currentMediaMixItems.value = [
       {
-        mix_item_id: '1',
-        channel_name: 'Instagram',
-        budget: 3000000,
-        reach: 1200000,
-        cpm: 250
+        channel: 'Instagram',
+        budget_allocation: 3000000,
+        budget_share: 37.5,
+        expected_cpa: 1200,
+        expected_conversions: 2500,
+        expected_roi: 350
       },
       {
-        mix_item_id: '2',
-        channel_name: 'VK',
-        budget: 2000000,
-        reach: 800000,
-        cpm: 250
+        channel: 'VKontakte',
+        budget_allocation: 2000000,
+        budget_share: 25.0,
+        expected_cpa: 800,
+        expected_conversions: 2500,
+        expected_roi: 400
       },
       {
-        mix_item_id: '3',
-        channel_name: 'YouTube',
-        budget: 2000000,
-        reach: 400000,
-        cpm: 500
+        channel: 'YouTube',
+        budget_allocation: 2000000,
+        budget_share: 25.0,
+        expected_cpa: 1000,
+        expected_conversions: 2000,
+        expected_roi: 300
       },
       {
-        mix_item_id: '4',
-        channel_name: 'ТВ',
-        budget: 1000000,
-        reach: 100000,
-        cpm: 10000
+        channel: 'Google Ads',
+        budget_allocation: 1000000,
+        budget_share: 12.5,
+        expected_cpa: 1500,
+        expected_conversions: 667,
+        expected_roi: 250
       }
     ]
 
@@ -974,25 +1508,28 @@ const optimizeMediaMix = async () => {
     // Обновляем строки с оптимизированными значениями
     currentMediaMixItems.value = [
       {
-        mix_item_id: '1',
-        channel_name: 'Instagram',
-        budget: 3500000,
-        reach: 1400000,
-        cpm: 250
+        channel: 'Instagram',
+        budget_allocation: 3500000,
+        budget_share: 43.8,
+        expected_cpa: 1000,
+        expected_conversions: 3500,
+        expected_roi: 450
       },
       {
-        mix_item_id: '2',
-        channel_name: 'YouTube',
-        budget: 3000000,
-        reach: 600000,
-        cpm: 500
+        channel: 'YouTube',
+        budget_allocation: 3000000,
+        budget_share: 37.5,
+        expected_cpa: 900,
+        expected_conversions: 3333,
+        expected_roi: 420
       },
       {
-        mix_item_id: '3',
-        channel_name: 'ТВ',
-        budget: 1500000,
-        reach: 150000,
-        cpm: 10000
+        channel: 'Google Ads',
+        budget_allocation: 1500000,
+        budget_share: 18.8,
+        expected_cpa: 1200,
+        expected_conversions: 1250,
+        expected_roi: 350
       }
     ]
 
@@ -1006,9 +1543,30 @@ const optimizeMediaMix = async () => {
   }
 }
 
-const updateMediaMixItem = (item) => {
-  // TODO: API call updateMediaMixItem
-  console.log('Updating media mix item:', item)
+const updateMediaMixItems = (items) => {
+  currentMediaMixItems.value = items
+}
+
+const handleMediaMixItemUpdated = (items) => {
+  currentMediaMixItems.value = items
+  // Здесь можно добавить логику автосохранения или валидации
+  console.log('Media mix items updated:', items)
+}
+
+const handleMediaMixOptimized = (optimizedItems) => {
+  currentMediaMixItems.value = optimizedItems
+  // Можно добавить уведомление об оптимизации
+  appStore.showNotification('Медиа-микс оптимизирован', 'success')
+}
+
+const updateMediaPlanItems = (items) => {
+  currentMediaPlanItems.value = items
+}
+
+const handleMediaPlanItemUpdated = (items) => {
+  currentMediaPlanItems.value = items
+  // Здесь можно добавить логику автосохранения или валидации
+  console.log('Media plan items updated:', items)
 }
 
 const generateMediaPlan = async () => {
@@ -1030,28 +1588,40 @@ const generateMediaPlan = async () => {
     // Генерируем строки медиаплана
     currentMediaPlanItems.value = [
       {
-        plan_item_id: '1',
-        name: 'Instagram Stories + Feed',
-        channel_name: 'Instagram',
+        placement_id: 'placement_1',
+        channel: 'Instagram',
+        placement_type: 'Stories',
         start_date: '2025-01-01',
         end_date: '2025-03-31',
-        cost: 3500000
+        budget: 3500000,
+        impressions: 1400000,
+        clicks: 21000,
+        ctr: 1.5,
+        cpm: 2500
       },
       {
-        plan_item_id: '2',
-        name: 'YouTube Pre-roll',
-        channel_name: 'YouTube',
+        placement_id: 'placement_2',
+        channel: 'YouTube',
+        placement_type: 'In-Stream',
         start_date: '2025-01-15',
         end_date: '2025-03-15',
-        cost: 3000000
+        budget: 3000000,
+        impressions: 600000,
+        clicks: 12000,
+        ctr: 2.0,
+        cpm: 5000
       },
       {
-        plan_item_id: '3',
-        name: 'ТВ Прайм-тайм',
-        channel_name: 'ТВ',
+        placement_id: 'placement_3',
+        channel: 'Google Ads',
+        placement_type: 'Search',
         start_date: '2025-02-01',
         end_date: '2025-02-28',
-        cost: 1500000
+        budget: 1500000,
+        impressions: 150000,
+        clicks: 7500,
+        ctr: 5.0,
+        cpm: 10000
       }
     ]
 
@@ -1064,10 +1634,6 @@ const generateMediaPlan = async () => {
   }
 }
 
-const updateMediaPlanItem = (item) => {
-  // TODO: API call updateMediaPlanItem
-  console.log('Updating media plan item:', item)
-}
 
 const exportMediaPlan = async () => {
   try {
@@ -1109,11 +1675,193 @@ const promoteToActivity = async () => {
   }
 }
 
+// Методы для работы с карточкой кампании
+const addKPI = () => {
+  campaignCard.value.kpi_targets.push({
+    type: '',
+    target: 0
+  })
+}
+
+const removeKPI = (index) => {
+  campaignCard.value.kpi_targets.splice(index, 1)
+}
+
+const saveCampaignCard = async () => {
+  isSaving.value = true
+  try {
+    // TODO: API call to save campaign data
+    console.log('Saving campaign card:', campaignCard.value)
+
+    // Имитация сохранения
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
+    // Обновляем campaign если оно существует
+    if (campaign.value) {
+      Object.assign(campaign.value, campaignCard.value)
+    }
+
+    console.log('Campaign card saved successfully')
+  } catch (error) {
+    console.error('Error saving campaign card:', error)
+  } finally {
+    isSaving.value = false
+  }
+}
+
+const resetCampaignCard = () => {
+  if (campaign.value) {
+    // Сбрасываем к исходным данным кампании
+    Object.assign(campaignCard.value, {
+      name: campaign.value.name || '',
+      objective: campaign.value.objective || '',
+      channel: campaign.value.channel || '',
+      status: campaign.value.status || 'draft',
+      budget_type: campaign.value.budget_type || 'lifetime',
+      budget_value: campaign.value.budget_value || 0,
+      currency: campaign.value.currency || 'RUB',
+      start_date: campaign.value.start_date ? campaign.value.start_date.split('T')[0] : '',
+      end_date: campaign.value.end_date ? campaign.value.end_date.split('T')[0] : '',
+      campaign_category: campaign.value.campaign_category || '',
+      product_line: campaign.value.product_line || '',
+      geo_targeting: campaign.value.geo_targeting || [],
+      language_targeting: campaign.value.language_targeting || [],
+      utm_source: campaign.value.utm_params?.source || '',
+      utm_medium: campaign.value.utm_params?.medium || '',
+      utm_campaign: campaign.value.utm_params?.campaign || '',
+      tracking_template: campaign.value.tracking_template || '',
+      kpi_targets: campaign.value.kpi_targets || [],
+      campaign_group_id: campaign.value.campaign_group_id || '',
+      version: campaign.value.version || 'v1',
+      responsible_manager: campaign.value.responsible_manager || '',
+      frequency_cap_limit: campaign.value.frequency_cap?.limit || null,
+      notes: campaign.value.notes || ''
+    })
+  }
+}
+
+// Методы для работы с вариантами медиамикса и медиаплана
+const selectMediaMixVariant = (variant) => {
+  selectedMediaMixVariant.value = variant
+}
+
+const selectMediaPlanVariant = (variant) => {
+  currentMediaPlan.value = variant
+  // TODO: Загрузить элементы медиаплана для выбранного варианта
+}
+
+const getVariantStatusColor = (status) => {
+  const colors = {
+    draft: 'grey',
+    active: 'success',
+    archived: 'warning',
+    approved: 'primary'
+  }
+  return colors[status] || 'grey'
+}
+
+const getVariantStatusIcon = (status) => {
+  const icons = {
+    draft: 'mdi-pencil',
+    active: 'mdi-check-circle',
+    archived: 'mdi-archive',
+    approved: 'mdi-check-all'
+  }
+  return icons[status] || 'mdi-circle'
+}
+
+const getVariantStatusText = (status) => {
+  const texts = {
+    draft: 'Черновик',
+    active: 'Активен',
+    archived: 'Архив',
+    approved: 'Утвержден'
+  }
+  return texts[status] || status
+}
+
+const formatNumber = (value) => {
+  if (!value) return '—'
+  return new Intl.NumberFormat('ru-RU').format(value)
+}
+
+const formatCurrency = (value) => {
+  if (!value) return '—'
+  return new Intl.NumberFormat('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0
+  }).format(value)
+}
+
+const createNewVariant = () => {
+  // TODO: Открыть диалог создания нового варианта
+  console.log('Creating new variant')
+}
+
+const duplicateVariant = (type, variant) => {
+  if (type === 'mediamix') {
+    const newVariant = {
+      ...variant,
+      mix_variant_id: `mix_${Date.now()}`,
+      name: `${variant.name} (копия)`,
+      status: 'draft',
+      source: 'duplicated'
+    }
+    mediaMixVariants.value.push(newVariant)
+  } else if (type === 'mediaplan') {
+    const newVariant = {
+      ...variant,
+      plan_variant_id: `plan_${Date.now()}`,
+      name: `${variant.name} (копия)`,
+      status: 'draft'
+    }
+    mediaPlanVariants.value.push(newVariant)
+  }
+}
+
+const renameVariant = (type, variant) => {
+  // TODO: Открыть диалог переименования
+  const newName = prompt('Введите новое название:', variant.name)
+  if (newName && newName.trim()) {
+    variant.name = newName.trim()
+  }
+}
+
+const deleteVariant = (type, variant) => {
+  if (confirm(`Удалить вариант "${variant.name}"?`)) {
+    if (type === 'mediamix') {
+      const index = mediaMixVariants.value.findIndex(v => v.mix_variant_id === variant.mix_variant_id)
+      if (index !== -1) {
+        mediaMixVariants.value.splice(index, 1)
+        if (selectedMediaMixVariant.value?.mix_variant_id === variant.mix_variant_id) {
+          selectedMediaMixVariant.value = null
+        }
+      }
+    } else if (type === 'mediaplan') {
+      const index = mediaPlanVariants.value.findIndex(v => v.plan_variant_id === variant.plan_variant_id)
+      if (index !== -1) {
+        mediaPlanVariants.value.splice(index, 1)
+        if (currentMediaPlan.value?.plan_variant_id === variant.plan_variant_id) {
+          currentMediaPlan.value = null
+        }
+      }
+    }
+  }
+}
+
 // Watch для обновления строк медиамикса при смене варианта
 watch(selectedMediaMixVariant, (newVariant) => {
   if (newVariant) {
     // TODO: Загрузить строки для выбранного варианта
     console.log('Loading media mix items for variant:', newVariant.mix_variant_id)
+  }
+})
+
+// Watch для инициализации карточки кампании при загрузке
+watch(campaign, (newCampaign) => {
+  if (newCampaign) {
+    resetCampaignCard()
   }
 })
 

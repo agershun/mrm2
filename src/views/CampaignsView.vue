@@ -124,6 +124,7 @@
             @duplicate="handleCampaignDuplicate"
             @delete="handleCampaignDelete"
             @view-details="handleViewDetails"
+            @open-workspace="handleOpenWorkspace"
           />
 
           <CampaignsCards
@@ -136,6 +137,7 @@
             @duplicate="handleCampaignDuplicate"
             @delete="handleCampaignDelete"
             @view-details="handleViewDetails"
+            @open-workspace="handleOpenWorkspace"
           />
 
           <CampaignsHierarchy
@@ -145,6 +147,7 @@
             @select="handleCampaignSelect"
             @edit="handleCampaignEdit"
             @view-details="handleViewDetails"
+            @open-workspace="handleOpenWorkspace"
           />
         </div>
       </v-col>
@@ -202,6 +205,7 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useCampaignsExtendedStore } from '@/stores/campaignsExtendedStore'
 import { useChannelsStore } from '@/stores/channelsStore'
 
@@ -216,6 +220,9 @@ import CampaignEditDialog from '@/components/campaigns/CampaignEditDialog.vue'
 import CampaignDetailsDialog from '@/components/campaigns/CampaignDetailsDialog.vue'
 import CampaignAnalyticsDialog from '@/components/campaigns/CampaignAnalyticsDialog.vue'
 import ConfirmDialog from '@/components/common/ConfirmDialog.vue'
+
+// Router
+const router = useRouter()
 
 // Stores
 const campaignsStore = useCampaignsExtendedStore()
@@ -414,6 +421,10 @@ const handleCampaignDelete = (campaign) => {
 const handleViewDetails = (campaign) => {
   detailsCampaign.value = campaign
   showDetailsDialog.value = true
+}
+
+const handleOpenWorkspace = (campaign) => {
+  router.push(`/campaigns/${campaign.campaign_id}`)
 }
 
 const handleCampaignCreated = (campaign) => {

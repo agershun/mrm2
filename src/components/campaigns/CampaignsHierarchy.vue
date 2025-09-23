@@ -58,20 +58,30 @@
             <v-btn-group variant="text" density="compact">
               <v-btn
                 v-if="item.type === 'campaign'"
+                icon="mdi-rocket-launch"
+                size="x-small"
+                @click.stop="$emit('open-workspace', item.raw)"
+                title="Открыть рабочее пространство"
+              />
+              <v-btn
+                v-if="item.type === 'campaign'"
                 icon="mdi-eye"
                 size="x-small"
                 @click.stop="$emit('view-details', item.raw)"
+                title="Просмотр деталей"
               />
               <v-btn
                 icon="mdi-pencil"
                 size="x-small"
                 @click.stop="$emit('edit', item.raw)"
+                title="Редактировать"
               />
               <v-btn
                 v-if="item.type === 'campaign'"
                 icon="mdi-content-copy"
                 size="x-small"
                 @click.stop="$emit('duplicate', item.raw)"
+                title="Дублировать"
               />
             </v-btn-group>
           </div>
@@ -101,7 +111,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['select', 'edit', 'view-details', 'duplicate'])
+const emit = defineEmits(['select', 'edit', 'view-details', 'duplicate', 'open-workspace'])
 
 // Computed
 const hierarchyItems = computed(() => {
