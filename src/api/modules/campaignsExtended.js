@@ -474,6 +474,7 @@ export async function getCampaignsStats(filters = {}) {
 
   const stats = {
     total_campaigns: campaigns.length,
+    active_campaigns: campaigns.filter(c => c.status === 'active').length,
     by_status: {},
     by_channel: {},
     by_objective: {},

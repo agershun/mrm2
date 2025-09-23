@@ -17,8 +17,8 @@ const mockRequest = async (method, endpoint, data = null) => {
   // Имитируем задержку сети
   await new Promise(resolve => setTimeout(resolve, API_DELAY))
 
-  // Имитируем случайные ошибки (5% вероятность)
-  if (Math.random() < 0.05) {
+  // Имитируем случайные ошибки (0.00005% вероятность)
+  if (Math.random() < 0.00005) {
     throw new Error('Network error: Unable to connect to server')
   }
 

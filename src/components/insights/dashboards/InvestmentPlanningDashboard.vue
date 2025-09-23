@@ -125,7 +125,7 @@
               <InvestmentTreemapChart
                 :data="investmentHierarchy"
                 height="400px"
-                @node-click="handleTreemapClick"
+                @item-selected="handleTreemapClick"
               />
             </v-card-text>
           </v-card>
@@ -158,6 +158,7 @@
             <v-card-text>
               <PlanForecastChart
                 :data="planForecastData"
+                :forecast="planForecastForecast"
                 height="300px"
               />
             </v-card-text>
@@ -275,13 +276,13 @@ const selectedInvestment = ref(null)
 // Computed properties для данных
 const kpiData = computed(() => ({
   totalBudget: 45000000,
-  budgetTrend: 8.5,
+  budgetTrend: { value: 8.5, direction: 'up' },
   budgetUsed: 28500000,
-  usageTrend: 12.3,
+  usageTrend: { value: 12.3, direction: 'up' },
   budgetRemaining: 16500000,
-  remainingTrend: -5.2,
+  remainingTrend: { value: 5.2, direction: 'down' },
   plannedROI: 285.5,
-  roiTrend: 6.8
+  roiTrend: { value: 6.8, direction: 'up' }
 }))
 
 const budgetAllocationData = computed(() => [
@@ -348,88 +349,237 @@ const topInvestments = computed(() => [
   }
 ])
 
-const investmentHierarchy = computed(() => ({
-  name: 'Total Budget',
-  value: 45000000,
-  children: [
-    {
-      name: 'Digital Marketing',
-      value: 18000000,
-      children: [
-        { name: 'Google Ads', value: 8500000 },
-        { name: 'Facebook Ads', value: 4500000 },
-        { name: 'Yandex Direct', value: 3000000 },
-        { name: 'Other Digital', value: 2000000 }
-      ]
-    },
-    {
-      name: 'Traditional',
-      value: 12000000,
-      children: [
-        { name: 'TV Advertising', value: 7000000 },
-        { name: 'Radio', value: 2500000 },
-        { name: 'Print', value: 2500000 }
-      ]
-    },
-    {
-      name: 'Events',
-      value: 8000000,
-      children: [
-        { name: 'Trade Shows', value: 4000000 },
-        { name: 'Conferences', value: 2500000 },
-        { name: 'Sponsorships', value: 1500000 }
-      ]
-    },
-    {
-      name: 'Content',
-      value: 5000000,
-      children: [
-        { name: 'Video Production', value: 2500000 },
-        { name: 'Copywriting', value: 1500000 },
-        { name: 'Photography', value: 1000000 }
-      ]
-    },
-    {
-      name: 'Other',
-      value: 2000000
-    }
-  ]
-}))
+const investmentHierarchy = computed(() => [
+  {
+    id: 'digital',
+    name: 'Digital Marketing',
+    category: 'Marketing',
+    amount: 18000000,
+    roi: 312,
+    performance_score: 88,
+    description: 'Цифровые каналы продвижения'
+  },
+  {
+    id: 'traditional',
+    name: 'Traditional Advertising',
+    category: 'Marketing',
+    amount: 12000000,
+    roi: 189,
+    performance_score: 72,
+    description: 'Традиционная реклама'
+  },
+  {
+    id: 'events',
+    name: 'Events & Sponsorship',
+    category: 'Events',
+    amount: 8000000,
+    roi: 245,
+    performance_score: 75,
+    description: 'Мероприятия и спонсорство'
+  },
+  {
+    id: 'content',
+    name: 'Content Marketing',
+    category: 'Content',
+    amount: 5000000,
+    roi: 356,
+    performance_score: 92,
+    description: 'Контентный маркетинг'
+  },
+  {
+    id: 'google_ads',
+    name: 'Google Ads',
+    category: 'Digital',
+    amount: 8500000,
+    roi: 325,
+    performance_score: 85,
+    description: 'Реклама в поиске Google'
+  },
+  {
+    id: 'facebook_ads',
+    name: 'Facebook Ads',
+    category: 'Digital',
+    amount: 4500000,
+    roi: 298,
+    performance_score: 82,
+    description: 'Реклама в Facebook и Instagram'
+  },
+  {
+    id: 'tv_advertising',
+    name: 'TV Advertising',
+    category: 'Traditional',
+    amount: 7000000,
+    roi: 165,
+    performance_score: 68,
+    description: 'Телевизионная реклама'
+  },
+  {
+    id: 'video_production',
+    name: 'Video Production',
+    category: 'Content',
+    amount: 2500000,
+    roi: 378,
+    performance_score: 94,
+    description: 'Производство видеоконтента'
+  },
+  {
+    id: 'trade_shows',
+    name: 'Trade Shows',
+    category: 'Events',
+    amount: 4000000,
+    roi: 234,
+    performance_score: 78,
+    description: 'Участие в выставках'
+  },
+  {
+    id: 'other',
+    name: 'Other',
+    category: 'Various',
+    amount: 2000000,
+    roi: 156,
+    performance_score: 65,
+    description: 'Прочие инвестиции'
+  }
+])
 
-const planForecastData = computed(() => ({
-  categories: ['Q1', 'Q2', 'Q3', 'Q4'],
-  series: [
-    {
-      name: 'План',
-      data: [11250000, 11250000, 11250000, 11250000],
-      color: '#1976D2'
-    },
-    {
-      name: 'Прогноз',
-      data: [10800000, 11650000, 10900000, 12100000],
-      color: '#388E3C'
-    },
-    {
-      name: 'Факт',
-      data: [10950000, 11420000, 10650000, null],
-      color: '#F57C00'
-    }
-  ]
-}))
+const planForecastData = computed(() => [
+  {
+    date: '2024-01-01',
+    budget: 11250000,
+    revenue: 10950000,
+    roi: 250.5
+  },
+  {
+    date: '2024-04-01',
+    budget: 11250000,
+    revenue: 11420000,
+    roi: 265.8
+  },
+  {
+    date: '2024-07-01',
+    budget: 11250000,
+    revenue: 10650000,
+    roi: 245.2
+  },
+  {
+    date: '2024-10-01',
+    budget: 11250000,
+    revenue: 11100000,
+    roi: 258.6
+  }
+])
+
+const planForecastForecast = computed(() => [
+  {
+    date: '2025-01-01',
+    predicted_budget: 10800000,
+    predicted_revenue: 10500000,
+    predicted_roi: 248.3,
+    budget_upper_bound: 11500000,
+    budget_lower_bound: 10200000
+  },
+  {
+    date: '2025-04-01',
+    predicted_budget: 11650000,
+    predicted_revenue: 12100000,
+    predicted_roi: 278.5,
+    budget_upper_bound: 12300000,
+    budget_lower_bound: 11000000
+  },
+  {
+    date: '2025-07-01',
+    predicted_budget: 10900000,
+    predicted_revenue: 11200000,
+    predicted_roi: 265.2,
+    budget_upper_bound: 11800000,
+    budget_lower_bound: 10400000
+  },
+  {
+    date: '2025-10-01',
+    predicted_budget: 12100000,
+    predicted_revenue: 13500000,
+    predicted_roi: 295.7,
+    budget_upper_bound: 13000000,
+    budget_lower_bound: 11500000
+  }
+])
 
 const strategicAlignmentScore = computed(() => 78)
 
-const strategicMatrixData = computed(() => ({
-  goals: ['Бренд', 'Лиды', 'Продажи', 'Удержание', 'Экспансия'],
-  investments: ['Digital', 'TV', 'Events', 'Content', 'PR'],
-  matrix: [
-    [85, 45, 30, 20, 15], // Digital
-    [90, 20, 25, 15, 10], // TV
-    [70, 60, 40, 50, 80], // Events
-    [60, 70, 35, 40, 30], // Content
-    [80, 30, 20, 35, 60]  // PR
-  ]
-}))
+const strategicMatrixData = computed(() => [
+  {
+    investment_id: 'digital_marketing',
+    name: 'Digital Marketing',
+    budget: 18000000,
+    x_value: 85, // Сложность реализации
+    y_value: 90, // Стратегический приоритет
+    roi: 312,
+    description: 'Цифровые каналы продвижения с высоким ROI'
+  },
+  {
+    investment_id: 'tv_advertising',
+    name: 'TV Advertising',
+    budget: 7000000,
+    x_value: 20, // Низкая сложность
+    y_value: 85, // Высокий приоритет
+    roi: 165,
+    description: 'Традиционная телевизионная реклама'
+  },
+  {
+    investment_id: 'events_sponsorship',
+    name: 'Events & Sponsorship',
+    budget: 8000000,
+    x_value: 60, // Средняя сложность
+    y_value: 70, // Высокий приоритет
+    roi: 245,
+    description: 'Мероприятия и спонсорские активности'
+  },
+  {
+    investment_id: 'content_marketing',
+    name: 'Content Marketing',
+    budget: 5000000,
+    x_value: 35, // Низкая сложность
+    y_value: 80, // Высокий приоритет
+    roi: 356,
+    description: 'Создание и продвижение контента'
+  },
+  {
+    investment_id: 'pr_activities',
+    name: 'PR Activities',
+    budget: 3000000,
+    x_value: 30, // Низкая сложность
+    y_value: 45, // Средний приоритет
+    roi: 189,
+    description: 'Связи с общественностью и медиа'
+  },
+  {
+    investment_id: 'influencer_marketing',
+    name: 'Influencer Marketing',
+    budget: 6000000,
+    x_value: 75, // Высокая сложность
+    y_value: 65, // Средний приоритет
+    roi: 287,
+    description: 'Сотрудничество с инфлюенсерами'
+  },
+  {
+    investment_id: 'email_campaigns',
+    name: 'Email Campaigns',
+    budget: 2500000,
+    x_value: 15, // Очень низкая сложность
+    y_value: 85, // Высокий приоритет
+    roi: 546,
+    description: 'Email маркетинг и автоматизация'
+  },
+  {
+    investment_id: 'outdoor_advertising',
+    name: 'Outdoor Advertising',
+    budget: 5500000,
+    x_value: 25, // Низкая сложность
+    y_value: 35, // Низкий приоритет
+    roi: 157,
+    description: 'Наружная реклама и билборды'
+  }
+])
 
 const strategicRecommendations = computed(() => [
   {

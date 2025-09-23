@@ -22,11 +22,14 @@ const props = defineProps({
   loading: { type: Boolean, default: false }
 })
 
-const statsItems = computed(() => [
-  { key: 'total_campaigns', label: 'Всего кампаний', value: props.stats.total_campaigns || 0, icon: 'mdi-rocket-launch', color: 'primary', format: 'number' },
-  { key: 'active_campaigns', label: 'Активных', value: props.stats.active_campaigns || 0, icon: 'mdi-play-circle', color: 'success', format: 'number' },
-  { key: 'total_budget', label: 'Общий бюджет', value: props.stats.total_budget || 0, icon: 'mdi-currency-rub', color: 'info', format: 'currency' }
-])
+const statsItems = computed(() => {
+  const stats = props.stats || {}
+  return [
+    { key: 'total_campaigns', label: 'Всего кампаний', value: stats.total_campaigns || 0, icon: 'mdi-rocket-launch', color: 'primary', format: 'number' },
+    { key: 'active_campaigns', label: 'Активных', value: stats.active_campaigns || 0, icon: 'mdi-play-circle', color: 'success', format: 'number' },
+    { key: 'total_budget', label: 'Общий бюджет', value: stats.total_budget || 0, icon: 'mdi-currency-rub', color: 'info', format: 'currency' }
+  ]
+})
 
 const formatValue = (value, format) => {
   if (!value) return '—'

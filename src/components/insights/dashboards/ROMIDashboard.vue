@@ -436,42 +436,36 @@ const cohortMetrics = [
 // Computed data
 const roiKPIs = computed(() => ({
   overall_roi: 285.5,
-  overall_trend: 6.6,
+  overall_trend: { value: 6.6, direction: 'up' },
   overall_target: 300.0,
   digital_roi: 312.8,
-  digital_trend: 8.2,
+  digital_trend: { value: 8.2, direction: 'up' },
   digital_target: 350.0,
   traditional_roi: 189.7,
-  traditional_trend: -2.1,
+  traditional_trend: { value: 2.1, direction: 'down' },
   traditional_target: 200.0,
   customer_roi: 425.6,
-  customer_trend: 12.3,
+  customer_trend: { value: 12.3, direction: 'up' },
   customer_target: 400.0,
   campaign_roi: 298.4,
-  campaign_trend: 5.7,
+  campaign_trend: { value: 5.7, direction: 'up' },
   campaign_target: 300.0
 }))
 
-const roiTrendData = computed(() => ({
-  categories: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-  series: [
-    {
-      name: 'Общий ROMI',
-      data: [245, 258, 267, 274, 281, 289, 295, 301, 285, 278, 282, 286],
-      color: '#4CAF50'
-    },
-    {
-      name: 'Digital ROMI',
-      data: [278, 289, 302, 315, 323, 318, 325, 330, 312, 308, 315, 313],
-      color: '#2196F3'
-    },
-    {
-      name: 'Traditional ROMI',
-      data: [198, 205, 201, 195, 189, 185, 183, 187, 190, 186, 188, 190],
-      color: '#FF9800'
-    }
-  ]
-}))
+const roiTrendData = computed(() => [
+  { date: '2024-01-01', overall_romi: 245, digital_romi: 278, traditional_romi: 198 },
+  { date: '2024-02-01', overall_romi: 258, digital_romi: 289, traditional_romi: 205 },
+  { date: '2024-03-01', overall_romi: 267, digital_romi: 302, traditional_romi: 201 },
+  { date: '2024-04-01', overall_romi: 274, digital_romi: 315, traditional_romi: 195 },
+  { date: '2024-05-01', overall_romi: 281, digital_romi: 323, traditional_romi: 189 },
+  { date: '2024-06-01', overall_romi: 289, digital_romi: 318, traditional_romi: 185 },
+  { date: '2024-07-01', overall_romi: 295, digital_romi: 325, traditional_romi: 183 },
+  { date: '2024-08-01', overall_romi: 301, digital_romi: 330, traditional_romi: 187 },
+  { date: '2024-09-01', overall_romi: 285, digital_romi: 312, traditional_romi: 190 },
+  { date: '2024-10-01', overall_romi: 278, digital_romi: 308, traditional_romi: 186 },
+  { date: '2024-11-01', overall_romi: 282, digital_romi: 315, traditional_romi: 188 },
+  { date: '2024-12-01', overall_romi: 286, digital_romi: 313, traditional_romi: 190 }
+])
 
 const roiCategoryData = computed(() => [
   { name: 'Digital Marketing', value: 312.8, color: '#2196F3' },
@@ -534,32 +528,128 @@ const topROMICampaigns = computed(() => [
   }
 ])
 
-const channelROMIData = computed(() => ({
-  categories: ['Google Ads', 'Email', 'Yandex Direct', 'Instagram', 'YouTube', 'Facebook', 'TV', 'Radio'],
-  series: [
-    {
-      name: 'ROMI (%)',
-      data: [345.2, 1580.0, 300.0, 287.6, 276.5, 245.8, 189.7, 156.3],
-      color: '#4CAF50'
-    },
-    {
-      name: 'Цель (%)',
-      data: [350, 400, 320, 300, 290, 260, 200, 180],
-      color: '#FF9800'
-    }
-  ]
-}))
+const channelROMIData = computed(() => [
+  {
+    channel: 'google_ads',
+    name: 'Google Ads',
+    budget: 8500000,
+    romi: 345.2,
+    conversions: 1250,
+    cost: 2465000,
+    revenue: 8510000
+  },
+  {
+    channel: 'email',
+    name: 'Email',
+    budget: 225000,
+    romi: 1580.0,
+    conversions: 1256,
+    cost: 225000,
+    revenue: 3580000
+  },
+  {
+    channel: 'yandex_direct',
+    name: 'Yandex Direct',
+    budget: 3000000,
+    romi: 300.0,
+    conversions: 890,
+    cost: 933000,
+    revenue: 2800000
+  },
+  {
+    channel: 'instagram',
+    name: 'Instagram',
+    budget: 627000,
+    romi: 287.6,
+    conversions: 623,
+    cost: 627000,
+    revenue: 1803000
+  },
+  {
+    channel: 'youtube',
+    name: 'YouTube',
+    budget: 481000,
+    romi: 276.5,
+    conversions: 456,
+    cost: 481000,
+    revenue: 1330000
+  },
+  {
+    channel: 'facebook',
+    name: 'Facebook',
+    budget: 1200000,
+    romi: 245.8,
+    conversions: 720,
+    cost: 1200000,
+    revenue: 2950000
+  },
+  {
+    channel: 'tv',
+    name: 'TV',
+    budget: 7000000,
+    romi: 189.7,
+    conversions: 450,
+    cost: 7000000,
+    revenue: 13279000
+  },
+  {
+    channel: 'radio',
+    name: 'Radio',
+    budget: 2500000,
+    romi: 156.3,
+    conversions: 280,
+    cost: 2500000,
+    revenue: 3907500
+  }
+])
 
-const channelEfficiencyData = computed(() => ({
-  channels: ['Google Ads', 'Email', 'Social', 'Display', 'Video'],
-  metrics: ['ROMI', 'CPA', 'CTR', 'Конверсии'],
-  values: [
-    [345, 1580, 287, 156, 276], // ROMI
-    [85, 15, 45, 95, 65],       // CPA (инвертировано для лучшего)
-    [92, 78, 65, 45, 71],       // CTR
-    [88, 95, 72, 58, 69]        // Конверсии
-  ]
-}))
+const channelEfficiencyData = computed(() => [
+  {
+    channel: 'google_ads',
+    name: 'Google Ads',
+    efficiency_score: 88,
+    romi: 345,
+    cpa: 85,
+    ctr: 92,
+    conversions: 88
+  },
+  {
+    channel: 'email',
+    name: 'Email',
+    efficiency_score: 95,
+    romi: 1580,
+    cpa: 15,
+    ctr: 78,
+    conversions: 95
+  },
+  {
+    channel: 'social',
+    name: 'Social',
+    efficiency_score: 72,
+    romi: 287,
+    cpa: 45,
+    ctr: 65,
+    conversions: 72
+  },
+  {
+    channel: 'display',
+    name: 'Display',
+    efficiency_score: 58,
+    romi: 156,
+    cpa: 95,
+    ctr: 45,
+    conversions: 58
+  },
+  {
+    channel: 'video',
+    name: 'Video',
+    efficiency_score: 69,
+    romi: 276,
+    cpa: 65,
+    ctr: 71,
+    conversions: 69
+  }
+])
 
 const channelDetailData = computed(() => [
   {
@@ -624,60 +714,114 @@ const channelDetailData = computed(() => [
   }
 ])
 
-const attributionWaterfallData = computed(() => ({
-  stages: [
-    { name: 'Общий доход', value: 12683000, type: 'total' },
-    { name: 'Google Ads', value: 4500000, type: 'positive' },
-    { name: 'Email', value: 3580000, type: 'positive' },
-    { name: 'Yandex Direct', value: 2800000, type: 'positive' },
-    { name: 'Instagram', value: 1803000, type: 'positive' },
-    { name: 'Другие каналы', value: 0, type: 'neutral' }
-  ]
-}))
+const attributionWaterfallData = computed(() => [
+  { name: 'Общий доход', value: 12683000, type: 'total' },
+  { name: 'Google Ads', value: 4500000, type: 'positive' },
+  { name: 'Email', value: 3580000, type: 'positive' },
+  { name: 'Yandex Direct', value: 2800000, type: 'positive' },
+  { name: 'Instagram', value: 1803000, type: 'positive' },
+  { name: 'Другие каналы', value: 0, type: 'neutral' }
+])
 
-const touchpointData = computed(() => ({
-  touchpoints: [
-    { name: 'Первое касание', attribution: 25.5, channels: ['Google Ads', 'Social', 'Display'] },
-    { name: 'Исследование', attribution: 18.7, channels: ['Organic Search', 'YouTube', 'Blog'] },
-    { name: 'Рассмотрение', attribution: 22.3, channels: ['Email', 'Retargeting', 'Reviews'] },
-    { name: 'Покупка', attribution: 33.5, channels: ['Direct', 'Email', 'Google Ads'] }
-  ]
-}))
+const touchpointData = computed(() => [
+  {
+    touchpoint_id: 'awareness',
+    name: 'Первое касание',
+    type: 'awareness',
+    users: 12500,
+    attribution: 25.5,
+    conversion_rate: 15.2,
+    avg_time: '2.5 дня',
+    revenue: 3200000,
+    channels: ['Google Ads', 'Social', 'Display']
+  },
+  {
+    touchpoint_id: 'consideration',
+    name: 'Исследование',
+    type: 'consideration',
+    users: 8750,
+    attribution: 18.7,
+    conversion_rate: 28.4,
+    avg_time: '4.2 дня',
+    revenue: 2100000,
+    channels: ['Organic Search', 'YouTube', 'Blog']
+  },
+  {
+    touchpoint_id: 'decision',
+    name: 'Рассмотрение',
+    type: 'decision',
+    users: 6200,
+    attribution: 22.3,
+    conversion_rate: 42.8,
+    avg_time: '1.8 дня',
+    revenue: 4800000,
+    channels: ['Email', 'Retargeting', 'Reviews']
+  },
+  {
+    touchpoint_id: 'purchase',
+    name: 'Покупка',
+    type: 'retention',
+    users: 2650,
+    attribution: 33.5,
+    conversion_rate: 85.6,
+    avg_time: '0.5 дня',
+    revenue: 7200000,
+    channels: ['Direct', 'Email', 'Google Ads']
+  }
+])
 
-const customerJourneyData = computed(() => ({
-  paths: [
-    {
-      path: ['Google Ads', 'Website', 'Email', 'Purchase'],
-      percentage: 28.5,
-      conversions: 890,
-      revenue: 3200000
-    },
-    {
-      path: ['Social Media', 'Website', 'Retargeting', 'Purchase'],
-      percentage: 22.1,
-      conversions: 690,
-      revenue: 2500000
-    },
-    {
-      path: ['Organic Search', 'Blog', 'Email', 'Purchase'],
-      percentage: 18.7,
-      conversions: 585,
-      revenue: 2100000
-    },
-    {
-      path: ['Direct', 'Purchase'],
-      percentage: 15.3,
-      conversions: 478,
-      revenue: 1700000
-    },
-    {
-      path: ['Email', 'Purchase'],
-      percentage: 15.4,
-      conversions: 481,
-      revenue: 1800000
-    }
-  ]
-}))
+const customerJourneyData = computed(() => [
+  {
+    step_id: 'awareness',
+    name: 'Первое касание',
+    type: 'awareness',
+    users: 15000,
+    conversions: 2250,
+    conversion_rate: 15.0,
+    avg_time: '2.5 дня',
+    channels: ['Google Ads', 'Social Media', 'Organic Search', 'Display']
+  },
+  {
+    step_id: 'exploration',
+    name: 'Изучение',
+    type: 'consideration',
+    users: 12000,
+    conversions: 3000,
+    conversion_rate: 25.0,
+    avg_time: '3.2 дня',
+    channels: ['Website', 'Blog', 'YouTube', 'Reviews']
+  },
+  {
+    step_id: 'evaluation',
+    name: 'Оценка',
+    type: 'consideration',
+    users: 9000,
+    conversions: 3600,
+    conversion_rate: 40.0,
+    avg_time: '1.8 дня',
+    channels: ['Email', 'Retargeting', 'Comparison Sites', 'Demo']
+  },
+  {
+    step_id: 'decision',
+    name: 'Решение',
+    type: 'decision',
+    users: 5400,
+    conversions: 4320,
+    conversion_rate: 80.0,
+    avg_time: '0.5 дня',
+    channels: ['Direct', 'Sales', 'Email', 'Phone']
+  },
+  {
+    step_id: 'purchase',
+    name: 'Покупка',
+    type: 'retention',
+    users: 4320,
+    conversions: 4320,
+    conversion_rate: 100.0,
+    avg_time: '0.2 дня',
+    channels: ['Website', 'Store', 'Mobile App']
+  }
+])
 
 const cohortHeatmapData = computed(() => {
   // Генерируем данные тепловой карты для когорт
@@ -709,21 +853,14 @@ const cohortHeatmapData = computed(() => {
   return cohorts
 })
 
-const ltvData = computed(() => ({
-  categories: ['1 мес', '3 мес', '6 мес', '12 мес', '18 мес', '24 мес'],
-  series: [
-    {
-      name: 'Средний LTV',
-      data: [1250, 3200, 5800, 9500, 12400, 15600],
-      color: '#4CAF50'
-    },
-    {
-      name: 'Медианный LTV',
-      data: [980, 2400, 4200, 6800, 8900, 11200],
-      color: '#2196F3'
-    }
-  ]
-}))
+const ltvData = computed(() => [
+  { month: 1, ltv: 1250, cac: 850, median_ltv: 980 },
+  { month: 3, ltv: 3200, cac: 1200, median_ltv: 2400 },
+  { month: 6, ltv: 5800, cac: 1500, median_ltv: 4200 },
+  { month: 12, ltv: 9500, cac: 1800, median_ltv: 6800 },
+  { month: 18, ltv: 12400, cac: 2000, median_ltv: 8900 },
+  { month: 24, ltv: 15600, cac: 2200, median_ltv: 11200 }
+])
 
 const cohortSegmentationData = computed(() => [
   { segment: 'VIP клиенты', percentage: 15.2, ltv: 45000, retention: 89.5 },

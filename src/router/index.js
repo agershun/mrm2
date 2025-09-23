@@ -38,7 +38,7 @@ const routes = [
         name: 'CampaignsView',
         component: CampaignsView,
         meta: {
-          title: 'Просмотр кампаний',
+          title: 'Управление кампаниями',
           icon: 'mdi-eye'
         }
       },
@@ -110,7 +110,7 @@ const routes = [
         name: 'InsightsView',
         component: InsightsView,
         meta: {
-          title: 'Просмотр аналитики',
+          title: 'Дашборды и отчеты',
           icon: 'mdi-chart-donut'
         }
       },

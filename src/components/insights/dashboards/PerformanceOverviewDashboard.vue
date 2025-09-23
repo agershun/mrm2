@@ -160,7 +160,8 @@
             </v-card-title>
             <v-card-text>
               <PerformanceForecastChart
-                :data="forecastData"
+                :data="forecastData.data"
+                :forecast="forecastData.forecast"
                 height="400px"
               />
             </v-card-text>
@@ -306,41 +307,35 @@ defineEmits([
 // Computed data
 const mainKPIs = computed(() => ({
   revenue: 12683000,
-  revenueTrend: 23.8,
+  revenueTrend: { value: 23.8, direction: 'up' },
   revenueTarget: 15000000,
   roi: 285.5,
-  roiTrend: 6.6,
+  roiTrend: { value: 6.6, direction: 'up' },
   roiTarget: 300.0,
   conversions: 2485,
-  conversionsTrend: 15.3,
+  conversionsTrend: { value: 15.3, direction: 'up' },
   conversionsTarget: 2800,
   cpa: 1250,
-  cpaTrend: -9.7,
+  cpaTrend: { value: 9.7, direction: 'down' },
   cpaTarget: 1100,
   ctr: 3.8,
-  ctrTrend: 18.8,
+  ctrTrend: { value: 18.8, direction: 'up' },
   ctrTarget: 4.2
 }))
 
 const activeCampaigns = computed(() => 45)
 
-const revenueROIData = computed(() => ({
-  categories: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-  series: [
-    {
-      name: 'Выручка (млн ₽)',
-      data: [8.5, 9.2, 10.1, 9.8, 11.2, 10.6, 11.8, 12.1, 10.9, 11.5, 12.2, 12.7],
-      color: '#2196F3',
-      yAxisIndex: 0
-    },
-    {
-      name: 'ROI (%)',
-      data: [245, 258, 267, 274, 281, 289, 295, 301, 285, 278, 282, 286],
-      color: '#4CAF50',
-      yAxisIndex: 1
-    }
-  ]
-}))
+const revenueROIData = computed(() => {
+  const categories = ['2024-01-01', '2024-02-01', '2024-03-01', '2024-04-01', '2024-05-01', '2024-06-01', '2024-07-01', '2024-08-01', '2024-09-01', '2024-10-01', '2024-11-01', '2024-12-01']
+  const revenueData = [8500000, 9200000, 10100000, 9800000, 11200000, 10600000, 11800000, 12100000, 10900000, 11500000, 12200000, 12700000]
+  const roiData = [245, 258, 267, 274, 281, 289, 295, 301, 285, 278, 282, 286]
+
+  return categories.map((date, index) => ({
+    date,
+    revenue: revenueData[index],
+    roi: roiData[index]
+  }))
+})
 
 const channelRevenueData = computed(() => [
   { name: 'Google Ads', value: 4500000, percentage: 35.5, color: '#4285F4' },
@@ -447,42 +442,67 @@ const topCampaigns = computed(() => [
 
 const forecastKPIs = computed(() => ({
   revenue: 14200000,
-  revenueTrend: 8.2,
+  revenueTrend: { value: 8.2, direction: 'up' },
   roi: 291.2,
-  roiTrend: 2.1,
+  roiTrend: { value: 2.1, direction: 'up' },
   conversions: 2650,
-  conversionsTrend: 6.6
+  conversionsTrend: { value: 6.6, direction: 'up' }
 }))
 
-const forecastData = computed(() => ({
-  categories: ['Янв 25', 'Фев 25', 'Мар 25', 'Апр 25', 'Май 25', 'Июн 25'],
-  series: [
+const forecastData = computed(() => {
+  // Historical data (only the first month with actual data)
+  const historicalData = [
     {
-      name: 'Фактическая выручка',
-      data: [12.7, null, null, null, null, null],
-      color: '#2196F3'
-    },
-    {
-      name: 'Прогноз выручки',
-      data: [12.7, 13.8, 14.2, 15.1, 14.8, 15.5],
-      color: '#4CAF50',
-      dashStyle: 'dash'
-    },
-    {
-      name: 'Доверительный интервал',
-      data: [
-        [12.7, 12.7],
-        [12.9, 14.7],
-        [13.2, 15.2],
-        [14.1, 16.1],
-        [13.8, 15.8],
-        [14.5, 16.5]
-      ],
-      color: '#FFC107',
-      type: 'arearange'
+      date: '2024-12-01',
+      revenue: 12700000,
+      costs: 4500000
     }
   ]
-}))
+
+  // Forecast data for future months
+  const forecastData = [
+    {
+      date: '2025-01-01',
+      predicted_revenue: 13800000,
+      predicted_costs: 4800000,
+      upper_bound: 14700000,
+      lower_bound: 12900000
+    },
+    {
+      date: '2025-02-01',
+      predicted_revenue: 14200000,
+      predicted_costs: 5000000,
+      upper_bound: 15200000,
+      lower_bound: 13200000
+    },
+    {
+      date: '2025-03-01',
+      predicted_revenue: 15100000,
+      predicted_costs: 5200000,
+      upper_bound: 16100000,
+      lower_bound: 14100000
+    },
+    {
+      date: '2025-04-01',
+      predicted_revenue: 14800000,
+      predicted_costs: 5100000,
+      upper_bound: 15800000,
+      lower_bound: 13800000
+    },
+    {
+      date: '2025-05-01',
+      predicted_revenue: 15500000,
+      predicted_costs: 5300000,
+      upper_bound: 16500000,
+      lower_bound: 14500000
+    }
+  ]
+
+  return {
+    data: historicalData,
+    forecast: forecastData
+  }
+})
 
 const growingSegments = computed(() => [
   {
@@ -519,58 +539,115 @@ const growingSegments = computed(() => [
   }
 ])
 
-const seasonalTrendsData = computed(() => ({
-  categories: ['Q1', 'Q2', 'Q3', 'Q4'],
-  series: [
-    {
-      name: '2022',
-      data: [100, 95, 85, 120],
-      color: '#9E9E9E'
-    },
-    {
-      name: '2023',
-      data: [105, 98, 88, 125],
-      color: '#FF9800'
-    },
-    {
-      name: '2024',
-      data: [110, 102, 92, 130],
-      color: '#2196F3'
-    },
-    {
-      name: '2025 (прогноз)',
-      data: [115, 106, 96, 135],
-      color: '#4CAF50',
-      dashStyle: 'dash'
-    }
-  ]
-}))
+const seasonalTrendsData = computed(() => {
+  const data = []
 
-const competitiveData = computed(() => ({
-  categories: ['Узнаваемость бренда', 'Доля рынка', 'Качество продукта', 'Ценовая политика', 'Клиентский сервис'],
-  series: [
-    {
-      name: 'Kreola',
-      data: [85, 32, 92, 78, 89],
-      color: '#2196F3'
-    },
-    {
-      name: 'Конкурент А',
-      data: [78, 45, 85, 82, 76],
-      color: '#FF9800'
-    },
-    {
-      name: 'Конкурент Б',
-      data: [72, 28, 79, 88, 71],
-      color: '#4CAF50'
-    },
-    {
-      name: 'Среднее по рынку',
-      data: [70, 25, 75, 80, 70],
-      color: '#9E9E9E'
+  // 2022 data
+  const quarters2022 = [100, 95, 85, 120]
+  quarters2022.forEach((value, quarter) => {
+    for (let month = 1; month <= 3; month++) {
+      data.push({
+        year: 2022,
+        month: quarter * 3 + month - 3,
+        quarter: quarter + 1,
+        revenue: value * 1000000, // Convert to actual revenue values
+        index: value // Keep original index value for comparison
+      })
     }
-  ]
-}))
+  })
+
+  // 2023 data
+  const quarters2023 = [105, 98, 88, 125]
+  quarters2023.forEach((value, quarter) => {
+    for (let month = 1; month <= 3; month++) {
+      data.push({
+        year: 2023,
+        month: quarter * 3 + month - 3,
+        quarter: quarter + 1,
+        revenue: value * 1000000,
+        index: value
+      })
+    }
+  })
+
+  // 2024 data
+  const quarters2024 = [110, 102, 92, 130]
+  quarters2024.forEach((value, quarter) => {
+    for (let month = 1; month <= 3; month++) {
+      data.push({
+        year: 2024,
+        month: quarter * 3 + month - 3,
+        quarter: quarter + 1,
+        revenue: value * 1000000,
+        index: value
+      })
+    }
+  })
+
+  // 2025 forecast data
+  const quarters2025 = [115, 106, 96, 135]
+  quarters2025.forEach((value, quarter) => {
+    for (let month = 1; month <= 3; month++) {
+      data.push({
+        year: 2025,
+        month: quarter * 3 + month - 3,
+        quarter: quarter + 1,
+        revenue: value * 1000000,
+        index: value,
+        forecast: true
+      })
+    }
+  })
+
+  return data
+})
+
+const competitiveData = computed(() => [
+  {
+    company_name: 'Kreola',
+    is_our_company: true,
+    metrics: {
+      brand_awareness: 85,
+      market_share: 32,
+      customer_satisfaction: 92,
+      price_competitiveness: 78,
+      innovation: 89
+    }
+  },
+  {
+    company_name: 'Конкурент А',
+    is_our_company: false,
+    metrics: {
+      brand_awareness: 78,
+      market_share: 45,
+      customer_satisfaction: 85,
+      price_competitiveness: 82,
+      innovation: 76
+    }
+  },
+  {
+    company_name: 'Конкурент Б',
+    is_our_company: false,
+    metrics: {
+      brand_awareness: 72,
+      market_share: 28,
+      customer_satisfaction: 79,
+      price_competitiveness: 88,
+      innovation: 71
+    }
+  },
+  {
+    company_name: 'Среднее по рынку',
+    is_our_company: false,
+    metrics: {
+      brand_awareness: 70,
+      market_share: 25,
+      customer_satisfaction: 75,
+      price_competitiveness: 80,
+      innovation: 70
+    }
+  }
+])
 
 // Methods
 const handleChannelClick = (channel) => {

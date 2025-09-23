@@ -68,13 +68,13 @@
                     v-if="dashboard.status === 'active'"
                     size="x-small"
                     color="success"
-                    variant="dot"
+                    variant="flat"
                   />
                   <v-chip
                     v-else
                     size="x-small"
                     color="warning"
-                    variant="dot"
+                    variant="flat"
                   />
                 </template>
               </v-list-item>

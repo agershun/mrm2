@@ -168,8 +168,8 @@
           <div class="text-body-2 text-grey">Перетащите сюда для добавления</div>
         </div>
       </div>
-    </div>
 
+    <!-- Dialogs -->
     <!-- Add Widget Dialog -->
     <v-dialog
       v-model="showAddWidgetDialog"
@@ -355,6 +355,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </div>
 </template>
 

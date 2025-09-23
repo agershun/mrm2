@@ -116,7 +116,7 @@ const navigationItems = computed(() => [
   {
     name: 'CampaignsView',
     path: '/campaigns-view',
-    title: 'Просмотр кампаний',
+    title: 'Управление кампаниями',
     icon: 'mdi-eye'
   },
   {
@@ -146,7 +146,7 @@ const navigationItems = computed(() => [
   {
     name: 'InsightsView',
     path: '/insights-view',
-    title: 'Просмотр аналитики',
+    title: 'Дашборды и отчеты',
     icon: 'mdi-chart-donut'
   },
   {

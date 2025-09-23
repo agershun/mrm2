@@ -438,40 +438,32 @@ const dataQualityScore = computed(() => 87)
 
 const qualityMetrics = computed(() => ({
   completeness: 92.5,
-  completenessTrend: 2.3,
+  completenessTrend: { value: 2.3, direction: 'up' },
   accuracy: 88.7,
-  accuracyTrend: -1.2,
+  accuracyTrend: { value: 1.2, direction: 'down' },
   consistency: 85.2,
-  consistencyTrend: 1.8,
+  consistencyTrend: { value: 1.8, direction: 'up' },
   timeliness: 83.4,
-  timelinessTrend: -0.5
+  timelinessTrend: { value: 0.5, direction: 'down' }
 }))
 
-const qualityTrendData = computed(() => ({
-  categories: ['Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-  series: [
-    {
-      name: 'Полнота',
-      data: [89.2, 90.1, 91.5, 92.0, 91.8, 92.5],
-      color: '#4CAF50'
-    },
-    {
-      name: 'Корректность',
-      data: [87.5, 88.8, 89.2, 89.5, 88.9, 88.7],
-      color: '#2196F3'
-    },
-    {
-      name: 'Консистентность',
-      data: [82.1, 83.4, 84.2, 84.8, 85.0, 85.2],
-      color: '#FF9800'
-    },
-    {
-      name: 'Актуальность',
-      data: [81.2, 82.8, 83.5, 84.1, 83.7, 83.4],
-      color: '#9C27B0'
-    }
-  ]
-}))
+const qualityTrendData = computed(() => {
+  const categories = ['2024-07-01', '2024-08-01', '2024-09-01', '2024-10-01', '2024-11-01', '2024-12-01']
+  const completenessData = [89.2, 90.1, 91.5, 92.0, 91.8, 92.5]
+  const accuracyData = [87.5, 88.8, 89.2, 89.5, 88.9, 88.7]
+  const consistencyData = [82.1, 83.4, 84.2, 84.8, 85.0, 85.2]
+  const timelinessData = [81.2, 82.8, 83.5, 84.1, 83.7, 83.4]
+
+  return categories.map((date, index) => ({
+    date,
+    completeness: completenessData[index],
+    accuracy: accuracyData[index],
+    consistency: consistencyData[index],
+    timeliness: timelinessData[index],
+    overall: Math.round((completenessData[index] + accuracyData[index] + consistencyData[index] + timelinessData[index]) / 4),
+    issues: index === categories.length - 1 ? ['Несопоставленные PO', 'Отсутствующие актуалы'] : []
+  }))
+})
 
 const dataQualityIssues = computed(() => [
   {
@@ -557,13 +549,13 @@ const unmappedDataStats = computed(() => [
 
 const unmappedStats = computed(() => ({
   pos: 12,
-  posTrend: -2,
+  posTrend: { value: 2, direction: 'down' },
   posAmount: 2100000,
-  posAmountTrend: -15.5,
+  posAmountTrend: { value: 15.5, direction: 'down' },
   actuals: 8,
-  actualsTrend: 1,
+  actualsTrend: { value: 1, direction: 'up' },
   actualsAmount: 856000,
-  actualsAmountTrend: 8.2
+  actualsAmountTrend: { value: 8.2, direction: 'up' }
 }))
 
 const unmappedPOs = computed(() => [
