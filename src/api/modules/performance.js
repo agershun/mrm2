@@ -448,3 +448,102 @@ export const searchPerformanceData = async (keyword) => {
 export const searchKPIs = async (keyword) => {
   return getKPIs({ search: keyword })
 }
+
+/**
+ * Генерирует отчет по показателям эффективности
+ * @param {Object} filters - Фильтры для отчета
+ * @returns {Promise<Object>} - Данные отчета
+ */
+export const generatePerformanceReport = async (filters = {}) => {
+  try {
+    const response = await apiClient.get('/performance/reports/generate', filters)
+
+    // Получаем данные для отчета
+    const performanceData = await getPerformanceData(filters)
+    const kpis = await getKPIs({ is_active: true })
+
+    // Агрегируем данные для отчета
+    const report = {
+      period: filters,
+      summary: {
+        total_activities: new Set(performanceData.map(d => d.activity_id)).size,
+        total_kpis: kpis.length,
+        data_points: performanceData.length
+      },
+      kpi_performance: kpis.map(kpi => {
+        const kpiData = performanceData.filter(d => d.kpi_id === kpi.kpi_id)
+        const values = kpiData.map(d => parseFloat(d.actual_value || 0))
+
+        return {
+          kpi_id: kpi.kpi_id,
+          name: kpi.name,
+          category: kpi.category,
+          total_value: values.reduce((sum, val) => sum + val, 0),
+          average_value: values.length > 0 ? values.reduce((sum, val) => sum + val, 0) / values.length : 0,
+          min_value: values.length > 0 ? Math.min(...values) : 0,
+          max_value: values.length > 0 ? Math.max(...values) : 0,
+          data_points: values.length
+        }
+      }),
+      generated_at: new Date().toISOString()
+    }
+
+    return report
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
+
+/**
+ * Сравнивает показатели эффективности между активностями
+ * @param {Array} activityIds - Массив ID активностей для сравнения
+ * @param {Object} dateRange - Диапазон дат для сравнения
+ * @returns {Promise<Object>} - Данные сравнения
+ */
+export const compareActivityPerformance = async (activityIds, dateRange = {}) => {
+  try {
+    const response = await apiClient.post('/performance/compare', { activityIds, dateRange })
+
+    // Получаем данные для каждой активности
+    const comparison = {
+      activities: [],
+      comparison_period: dateRange,
+      generated_at: new Date().toISOString()
+    }
+
+    for (const activityId of activityIds) {
+      const activityData = await getPerformanceData({
+        activity_id: activityId,
+        ...dateRange
+      })
+
+      const kpiValues = await getActivityKPIValues({ activity_id: activityId })
+
+      // Агрегируем данные по активности
+      const activitySummary = {
+        activity_id: activityId,
+        total_data_points: activityData.length,
+        kpi_summary: kpiValues.map(kpiVal => {
+          const relatedData = activityData.filter(d => d.kpi_id === kpiVal.kpi_id)
+          const values = relatedData.map(d => parseFloat(d.actual_value || 0))
+
+          return {
+            kpi_id: kpiVal.kpi_id,
+            target_value: parseFloat(kpiVal.target_value || 0),
+            current_value: parseFloat(kpiVal.current_value || 0),
+            variance: parseFloat(kpiVal.current_value || 0) - parseFloat(kpiVal.target_value || 0),
+            performance_score: kpiVal.target_value > 0 ?
+              (parseFloat(kpiVal.current_value || 0) / parseFloat(kpiVal.target_value)) * 100 : 0,
+            trend_data: values
+          }
+        })
+      }
+
+      comparison.activities.push(activitySummary)
+    }
+
+    return comparison
+  } catch (error) {
+    apiClient.handleError(error)
+  }
+}
