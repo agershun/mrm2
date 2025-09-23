@@ -53,7 +53,8 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { useActivitiesStore } from '@/stores/activitiesStore'
 import ActivityHierarchy from '@/components/activities/ActivityHierarchy.vue'
 import ActivityToolbar from '@/components/activities/ActivityToolbar.vue'
@@ -61,6 +62,7 @@ import ActivityRightPanel from '@/components/activities/ActivityRightPanel.vue'
 import DetailsPanel from '@/components/activities/DetailsPanel.vue'
 import TestApi from '@/components/TestApi.vue'
 
+const route = useRoute()
 const activitiesStore = useActivitiesStore()
 
 // State
@@ -123,6 +125,17 @@ const resetPanelWidth = () => {
 }
 
 // Lifecycle
+// Отслеживаем изменения роута для автоматического переключения вкладок
+watch(
+  () => route.meta.activitiesView,
+  (newView) => {
+    if (newView) {
+      activitiesStore.setView(newView)
+    }
+  },
+  { immediate: true }
+)
+
 onMounted(async () => {
   // Восстанавливаем ширину панели из localStorage
   const savedWidth = localStorage.getItem('activities-hierarchy-panel-width')
@@ -131,6 +144,11 @@ onMounted(async () => {
     if (width >= minPanelWidth && width <= maxPanelWidth) {
       hierarchyPanelWidth.value = width
     }
+  }
+
+  // Проверяем, есть ли специальная вкладка в метаданных роута
+  if (route.meta.activitiesView) {
+    activitiesStore.setView(route.meta.activitiesView)
   }
 
   // Инициализируем store активностей

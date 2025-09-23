@@ -92,8 +92,18 @@ const routes = [
         name: 'Activities',
         component: Activities,
         meta: {
-          title: 'Активности',
+          title: 'Планы',
           icon: 'mdi-calendar-multiple'
+        }
+      },
+      {
+        path: '/activities-gantt',
+        name: 'ActivitiesGantt',
+        component: Activities,
+        meta: {
+          title: 'Планы II (Gantt)',
+          icon: 'mdi-chart-gantt',
+          activitiesView: 'ganttastic'
         }
       },
       {

@@ -12,7 +12,7 @@ export const useActivitiesStore = defineStore('activities', () => {
   const activityTypeGroups = ref([])
   const selectedActivity = ref(null)
   const isLoading = ref(false)
-  const currentView = ref('hierarchy') // 'hierarchy', 'timeline', 'summary'
+  const currentView = ref('timeline') // 'hierarchy', 'timeline', 'summary', 'ganttastic', 'gantt-elastic'
   const filters = ref({})
   const groupBy = ref(null)
   const hierarchyExpanded = ref({}) // ID активностей, которые развернуты в дереве

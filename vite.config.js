@@ -59,6 +59,11 @@ export default defineConfig(({ mode }) => {
       open: false,
       cors: true
     },
+    optimizeDeps: {
+      include: [
+        'vue-ganttastic'
+      ]
+    },
     define: {
       // Делаем переменные окружения доступными в приложении
       __VITE_HOST__: JSON.stringify(viteHost),

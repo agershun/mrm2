@@ -89,6 +89,41 @@
         <template v-if="selectedSection === 'funnel'">
           <FunnelSettings />
         </template>
+
+        <!-- Products Settings -->
+        <template v-if="selectedSection === 'products'">
+          <ProductsSettings />
+        </template>
+
+        <!-- Geography Settings -->
+        <template v-if="selectedSection === 'geography'">
+          <GeographySettings />
+        </template>
+
+        <!-- Team Allocations Settings -->
+        <template v-if="selectedSection === 'team-allocations'">
+          <TeamAllocationsSettings />
+        </template>
+
+        <!-- Placements Settings -->
+        <template v-if="selectedSection === 'placements'">
+          <PlacementsSettings />
+        </template>
+
+        <!-- KPI Hierarchies Settings -->
+        <template v-if="selectedSection === 'kpi-hierarchies'">
+          <KPIHierarchiesSettings />
+        </template>
+
+        <!-- Cross Channel Links Settings -->
+        <template v-if="selectedSection === 'cross-channel-links'">
+          <CrossChannelLinksSettings />
+        </template>
+
+        <!-- Ad Formats Settings -->
+        <template v-if="selectedSection === 'ad-formats'">
+          <AdFormatsSettings />
+        </template>
       </v-col>
     </v-row>
   </div>
@@ -104,6 +139,13 @@ import SpendSettings from '@/components/configuration/SpendSettings.vue'
 import KPISettings from '@/components/configuration/KPISettings.vue'
 import ImportExportSettings from '@/components/configuration/ImportExportSettings.vue'
 import FunnelSettings from '@/components/configuration/FunnelSettings.vue'
+import ProductsSettings from '@/components/configuration/ProductsSettings.vue'
+import GeographySettings from '@/components/configuration/GeographySettings.vue'
+import TeamAllocationsSettings from '@/components/configuration/TeamAllocationsSettings.vue'
+import PlacementsSettings from '@/components/configuration/PlacementsSettings.vue'
+import KPIHierarchiesSettings from '@/components/configuration/KPIHierarchiesSettings.vue'
+import CrossChannelLinksSettings from '@/components/configuration/CrossChannelLinksSettings.vue'
+import AdFormatsSettings from '@/components/configuration/AdFormatsSettings.vue'
 
 const selectedSection = ref('strategy')
 const searchQuery = ref('')
@@ -156,6 +198,48 @@ const configurationSections = ref([
     title: 'Настройки воронки',
     icon: 'mdi-funnel',
     description: 'Стадии воронки продаж и исключения'
+  },
+  {
+    id: 'products',
+    title: 'Продукты',
+    icon: 'mdi-package-variant',
+    description: 'Управление продуктовыми линиями и их характеристиками'
+  },
+  {
+    id: 'geography',
+    title: 'География',
+    icon: 'mdi-map',
+    description: 'Настройка географической структуры планирования'
+  },
+  {
+    id: 'team-allocations',
+    title: 'Распределение команды',
+    icon: 'mdi-account-group',
+    description: 'Планирование FTE и ресурсов команды'
+  },
+  {
+    id: 'placements',
+    title: 'Размещения',
+    icon: 'mdi-web',
+    description: 'Директория рекламных размещений'
+  },
+  {
+    id: 'kpi-hierarchies',
+    title: 'Иерархии KPI',
+    icon: 'mdi-chart-timeline-variant',
+    description: 'Настройка иерархических связей показателей'
+  },
+  {
+    id: 'cross-channel-links',
+    title: 'Кросс-канальные связи',
+    icon: 'mdi-link-variant',
+    description: 'Связи влияния между каналами маркетинга'
+  },
+  {
+    id: 'ad-formats',
+    title: 'Рекламные форматы',
+    icon: 'mdi-format-size',
+    description: 'Технические характеристики рекламных форматов'
   }
 ])
 

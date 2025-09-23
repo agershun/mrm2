@@ -128,8 +128,14 @@ const navigationItems = computed(() => [
   {
     name: 'Activities',
     path: '/activities',
-    title: 'Планы',
+    title: 'Планы I',
     icon: 'mdi-calendar-multiple'
+  },
+  {
+    name: 'ActivitiesGantt',
+    path: '/activities-gantt',
+    title: 'Планы II',
+    icon: 'mdi-chart-gantt'
   },
   {
     name: 'Budgets',

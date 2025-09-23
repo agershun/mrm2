@@ -20,6 +20,10 @@
               <v-icon class="me-1">mdi-table</v-icon>
               Сводка
             </v-btn>
+            <v-btn value="ganttastic" size="small">
+              <v-icon class="me-1">mdi-chart-gantt</v-icon>
+              Активности II
+            </v-btn>
           </v-btn-toggle>
 
           <!-- Кнопки для текущего режима -->
@@ -44,6 +48,19 @@
                 <v-btn @click="changeTimelineZoom('year')">Год</v-btn>
               </v-btn-group>
             </template>
+
+            <!-- Кнопки для режима Ganttastic -->
+            <template v-if="currentView === 'ganttastic'">
+              <v-btn
+                variant="outlined"
+                size="small"
+                prepend-icon="mdi-help-circle"
+                @click="showGanttasticHelp"
+              >
+                Справка
+              </v-btn>
+            </template>
+
           </div>
         </div>
       </v-container>
@@ -60,6 +77,12 @@
       <div v-if="currentView === 'summary'" class="summary-container">
         <ActivitySummary ref="summaryComponent" />
       </div>
+
+      <!-- Ganttastic диаграмма -->
+      <div v-if="currentView === 'ganttastic'" class="ganttastic-container">
+        <ActivityGanttastic />
+      </div>
+
     </div>
   </div>
 </template>
@@ -70,6 +93,7 @@ import { useActivitiesStore } from '@/stores/activitiesStore'
 import { useAppStore } from '@/stores/appStore'
 import ActivityTimeline from './ActivityTimeline.vue'
 import ActivitySummary from './ActivitySummary.vue'
+import ActivityGanttastic from './ActivityGanttastic.vue'
 
 const activitiesStore = useActivitiesStore()
 const appStore = useAppStore()
@@ -99,6 +123,11 @@ const changeTimelineZoom = (zoomLevel) => {
   // TODO: Изменить масштаб временной шкалы
   appStore.showInfo(`Масштаб "${zoomLevel}" будет реализован в следующих версиях`)
 }
+
+const showGanttasticHelp = () => {
+  appStore.showInfo('Vue Ganttastic - современная Gantt-диаграмма для планирования активностей')
+}
+
 </script>
 
 <style scoped>
@@ -127,7 +156,8 @@ const changeTimelineZoom = (zoomLevel) => {
 }
 
 .timeline-container,
-.summary-container {
+.summary-container,
+.ganttastic-container {
   height: 100%;
   overflow: hidden;
 }
